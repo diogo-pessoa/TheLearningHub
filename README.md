@@ -40,19 +40,19 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 *   ### Wireframes
 
-    -   Home Page Wireframe - [Desktop](wireframes/Desktop)
-        - [Home](wireframes/Desktop/Home.png)
-        - [Article](wireframes/Desktop/Article.png)
-        - [Profile_landing](wireframes/Desktop/Profile_landing.png)
-        - [Search](wireframes/Desktop/Search.png)
-        - [Video_class](wireframes/Desktop/Video_class.png)
+    -   Home Page Wireframe - [Desktop](readme_resources/wireframes/Desktop)
+        - [Home](readme_resources/wireframes/Desktop/Home.png)
+        - [Article](readme_resources/wireframes/Desktop/Article.png)
+        - [Profile_landing](readme_resources/wireframes/Desktop/Profile_landing.png)
+        - [Search](readme_resources/wireframes/Desktop/Search.png)
+        - [Video_class](readme_resources/wireframes/Desktop/Video_class.png)
     
-    -   Mobile Wireframe - [Mobile](wireframes/Mobile)
-        - [Home](wireframes/Mobile/Home.png)
-        - [Article](wireframes/Mobile/Article.png)
-        - [Profile_landing](wireframes/Mobile/Profile_landing.png)
-        - [Search](wireframes/Mobile/Search.png)
-        - [Video_class](wireframes/Mobile/Video_class.png)
+    -   Mobile Wireframe - [Mobile](readme_resources/wireframes/Mobile)
+        - [Home](readme_resources/wireframes/Mobile/Home.png)
+        - [Article](readme_resources/wireframes/Mobile/Article.png)
+        - [Profile_landing](readme_resources/wireframes/Mobile/Profile_landing.png)
+        - [Search](readme_resources/wireframes/Mobile/Search.png)
+        - [Video_class](readme_resources/wireframes/Mobile/Video_class.png)
     
 ## Features
 

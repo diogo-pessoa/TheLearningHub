@@ -1,19 +1,39 @@
 UserStories
 ---
 
--   #### First Time Visitor Goals
+User Stories are driven by Three main user profiles: user(visitor), Content Manager and Developer(maintainer).
 
-        1. As a First Time Visitor, I want to easily understand the main purpose of the site and learn more about the organisation.
-        2. As a First Time Visitor, I want to be able to easily navigate throughout the site to find content.
-        3. As a First Time Visitor, I want to look for testimonials to understand what their users think of them and see if they are trusted. I also want to locate their social media links to see their followings on social media to determine how trusted and known they are.
+### A User
 
-    -   #### Returning Visitor Goals
+    * Wants to navigate the site and explore its content, his main goal is to learn through video classes and articles available in the platform.
+        * For this profile the navigation has to be intuitive content easy to find aligining with simple tools to save favorite videos and take notes, later accessible on the private profile page. 
 
-        1. As a Returning Visitor, I want to find information about coding challenges.
-        2. As a Returning Visitor, I want to find the best way to get in contact with the organisation with any questions I may have.
-        3. As a Returning Visitor, I want to find community links.
+###A Content Manager 
 
-    -   #### Frequent User Goals
-        1. As a Frequent User, I want to check to see if there are any newly added challenges or hackathons.
-        2. As a Frequent User, I want to check to see if there are any new blog posts.
-        3. As a Frequent User, I want to sign up to the Newsletter so that I am emailed any major updates and/or changes to the website or organisation.
+    * For User profile the private area has to be responsive and easy to upload content.
+        * When writing a new article it should be easy and intuitive to write it on the page, ideally saving the draft in case the page reloads
+        * when publshing new video classes, instructions have to be clear on how to add a video and organize it as part of a course
+        
+###Developer/Maintainer
+    
+    * His goal is to produce tested, clean-code, respecting DRY  and other best practices of development. 
+    * Whenever possible I want to re-use frameworks and apps available to speed development and provide a secure solution to end-users 
+
+
+## UserStories by User Profile
+
+- ### As a user, 
+  
+    - [DONE] I want to register and login with a personal e-mail
+       - Leveraging all-auth to enable personal e-mail registration
+    
+-   #### As a Developer
+
+    - [DONE] I want to create to customize the login/signup pages from allauth based on the site base.html
+        - Added `account` & `socialaccount` directories on root `templates` folder, extending base.html file
+        - Created hew base.html file
+        - loaded fontsawesome and Materialize Css on base.html to improve responsiveness and look of the page. 
+
+- ### As a content manager(Superuser)
+  
+  - I want access to the restricted area to publish content 

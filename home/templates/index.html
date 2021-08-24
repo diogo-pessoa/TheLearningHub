@@ -1,2 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block content%}
+
+ <div class="col s12 m7">
+    <h2 class="header">Horizontal Card</h2>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://lorempixel.com/100/190/nature/6">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>    This is The Base Home file <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+ beasts<i class="fa fa-hand-lizard-o" aria-hidden="true"></i> beats <i class="fa fa-hand-spock-o" aria-hidden="true"></i>
+</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{%endblock%}

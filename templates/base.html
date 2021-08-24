@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,28 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     {% block css %}
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-
+    <!-- materialize.css Compiled and minified CSS -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
-
     {% block script %}
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
     <!-- Font awesome Icons -->
     <script src="https://kit.fontawesome.com/510d6b483f.js" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+
     {% endblock %}
 
     {% block head_title %}The Learning Hub{% endblock %}
 </head>
-
 <body>
-{% block content %}
-Body content
-{% endblock %}
+  {% include 'includes/navbar.html' %}
 
+  {% block content %}
+
+  {% endblock %}
+
+  {%block postloadjs%}
+    <!-- custom js -->
+    <script src="{% static 'js/index.js' %}"></script>
+  {%endblock%}
 </body>
+{% include 'includes/footer.html' %}
 </html>

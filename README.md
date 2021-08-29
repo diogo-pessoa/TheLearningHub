@@ -32,7 +32,8 @@ By providing different levels of access to content, the Learning Hub platform ha
     [UserStories.md](UserStories.md)
 -   ### Design
     -   #### Colour Scheme
-        -   The two main colours used are Code Insititue red, and white.
+        -   The two main colours used are Code Insititue teal and white background with black and white text-colors.
+            - Base from Materializecss [colors](https://materializecss.com/color.html) 
     -   #### Typography
         -   The Montserrat font is the main font used throughout the whole website with Sans Serif as the fallback font in case for any reason the font isn't being imported into the site correctly. Montserrat is a clean font used frequently in programming, so it is both attractive and appropriate.
     -   #### Imagery

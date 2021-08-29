@@ -5,7 +5,7 @@
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    <title>The Learning Hub</title>
     {% block css %}
     <!-- materialize.css Compiled and minified CSS -->
     <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
@@ -23,22 +23,18 @@
 
     {% endblock %}
 
-    {% block head_title %}The Learning Hub{% endblock %}
 </head>
 <body>
-<!--Logo and Profile Links-->
+<!-- HEADER and User actions Links -->
 {% include 'includes/header.html' %}
-
 <div class="row">
-    <div class="col s3">
-        <!-- side Navigation Bar I se-->
+    <div class="col s3 red accent-2">
+        <!-- side Navigation Bar -->
+        <!-- Draft        -->
         {% include 'includes/sidebar.html' %}
     </div>
-
     <div class="col teal lighten-2">
-        <!-- Teal page content  -->
         {% block content %}
-
         {% endblock %}
     </div>
 

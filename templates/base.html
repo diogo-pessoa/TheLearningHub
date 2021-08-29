@@ -25,16 +25,15 @@
             <div class="container-fluid">
                 <!-- HEADER and User actions Links -->
                 {% include 'includes/header.html' %}
-                <div class="col s12 white">
+                <div class="row">
                     {% block content %}
                     {% endblock %}
                 </div>
-            </div>
-
                 {%block postloadjs%}
                 <!-- custom js -->
                 <script src="{% static 'js/index.js' %}"></script>
                 {%endblock%}
                 {% include 'includes/footer.html' %}
+            </div>
             </body>
     </html>

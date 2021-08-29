@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -26,16 +26,28 @@
     {% block head_title %}The Learning Hub{% endblock %}
 </head>
 <body>
-  {% include 'includes/navbar.html' %}
+<!--Logo and Profile Links-->
+{% include 'includes/header.html' %}
 
-  {% block content %}
+<div class="row">
+    <div class="col s3">
+        <!-- side Navigation Bar I se-->
+        {% include 'includes/sidebar.html' %}
+    </div>
 
-  {% endblock %}
+    <div class="col s9 teal">
+        <!-- Teal page content  -->
+        {% block content %}
 
-  {%block postloadjs%}
-    <!-- custom js -->
-    <script src="{% static 'js/index.js' %}"></script>
-  {%endblock%}
+        {% endblock %}
+    </div>
+
+</div>
+
+{%block postloadjs%}
+<!-- custom js -->
+<script src="{% static 'js/index.js' %}"></script>
+{%endblock%}
 </body>
 {% include 'includes/footer.html' %}
 </html>

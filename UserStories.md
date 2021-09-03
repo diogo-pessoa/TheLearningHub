@@ -35,6 +35,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
         - Created hew base.html file
         - loaded fonts awesome and Materialize Css on base.html to improve responsiveness and look of the page. 
     - I want to customize The login/Signup/Sign-out page form and buttons wil the site theme and Typography
+    - I want some padding/margin on the User Profile Icon on top-right, it's too close to edge of screen
 
 - ### As a content manager(Superuser)
   

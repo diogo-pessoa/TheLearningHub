@@ -1,5 +1,5 @@
 tinymce.init({
-            selector: 'textarea#article_content',
+            selector: 'input#id_content',
             plugins: [
                 'advlist autolink link image lists charmap print preview hr anchor pagebreak',
                 'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',

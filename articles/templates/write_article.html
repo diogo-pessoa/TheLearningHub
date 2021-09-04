@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extra_scripts %}
     <script src="{% static 'js/tinymce/tinymce.min.js' %}" referrerpolicy="origin"></script>
@@ -8,43 +9,12 @@
 
 {% block content %}
 
-    <h3 class="header center">Write your Article</h3>
-    <!-- Create the editor container -->
-    <div class="col s12 m8 l10">
-
-        <form class="col s12" method="POST" action="{% url 'write_article' %}">
+    <div class="col s12">
+        <h3 class="header center">Write your Article</h3>
+        <div class="col s12 card">
             {% csrf_token %}
-            <div class="row">
-                <div class="card">
-                    <!-- Article Title -->
-                    <div class="card-content">
-                        <label for="title" class="black-text"><span class="flow-text">Title</span></label>
-                        <input id="title" name="title" minlength="5" maxlength="80"
-                               value="" type="text" class=" validate center black-text" required>
-                    </div>
-                    <!-- Article checkboxes for draft and premium articles -->
-                    <div class="row">
-                        <div class="card-content">
-                    <span class="col">
-                        <label>
-                            <input id="restricted_access" type="checkbox"/>
-                            <span>Restricted Access</span>
-                        </label>
-                    </span>
-                            <span class="col">
-                        <label>
-                            <input id="draft" type="checkbox" checked="checked"/>
-                            <span>Draft</span>
-                        </label>
-                    </span>
-                        </div>
-                    </div>
-                    <!-- Article content -->
-                    <div class="card-content teal lighten-5">
-                        <textarea class="col s12" id="article_content">Hello, World!</textarea>
-                    </div>
-                </div>
-            </div>
-        </form>
+        {% crispy form %}
+        </div>
     </div>
+
 {% endblock %}

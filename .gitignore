@@ -4,3 +4,5 @@ TheLearningHub/__pycache__/
 __pycache__/
 .dotenv
 db.sqlite3
+/htmlcov/
+/.coverage

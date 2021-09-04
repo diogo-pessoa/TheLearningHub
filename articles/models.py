@@ -1,29 +1,26 @@
 from datetime import datetime
 
-from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 
 
-# Create your models here.
-class Topic(models.Model):
-    class Meta:
-        verbose_name_plural = 'Topic'
-
-    name = models.CharField(max_length=254)
-
-    def __str__(self):
-        return self.name
-
-
 class Article(models.Model):
-    topic = models.ForeignKey('Topic', null=True, blank=True,
-                              on_delete=models.SET_NULL)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.TextField(max_length=80, null=False)
-    content = models.TextField()
-    description = models.TextField()
+    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=120, null=False)
+    content = models.CharField(max_length=10000, null=True)
+    description = models.CharField(max_length=256, null=True)
     restricted_access = models.BooleanField(default=False, null=True, blank=True)
+    draft = models.BooleanField(default=True, null=False, blank=False)
     created_at = models.DateTimeField(default=datetime.now, null=False)
 
     def __str__(self):
-        return self.name
+        return self.title
+
+# @receiver(post_save, sender=User)
+# def create_article(sender, instance, created, **kwargs):
+#     """
+#     Create or update the user profile
+#     """
+#     if created:
+#         Article.objects.create(article=instance)
+#     # Editing Articles

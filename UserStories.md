@@ -18,6 +18,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     
 * His goal is to produce tested, clean-code, respecting DRY  and other best practices of development. 
 * Whenever possible I want to re-use frameworks and apps available to speed development and provide a secure solution to end-users 
+* When writing an article I want the page the content to be saved local at least until I create the article, in case of accidental page reloads.
 
 
 ## UserStories by User Profile

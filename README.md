@@ -75,35 +75,38 @@ By providing different levels of access to content, the Learning Hub platform ha
 1. [PyCharm:](https://www.jetbrains.com/pycharm/)
     - A fully featured Python IDE, with great support for code syntax, test frameworks and version control integration
     
-1. [Materializecss:](https://materializecss.com/)
+2. [Materializecss:](https://materializecss.com/)
     - Used as a base theme for a better site responsiveness in different sized devices.
     
-1. [Balsamiq:](https://balsamiq.com/)
+3. [Balsamiq:](https://balsamiq.com/)
     - Balsamiq was used to create the [wireframes](readme_resources/wireframes) during the design process.
     
-1. [Draw.io:](https://app.diagrams.net/)
+4. [Draw.io:](https://app.diagrams.net/)
     - Draw.io was used to create the Entity Relationship [diagram](readme_resources/TheLearningHub_ER.jpg) during the design process.
     
-1. [Google Fonts:](https://fonts.google.com/)
+5. [Google Fonts:](https://fonts.google.com/)
     
-1. [Font Awesome:](https://fontawesome.com/)
+6. [Font Awesome:](https://fontawesome.com/)
     - Font Awesome was used on all pages throughout the website to add icons for aesthetic and UX purposes.
-1. [jQuery:](https://jquery.com/)
+7. [jQuery:](https://jquery.com/)
     - jQuery is used with Materiliazecss to provide responsive features to web page, ex: responsive navbar  
 
-1. [GitHub:](https://github.com/)
+8. [GitHub:](https://github.com/)
     - GitHub is used to store the projects code after being pushed from Git.
     
-1. [django](https://www.djangoproject.com/)
+9. [django](https://www.djangoproject.com/)
 
-1. [heroku](https://heroku.com/) 
-    - Is used to host application in the cloud providing scalability and availability. 
+10. [heroku](https://heroku.com/) 
+     - Is used to host application in the cloud providing scalability and availability. 
 
-1. [postgres](https://www.postgresql.org/)
-    - Relational database used to store application content.
+11. [postgres](https://www.postgresql.org/)
+     - Relational database used to store application content.
 
-1. [gunicorn](https://gunicorn.org/)
-    - Web server used to host Django web framework 
+12. [gunicorn](https://gunicorn.org/)
+     - Web server used to host Django web framework 
+
+13. [TinyMCE](https://www.tiny.cloud/get-tiny/self-hosted/)
+     - Used to provide content manager with better experience when writing content for Articles 
     
 
 ## Testing

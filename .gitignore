@@ -2,5 +2,5 @@ venv/
 .idea/
 TheLearningHub/__pycache__/
 __pycache__/
-.env
+.dotenv
 db.sqlite3

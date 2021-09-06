@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content%}
- <h3>Browse Articles below</h3>
+{% block content %}
+    <div class="container">
+        <h3 class="center">Browse Articles below</h3>
+        <div class="row">
+            {% for article in articles %}
+                {% if not article.draft %}
+                    <div class="col s12 m7">
+                        <div class="card horizontal">
+                            <div class="card-stacked">
+
+                                <h5 class="card-title">{{ article.title }}</h5>
+                                <div class="card-content">
+                                    <p>{{ article.description }}</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

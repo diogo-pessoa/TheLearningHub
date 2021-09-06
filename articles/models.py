@@ -9,7 +9,7 @@ class Article(models.Model):
     title = models.CharField(max_length=120, null=False)
     content = models.CharField(max_length=10000, null=True)
     description = models.CharField(max_length=256, null=True)
-    restricted_access = models.BooleanField(default=False, null=True, blank=True)
+    restricted_access = models.BooleanField(default=False, null=False, blank=False)
     draft = models.BooleanField(default=True, null=False, blank=False)
     created_at = models.DateTimeField(default=datetime.now, null=False)
 

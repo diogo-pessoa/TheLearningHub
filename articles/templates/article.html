@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="col s12 center">
+        <div class="card">
+            <div class="card-stacked">
+                <div class="card-content">
+                    {% autoescape off %}
+                        {{ article.content }}
+                    {% endautoescape %}
+                </div>
+                <div class="card-action">
+                    <p> Created date: <span>{{ article.created_at }}</span></p>
+                    <p>written by: <span>{{ article.author }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

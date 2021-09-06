@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Article(models.Model):
@@ -11,7 +12,7 @@ class Article(models.Model):
     description = models.CharField(max_length=256, null=True)
     restricted_access = models.BooleanField(default=False, null=False, blank=False)
     draft = models.BooleanField(default=True, null=False, blank=False)
-    created_at = models.DateTimeField(default=datetime.now, null=False)
+    created_at = models.DateTimeField(default=timezone.now, null=False)
 
     def __str__(self):
         return self.title

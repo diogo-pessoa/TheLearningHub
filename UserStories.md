@@ -29,7 +29,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
        - Leveraging all-auth to enable personal e-mail registration
     - I want to reset my password to reset my password from my profile page
     
--   #### As a Developer
+- #### As a Developer
 
     - **[DONE]** I want to create to customize the login/signup pages from allauth based on the site base.html
         - Added `account` & `socialaccount` directories on root `templates` folder, extending base.html file
@@ -37,6 +37,11 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
         - loaded fonts awesome and Materialize Css on base.html to improve responsiveness and look of the page. 
     - I want to customize The login/Signup/Sign-out page form and buttons wil the site theme and Typography
     - I want some padding/margin on the User Profile Icon on top-right, it's too close to edge of screen
+
+- I noticed the html from the article content wasn't being formmated as HTML.
+  - disabling autoscape on the template did the trick, 
+    - Reference: [stackoverflow](https://stackoverflow.com/questions/19357462/django-passing-html-string-to-template)
+      
 
 - ### As a content manager(Superuser)
   

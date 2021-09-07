@@ -1,41 +1,43 @@
 {% load static %}
 
 <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>The Learning Hub</title>
-            {% block css %}
-            <!-- materialize.css Compiled and minified CSS -->
-            <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
-            <!-- custom css -->
-            <link rel="stylesheet" href="{% static 'css/base.css' %}">
-            {% endblock %}
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>The Learning Hub</title>
+    {% block css %}
+        <!-- materialize.css Compiled and minified CSS -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+        <!-- custom css -->
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock %}
 
-            {% block script %}
-            <!-- Font awesome Icons -->
-            <script src="https://kit.fontawesome.com/510d6b483f.js" crossorigin="anonymous"></script>
-            <!-- Jquery -->
-            <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-            <!--JavaScript at end of body for optimized loading-->
-            <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-            {% endblock %}
-            {% block extra_scripts %}
-            {% endblock %}
-        </head>
-        <body>
-            <div class="container-fluid">
-                <!-- HEADER and User actions Links -->
-                {% include 'includes/header.html' %}
-                <div class="row">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-                {%block postloadjs%}
-                <!-- custom js -->
-                <script src="{% static 'js/index.js' %}"></script>
-                {%endblock%}
-                {% include 'includes/footer.html' %}
-            </div>
-            </body>
-    </html>
+    {% block script %}
+        <!-- Font awesome Icons -->
+        <script src="https://kit.fontawesome.com/510d6b483f.js" crossorigin="anonymous"></script>
+        <!-- Jquery -->
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    {% endblock %}
+    {% block extra_scripts %}
+    {% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <!-- HEADER and User actions Links -->
+    <header class="teal lighten-2 black-text">
+        {% include 'includes/header.html' %}
+    </header>
+    <div class="row">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% block postloadjs %}
+        <!-- custom js -->
+        <script src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+    {% include 'includes/footer.html' %}
+</div>
+</body>
+</html>

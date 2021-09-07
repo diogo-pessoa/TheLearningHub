@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="card-action">
                                     <a href="{% url 'article'  article.id %}">Read More</a>
-                                    {% if request.user.is_authenticated and request.user.is_superuser or request.user in article.author %}
+                                    {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
                                         <div class="right">
                                             <a class="btn-floating btn-small waves-effect waves-light red"><i
                                                     class="fa fa-pencil" aria-hidden="true"></i></a>

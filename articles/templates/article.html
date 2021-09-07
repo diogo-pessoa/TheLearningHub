@@ -24,11 +24,8 @@
                         </div>
                         <div class="card-action">
                             <p> Created date: <span>{{ article.created_at }}</span></p>
-                        {% for user in article.author.all %}
-                            <p>written by: {{ user }} <span></span></p>
-                        {% endfor %}
-
-                            {% if request.user.is_authenticated and request.user.is_superuser or request.user in article.author  %}
+                            <p>written by: {{ article.author }} <span></span></p>
+                            {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
                                 <div class="center">
                                     <a class="btn-floating btn-small waves-effect waves-light red"><i
                                             class="fa fa-pencil" aria-hidden="true"></i></a>

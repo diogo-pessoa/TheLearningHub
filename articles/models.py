@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Article(models.Model):
-    author = models.ManyToManyField(User)
+    author = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=120, null=False)
     content = models.CharField(max_length=10000, null=True)
     description = models.CharField(max_length=256, null=True)

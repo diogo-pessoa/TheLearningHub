@@ -6,7 +6,13 @@
                 <a href="#" class="dropdown-trigger waves-effect white-text"
                    data-target="dropdown-nav-profile"><i
                         class="fa fa-user-circle black-text"
-                        aria-hidden="true"></i>  <span class="flow-text black-text hide-on-small-and-down">{{ request.user.username }}</span></a>
+                        aria-hidden="true"></i>  <span
+                        class="flow-text black-text hide-on-small-and-down">{{ request.user.username }}</span></a>
+            </li>
+            <li>
+                <a href="{% url 'home' %}" class="waves-effect"><i
+                        class="fa fa-home black-text"
+                        aria-hidden="true"></i></a>
             </li>
         </ul>
     </div>

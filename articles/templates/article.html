@@ -2,29 +2,42 @@
 {% load static %}
 
 {% block content %}
-    <div class="col s12 center">
-        <div class="card">
-            <div class="card-stacked">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col">
-                            {% autoescape off %}
-                                {{ article.content }}
-                            {% endautoescape %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="btn-floating btn-small waves-effect waves-light red left" href="{% url 'articles' %}"><i
+                        class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center">
+                <div class="card">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col">
+                                    {% autoescape off %}
+                                        {{ article.content }}
+                                    {% endautoescape %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <p> Created date: <span>{{ article.created_at }}</span></p>
+                        {% for user in article.author.all %}
+                            <p>written by: {{ user }} <span></span></p>
+                        {% endfor %}
+
+                            {% if request.user.is_authenticated and request.user.is_superuser or request.user in article.author  %}
+                                <div class="center">
+                                    <a class="btn-floating btn-small waves-effect waves-light red"><i
+                                            class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-floating btn-small waves-effect waves-light red"><i
+                                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
-                <div class="card-action">
-                    <p> Created date: <span>{{ article.created_at }}</span></p>
-                    <p>written by: <span>{{ article.author }}</span></p>
-                    {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
-                        <div class="center">
-                            <a class="btn-floating btn-small waves-effect waves-light red"><i
-                                    class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a class="btn-floating btn-small waves-effect waves-light red"><i
-                                    class="fa fa-trash-o" aria-hidden="true"></i></a>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

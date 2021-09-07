@@ -1,12 +1,10 @@
-from datetime import datetime
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
 
 class Article(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    author = models.ManyToManyField(User)
     title = models.CharField(max_length=120, null=False)
     content = models.CharField(max_length=10000, null=True)
     description = models.CharField(max_length=256, null=True)

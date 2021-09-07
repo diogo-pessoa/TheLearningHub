@@ -6,13 +6,25 @@
         <div class="card">
             <div class="card-stacked">
                 <div class="card-content">
-                    {% autoescape off %}
-                        {{ article.content }}
-                    {% endautoescape %}
+                    <div class="row">
+                        <div class="col">
+                            {% autoescape off %}
+                                {{ article.content }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
                 </div>
                 <div class="card-action">
                     <p> Created date: <span>{{ article.created_at }}</span></p>
                     <p>written by: <span>{{ article.author }}</span></p>
+                    {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
+                        <div class="center">
+                            <a class="btn-floating btn-small waves-effect waves-light red"><i
+                                    class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a class="btn-floating btn-small waves-effect waves-light red"><i
+                                    class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

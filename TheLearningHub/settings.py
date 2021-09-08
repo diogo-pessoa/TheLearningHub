@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG') or False
+DEBUG = os.environ['DEBUG'] or False
 
 ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS']
 
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'TheLearningHub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
+if os.environ["DEBUG"]:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

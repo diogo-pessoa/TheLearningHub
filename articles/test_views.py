@@ -1,12 +1,13 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
-from articles.models import Article, Author
+from articles.models import Article
 
 
 class TestArticlesViews(TestCase):
 
     def setUp(self) -> None:
-        self.user = Author.objects.create(username='test_user')
+        self.user = User.objects.create(username='test_user')
 
     def test_get_browse_articles(self):
         response = self.client.get('/articles/')

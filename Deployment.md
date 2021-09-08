@@ -1,46 +1,37 @@
 
-### GitHub Pages
+### Heroku Deployment
 
-The project was deployed to GitHub Pages using the following steps...
+#### [Python Django app in Heroku](https://devcenter.heroku.com/articles/deploying-python)
+   
+This Project main repo in GitHub is linked to heroku and automatic deploys is enabled. Hence, when a commit reaches master. It will automatically release a new version to the Staging environment 
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
-2. At the top of the Repository (not top of page), locate the "Settings" Button on the menu.
-    - Alternatively Click [Here](https://raw.githubusercontent.com/) for a GIF demonstrating the process starting from Step 2.
-3. Scroll down the Settings page until you locate the "GitHub Pages" Section.
-4. Under "Source", click the dropdown called "None" and select "Master Branch".
-5. The page will automatically refresh.
-6. Scroll back down through the page to locate the now published site [link](https://github.com) in the "GitHub Pages" section.
+### Before you create the App:
+  Heroku requires some basic files and dependencies to be available in order to run the app, those are:
 
-### Forking the GitHub Repository
+  - **requirements.txt**
+    - gunicorn (Webserver)
+    - dj_database_url  (Support for django and Postgres as backend)
+    - psycopg2-binary (Support for django and Postgres as backend)
+  - [Procfile](Procfile)
+  - Update Settings.py
+    - `import dj_database_url` Add database config to load DATABASE_URL from HEROKU config_vars
 
-By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
-2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
-3. You should now have a copy of the original repository in your GitHub account.
-
-### Making a Local Clone
-
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
-2. Under the repository name, click "Clone or download".
-3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
-4. Open Git Bash
-5. Change the current working directory to the location where you want the cloned directory to be made.
-6. Type `git clone`, and then paste the URL you copied in Step 3.
-
-```
-$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
-```
-
-7. Press Enter. Your local clone will be created.
-
-```
-$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
-> Cloning into `CI-Clone`...
-> remote: Counting objects: 10, done.
-> remote: Compressing objects: 100% (8/8), done.
-> remove: Total 10 (delta 1), reused 10 (delta 1)
-> Unpacking objects: 100% (10/10), done.
-```
-
-Click [Here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) to retrieve pictures for some of the buttons and more detailed explanations of the above process.
+#### Steps to create and setup App:
+- `Login` to heroku [login](https://id.heroku.com/login)
+- On `Dashboard`  click on create a new pipeline [image](readme_resources/heroku_images_deploy/create_pipeline.png)
+  - On this page you set the GitHub repo as a source for this pipeline
+- Once pipeline is ready `Add an App in Staging` Add information related to your app [image](readme_resources/heroku_images_deploy/staging_prod_apps_in_pipeline.png)
+- On tab `Deploy` Enable automatic Deploy from main branch [image](readme_resources/heroku_images_deploy/automatic_deploy.png)
+- Until project  is ready for launch, in `app the-learning-hub-prod -> settings` and set it to maintenance mode(offline) [image](readme_resources/heroku_images_deploy/set-production-app-to-maintenance.png)
+- On tab `Settings` Setup Config Vars with environment variables [image](readme_resources/heroku_images_deploy/config_vars.png) 
+  - Add a **SECRET_KEY** (django key)
+  - **MAIL_USER** (smtp config) to allow app to send emails
+  - **MAIL_PASSWORD** (smtp config)
+  - _note:_ the postgres url will already be set on the app as **DATABASE_URL**
+- Check Logs through the UI [image](https://github.com/diogo-pessoa/the-bookshelf/blob/master/readme-content/heroku-deploy/check_log_UI.png)
+    - or CLI: `#heroku logs --tail --app the-learning-hub-staging`
+      
+  ### Run Migration on Staging database: 
+  - `<Pending>`
+  

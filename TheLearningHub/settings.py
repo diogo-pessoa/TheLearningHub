@@ -14,6 +14,8 @@ import os
 from os.path import normpath, join
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = os.environ['DEVELOPMENT']
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -81,12 +83,19 @@ WSGI_APPLICATION = 'TheLearningHub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ["DEVELOPMENT"]:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'heroku': dj_database_url.parse(os.getenv('DATABASE_URL'))
+        }
+    }
 
 SITE_ID = 1
 

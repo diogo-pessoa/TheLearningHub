@@ -29,6 +29,12 @@
     <header class="teal lighten-2 black-text">
         {% include 'includes/header.html' %}
     </header>
+    <!-- Toasts -->
+    {% if messages %}
+        <div class="message-container">
+            {% include 'includes/toasts/toast_success.html' %}
+        </div>
+    {% endif %}
     <div class="row">
         {% block content %}
         {% endblock %}

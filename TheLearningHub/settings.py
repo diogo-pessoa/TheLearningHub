@@ -92,9 +92,7 @@ if os.environ["DEVELOPMENT"]:
     }
 else:
     DATABASES = {
-        'default': {
-            'heroku': dj_database_url.parse(os.getenv('DATABASE_URL'))
-        }
+        'default': dj_database_url.parse(os.environ['DATABASE_URL'])
     }
 
 SITE_ID = 1

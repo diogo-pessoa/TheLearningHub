@@ -32,6 +32,25 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
 - Check Logs through the UI [image](https://github.com/diogo-pessoa/the-bookshelf/blob/master/readme-content/heroku-deploy/check_log_UI.png)
     - or CLI: `#heroku logs --tail --app the-learning-hub-staging`
       
-  ### Run Migration on Staging database: 
-  - `<Pending>`
+#### Setup database connection:
+
+[dj-database-url](https://pypi.org/project/dj-database-url/)
+
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ['DATABASE_URL']),
+    }
+    
+
+### Run Migration on Staging database and initial app setup: 
+  Running a migration on Staging environment
+
+- temporarily load the environment variable `DATABASE_URL` with your staging environment database url. 
+  
+  - `python3 manage.py showmigrations` to make sure manage.py is able to reach the DB.
+  - `python3 manage.py migrate`
+  
+- Create superuser
+  - `python3 manage.py createsuperuser`
+
+
   

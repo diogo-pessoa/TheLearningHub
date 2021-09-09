@@ -53,4 +53,12 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
   - `python3 manage.py createsuperuser`
 
 
-  
+# STATIC_ROOT Setup in production (DEBUG disabled)
+
+    From browser console
+        GEThttps://the-learning-hub-staging.herokuapp.com/static/js/materialize.min.js
+    [HTTP/1.1 404 Not Found 23ms]
+    The resource from “https://the-learning-hub-staging.herokuapp.com/static/js/materialize.min.js” was blocked due to MIME type (“text/html”) mismatch (X-Content-Type-Options: nosniff).
+
+- STATIC_CONTENT in Heroku 
+- Using [whitenoise](https://warehouse.python.org/project/whitenoise/) 

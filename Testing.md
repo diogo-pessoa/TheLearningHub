@@ -3,6 +3,8 @@ Testing
 
 Section to describe How to run tests on local development environment and describe testing running in [travis.com](https://app.travis-ci.com/)
 
+- [Staging Environment](https://the-learning-hub-staging.herokuapp.com/)
+
 ### Automated Tests
 
 For the automated testing this project leverages [travis.com](https://app.travis-ci.com/)

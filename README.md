@@ -1,6 +1,8 @@
 <h1 align="center">The Learning Hub</h1>
 
-[View the live project here.](https://)
+[![Build Status](https://app.travis-ci.com/diogo-pessoa/TheLearningHub.svg?branch=main)](https://app.travis-ci.com/diogo-pessoa/TheLearningHub)
+
+[View the live project here.](https://the-learning-hub-prod.herokuapp.com)
 
 ## Description
 
@@ -95,7 +97,7 @@ By providing different levels of access to content, the Learning Hub platform ha
     - GitHub is used to store the projects code after being pushed from Git.
     
 9. [django](https://www.djangoproject.com/)
-
+    - [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/index.html) to manage forms on this project.
 10. [heroku](https://heroku.com/) 
      - Is used to host application in the cloud providing scalability and availability. 
 
@@ -107,6 +109,8 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 13. [TinyMCE](https://www.tiny.cloud/get-tiny/self-hosted/)
      - Used to provide content manager with better experience when writing content for Articles 
+
+14. [travis.com](https://app.travis-ci.com/) - Run automated tests from codebase.
     
 
 ## Testing
@@ -140,6 +144,7 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Acknowledgements
 
--
+- 
 
--
+- quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
+  - Used to generate random keys on each travis build

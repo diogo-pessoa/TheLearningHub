@@ -8,6 +8,7 @@ install:
 script:
   # Generates a secret_key on each test run.
   - export SECRET_KEY=$(python manage.py shell -c 'from django.core.management import utils; print(utils.get_random_secret_key())')
+  - DEBUG=TRUE
   # Run Migrations
   - python manage.py makemigrations
   - python manage.py showmigrations

@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.test import TestCase
 
@@ -7,7 +8,12 @@ from articles.models import Article
 class TestArticlesViews(TestCase):
 
     def setUp(self) -> None:
-        self.user = User.objects.create(username='test_user')
+        test_super_user = User.objects.create_user('john', 'doe@test.com', 'johndoe123', is_superuser=True)
+        test_customer_user = User.objects.create_user('visitor', 'doe@test.com', 'visitordoe123')
+        test_customer_user.save()
+        test_super_user.save()
+        self.user = User.objects.get(username='john')
+        self.visitor = User.objects.get(username='visitor')
 
     def test_get_browse_articles(self):
         response = self.client.get('/articles/')
@@ -21,8 +27,22 @@ class TestArticlesViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'article.html')
 
-    def test_delete_article_redirects_non_super_user(self):
+    def test_not_allowed_delete_if_not_superuser(self):
+        """ Login as visitor and fails to delete article"""
         article = Article.objects.create(title='test', author=self.user)
+        article.save()
+        self.client.login(username='visitor', password='visitordoe123')
         response = self.client.get(f'/articles/delete/{article.id}/')
         self.assertEqual(response.status_code, 302)
         self.assertRaisesMessage(response, 'Sorry, you are not allowed to remove an article')
+        self.assertIsNotNone(Article.objects.get(title=article.title))
+
+    def test_delete_article_if_superuser(self):
+        """ Login as superuser to delete article"""
+        article = Article.objects.create(title='test2', author=self.user)
+        article.save()
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.get(f'/articles/delete/{article.id}/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRaisesMessage(response, 'Article removed Successfully!')
+        self.assertEqual(len(Article.objects.all()), 0)

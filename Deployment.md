@@ -53,7 +53,7 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
   - `python3 manage.py createsuperuser`
 
 
-# STATIC_ROOT Setup in production (DEBUG disabled)
+### STATIC_ROOT Setup in production (DEBUG disabled)
 
     From browser console
         GEThttps://the-learning-hub-staging.herokuapp.com/static/js/materialize.min.js

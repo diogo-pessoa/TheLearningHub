@@ -144,7 +144,7 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Acknowledgements
 
-- 
+- Using `whitenoise` to setup local server static content on Heroku based on [Heroku-devcenter](https://devcenter.heroku.com/articles/django-assets) 
 
 - quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
   - Used to generate random keys on each travis build

@@ -12,6 +12,7 @@ script:
   - python manage.py migrate
   - python manage.py showmigrations
   # run test with coverage
+  - python manage.py collectstatic
   - coverage run --source=TheLearningHub manage.py test
   # outputs coverage report
   - coverage report

@@ -9,9 +9,10 @@
 
         <div class="row">
             {% if request.user.is_authenticated and request.user.is_superuser %}
-                    <a href="{% url 'write_article' %}" class="waves-effect red waves-light btn-floating right"> <i class="fa fa-pencil-square-o"
-                                                                                      aria-hidden="true"></i>
-                        Write new article </a>
+                <a href="{% url 'write_article' %}" class="waves-effect red waves-light btn-floating right"> <i
+                        class="fa fa-pencil-square-o"
+                        aria-hidden="true"></i>
+                    Write new article </a>
             {% endif %}
             {% for article in articles %}
                 {% if not article.draft or request.user == request.user.is_superuser or request.user == article.author %}
@@ -19,7 +20,8 @@
                         <div class="card horizontal">
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <a href="{% url 'article'  article.id %}"><h5 class="card-title center black-text">{{ article.title }}</h5></a>
+                                    <a href="{% url 'article'  article.id %}"><h5
+                                            class="card-title center black-text">{{ article.title }}</h5></a>
                                 </div>
                                 <div class="card-content">
                                     <p>{{ article.description }}</p>
@@ -28,7 +30,8 @@
                                     <a href="{% url 'article'  article.id %}">Read More</a>
                                     {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
                                         <div class="right">
-                                            <a href="#" class="btn-floating btn-small waves-effect waves-light red"><i
+                                            <a href="{% url 'edit_article' article.id %}"
+                                               class="btn-floating btn-small waves-effect waves-light red"><i
                                                     class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="{% url 'delete_article' article.id %}"
                                                class="btn-floating btn-small waves-effect waves-light red"><i

@@ -12,14 +12,5 @@ class Article(models.Model):
     draft = models.BooleanField(default=True, null=False, blank=False)
     created_at = models.DateTimeField(default=timezone.now, null=False)
 
-    def __str__(self):
-        return self.title
-
-# @receiver(post_save, sender=User)
-# def create_article(sender, instance, created, **kwargs):
-#     """
-#     Create or update the user profile
-#     """
-#     if created:
-#         Article.objects.create(article=instance)
-#     # Editing Articles
+    def __str__(self):        # TODO to help on troubleshooting remove on final versions
+        return str(self.__dict__)

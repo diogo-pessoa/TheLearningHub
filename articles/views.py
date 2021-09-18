@@ -31,17 +31,20 @@ def write_article(request):
         Allows content Manager to write his own articles
     :param request:
     """
-    # TODO Check if is superuser before publish
-
-    if request.method == 'POST':
-        if request.user:
-            form = ArticlesForm(request.POST, author_id=request.user.id)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Article Stored')
-            return redirect('articles')
+    user = request.user
+    if user.is_staff:
+        if request.method == 'POST':
+            if request.user:
+                form = ArticlesForm(request.POST, author=user)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Article Stored')
+                return redirect('articles')
+        else:
+            form = ArticlesForm(author=request.user)
     else:
-        form = ArticlesForm(author_id=request.user.id)
+        messages.error(request, 'Sorry, only content Managers can create Articles.')
+        return redirect(reverse('articles'))
     return render(request, 'write_article.html', {'form': form})
 
 
@@ -54,13 +57,13 @@ def edit_article(request, article_id):
         :return:
     """
 
-    if not request.user.is_superuser:
+    if not request.user.is_staff:
         messages.error(request, 'Sorry, You are not authorized to do this action.')
         return redirect(reverse('articles'))
 
     article = get_object_or_404(Article, pk=article_id)
     if request.method == 'POST':
-        form = ArticlesForm(request.POST, author_id=request.user.id, instance=article)
+        form = ArticlesForm(request.POST, author=request.user, instance=article)
         if form.is_valid():
             form.save()
             messages.success(request, 'Article changes are saved.')
@@ -69,7 +72,7 @@ def edit_article(request, article_id):
             messages.error(request,
                            'Failed to update Article. Please ensure try again!')
     else:
-        form = ArticlesForm(instance=article, author_id=article.author.id)
+        form = ArticlesForm(instance=article, author=article.author)
         messages.info(request, f'Editing {article.title}')
         return render(request, 'write_article.html', {
             'form': form,
@@ -79,8 +82,8 @@ def edit_article(request, article_id):
 
 @login_required(redirect_field_name='home')
 def delete_article(request, article_id):
-    """ Check if is super user or author before deleting article"""
-    if not request.user.is_superuser:
+    """ Check if is is_staff user or author before deleting article"""
+    if not request.user.is_staff:
         messages.error(request, 'Sorry, you are not allowed to remove an article')
         return redirect(reverse('home'))
 

@@ -8,7 +8,7 @@ from articles.models import Article
 class TestArticlesViews(TestCase):
 
     def setUp(self) -> None:
-        test_super_user = User.objects.create_user('john', 'doe@test.com', 'johndoe123', is_superuser=True)
+        test_super_user = User.objects.create_user('john', 'doe@test.com', 'johndoe123', is_staff=True)
         test_customer_user = User.objects.create_user('visitor', 'doe@test.com', 'visitordoe123')
         test_customer_user.save()
         test_super_user.save()
@@ -46,3 +46,9 @@ class TestArticlesViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRaisesMessage(response, 'Article removed Successfully!')
         self.assertEqual(len(Article.objects.all()), 0)
+
+    def test_write_article_only_staff(self):
+        self.client.login(username='visitor', password='visitordoe123')
+        response = self.client.get(f'/articles/write_article')
+        self.assertEqual(response.status_code, 302)
+        self.assertRaisesMessage(response, 'Sorry, only content Managers can create Articles.')

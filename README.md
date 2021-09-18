@@ -34,8 +34,7 @@ By providing different levels of access to content, the Learning Hub platform ha
     [UserStories.md](UserStories.md)
 -   ### Design
     -   #### Colour Scheme
-        -   The two main colours used are Code Insititue teal and white background with black and white text-colors.
-            - Base from Materializecss [colors](https://materializecss.com/color.html) 
+            - Base 
     -   #### Typography
         -   The Montserrat font is the main font used throughout the whole website with Sans Serif as the fallback font in case for any reason the font isn't being imported into the site correctly. Montserrat is a clean font used frequently in programming, so it is both attractive and appropriate.
     -   #### Imagery
@@ -77,8 +76,8 @@ By providing different levels of access to content, the Learning Hub platform ha
 1. [PyCharm:](https://www.jetbrains.com/pycharm/)
     - A fully featured Python IDE, with great support for code syntax, test frameworks and version control integration
     
-2. [Materializecss:](https://materializecss.com/)
-    - Used as a base theme for a better site responsiveness in different sized devices.
+2. [Bootstrap4:](https://getbootstrap.com/)
+    - To leverage the grid system and build a responsive interface.  
     
 3. [Balsamiq:](https://balsamiq.com/)
     - Balsamiq was used to create the [wireframes](readme_resources/wireframes) during the design process.
@@ -91,7 +90,7 @@ By providing different levels of access to content, the Learning Hub platform ha
 6. [Font Awesome:](https://fontawesome.com/)
     - Font Awesome was used on all pages throughout the website to add icons for aesthetic and UX purposes.
 7. [jQuery:](https://jquery.com/)
-    - jQuery is used with Materiliazecss to provide responsive features to web page, ex: responsive navbar  
+    - jQuery to support advanced feature on Bootstrap   
 
 8. [GitHub:](https://github.com/)
     - GitHub is used to store the projects code after being pushed from Git.
@@ -117,7 +116,6 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 [Testing](Testing.md)
 
-
 ## Deployment
 
 [Deploy](Deployment.md)
@@ -126,11 +124,10 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Code
 
--
+- Using `whitenoise` to setup local server static content on Heroku based on [Heroku-devcenter](https://devcenter.heroku.com/articles/django-assets) 
 
--
-
--
+- quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
+  - Used to generate random keys on each travis build
 
 ### Content
 
@@ -144,7 +141,3 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Acknowledgements
 
-- Using `whitenoise` to setup local server static content on Heroku based on [Heroku-devcenter](https://devcenter.heroku.com/articles/django-assets) 
-
-- quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
-  - Used to generate random keys on each travis build

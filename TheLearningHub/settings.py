@@ -174,4 +174,4 @@ EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # crispy forms
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

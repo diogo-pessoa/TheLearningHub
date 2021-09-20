@@ -27,20 +27,24 @@ class ArticlesForm(forms.ModelForm):
     )
 
     created_at = forms.DateField(
-        required=False
+        required=False,
+        disabled=True
+
     )
     content = forms.CharField(
         required=False
     )
 
     author = forms.CharField(
-        required=False
+        required=False,
+        disabled=True
     )
 
     def __init__(self, *args, author, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.initial['author'] = author.id
+        self.initial['created_at'] = timezone.now()
         self.initial['created_at'] = timezone.now()
         self.helper.form_method = 'post'
         self.helper.form_action = 'write_article'

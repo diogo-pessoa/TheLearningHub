@@ -33,18 +33,16 @@
     {% endblock %}
 </head>
 <body>
-<div class="container-fluid no-padding">
+<div class="container-fluid">
     <!-- HEADER and User actions Links -->
-    <header>
+    <header class="row no-gutters">
         {% include 'includes/header.html' %}
     </header>
     <!-- Toasts -->
     {% if messages %}
-        <div class="message-container">
-            {% include 'includes/toasts/toast_success.html' %}
-        </div>
+        {% include 'includes/toasts/toast_success.html' %}
     {% endif %}
-    <div class="row">
+    <div class="row no-gutters">
         {% block content %}
         {% endblock %}
     </div>

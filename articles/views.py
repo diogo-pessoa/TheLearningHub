@@ -29,29 +29,26 @@ def article(request, article_id):
 def write_article(request):
     """
         Allows content Manager to write his own articles
-    :param request:
     """
-    user = request.user
-    if user.is_staff:
-        if request.method == 'POST':
-            if request.user:
-                form = ArticlesForm(request.POST, author=user)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Article Stored')
-                return redirect('articles')
-        else:
-            form = ArticlesForm(author=request.user)
-    else:
+    if not request.user.is_staff:
         messages.error(request, 'Sorry, only content Managers can create Articles.')
         return redirect(reverse('articles'))
+
+    if request.method == 'POST':
+        form = ArticlesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Article Stored')
+        return redirect('articles')
+    else:
+        form = ArticlesForm()
     return render(request, 'write_article.html', {'form': form})
 
 
 @login_required(redirect_field_name='home')
 def edit_article(request, article_id):
     """
-        Allows usperuser to edit articles
+        Allows content Managers to edit articles
         :param request:
         :param article_id:
         :return:
@@ -63,7 +60,7 @@ def edit_article(request, article_id):
 
     article = get_object_or_404(Article, pk=article_id)
     if request.method == 'POST':
-        form = ArticlesForm(request.POST, author=request.user, instance=article)
+        form = ArticlesForm(request.POST, instance=article)
         if form.is_valid():
             form.save()
             messages.success(request, 'Article changes are saved.')
@@ -72,7 +69,7 @@ def edit_article(request, article_id):
             messages.error(request,
                            'Failed to update Article. Please ensure try again!')
     else:
-        form = ArticlesForm(instance=article, author=article.author)
+        form = ArticlesForm(instance=article)
         messages.info(request, f'Editing {article.title}')
         return render(request, 'write_article.html', {
             'form': form,

@@ -27,7 +27,7 @@ class TestArticlesViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'article.html')
 
-    def test_not_allowed_delete_if_not_superuser(self):
+    def test_not_allowed_delete_if_not_staff(self):
         """ Login as visitor and fails to delete article"""
         article = Article.objects.create(title='test', author=self.user)
         article.save()
@@ -37,7 +37,7 @@ class TestArticlesViews(TestCase):
         self.assertRaisesMessage(response, 'Sorry, you are not allowed to remove an article')
         self.assertIsNotNone(Article.objects.get(title=article.title))
 
-    def test_delete_article_if_superuser(self):
+    def test_delete_article_if_is_staff(self):
         """ Login as superuser to delete article"""
         article = Article.objects.create(title='test2', author=self.user)
         article.save()

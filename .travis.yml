@@ -13,7 +13,7 @@ script:
   - python manage.py showmigrations
   # run test with coverage
   - python manage.py collectstatic
-  - coverage run --source=TheLearningHub manage.py test
+  - coverage run --source=TheLearningHub,articles,home manage.py test
   # outputs coverage report
   - coverage report
 

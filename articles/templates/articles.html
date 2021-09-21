@@ -26,6 +26,7 @@
                         <div class="card text-white bg-primary mb-3">
                             <a class="card-header" href="{% url 'article'  article.id %}">{{ article.title }}</a>
                             <div class="card-body">
+                                <span class="badge bg-success">{{ article.topic }}</span>
                                 <p class="card-title">{{ article.description }}</p>
                                 <p class="card-text"><a href="{% url 'article' article.id %}">Read More</a></p>
                             </div>

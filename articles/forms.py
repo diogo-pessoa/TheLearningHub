@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from articles.models import Article
+from articles.models import Article, Topic
 
 
 class ArticlesForm(forms.ModelForm):
@@ -14,6 +14,7 @@ class ArticlesForm(forms.ModelForm):
                   'restricted_access', 'draft',
                   'content',
                   'author',
+                  'topic',
                   'created_at']
 
     draft = forms.CheckboxInput(
@@ -39,6 +40,12 @@ class ArticlesForm(forms.ModelForm):
     author = forms.ModelChoiceField(
         required=True,
         queryset=User.objects.filter(is_staff=True)
+    )
+
+    topic = forms.ModelChoiceField(
+        required=False,
+        queryset=Topic.objects.all(),
+        initial="General"
     )
 
     def __init__(self, *args, **kwargs):

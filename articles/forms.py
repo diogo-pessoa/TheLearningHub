@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from django import forms
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 from articles.models import Article
@@ -35,17 +36,13 @@ class ArticlesForm(forms.ModelForm):
         required=False
     )
 
-    author = forms.CharField(
-        required=False,
-        disabled=True
+    author = forms.ModelChoiceField(
+        required=True,
+        queryset=User.objects.filter(is_staff=True)
     )
 
-    def __init__(self, *args, author, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.initial['author'] = author.id
         self.initial['created_at'] = timezone.now()
-        self.initial['created_at'] = timezone.now()
-        self.helper.form_method = 'post'
-        self.helper.form_action = 'write_article'
         self.helper.add_input(Submit('submit', 'Submit'))

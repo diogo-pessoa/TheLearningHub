@@ -1,15 +1,34 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from .forms import ArticlesForm
-from .models import Article
+from .models import Article, Topic
 
 
 def index(request):
     articles = Article.objects.all()
-    return render(request, "articles.html", {'articles': articles})
+    topics = Topic.objects.all()
+    query = None
+    if request.GET:
+        if 'search_query' in request.GET:
+            query = request.GET['search_query']
+            if 'topic' in request.GET:
+                articles = articles.filter(topic__name__in=topics)
+            if not query:
+                messages.error(request, "You didn't enter any search criteria!")
+                return redirect(reverse('articles'))
+            queries = Q(title__icontains=query) | Q(description__icontains=query)
+            articles = articles.filter(queries)
+
+    context = {
+        'articles': articles,
+        'search_term': query,
+        'topics': topics
+    }
+    return render(request, "articles.html", context)
 
 
 def article(request, article_id):

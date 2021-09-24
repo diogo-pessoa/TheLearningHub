@@ -46,11 +46,17 @@ class TestArticlesViews(TestCase):
         self.assertRaisesMessage(response, 'Article removed Successfully!')
         self.assertEqual(len(Article.objects.all()), 0)
 
-    def test_write_article_only_staff(self):
+    def test_write_article_as_visitor_redirects(self):
         self.client.login(username='visitor', password='visitordoe123')
         response = self.client.get(f'/articles/write_article')
         self.assertEqual(response.status_code, 302)
         self.assertRaisesMessage(response, 'Sorry, only content Managers can create Articles.')
+
+    def test_write_article_as_staff(self):
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.get(f'/articles/write_article')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'write_article.html')
 
     def test_search_content_no_content(self):
         article = Article.objects.create(title='test', author=self.user)

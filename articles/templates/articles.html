@@ -9,7 +9,7 @@
         <div class="row">
             {% if request.user.is_authenticated and request.user.is_staff %}
                 <div class="col-sm">
-                    <nav class="nav d-none d-md-block flex-column list-group">
+                    <nav class="nav d-none d-lg-block flex-column list-group">
                         <h5 class="list-group-item list-group-item-action active">Manage content</h5>
                         <a class="list-group-item list-group-item-action" href="{% url 'write_article' %}"><i
                                 class="fa fa-pencil-square-o"
@@ -22,15 +22,20 @@
                                                                                       aria-hidden="true"></i>
                             Build Course Curriculum</a>
                     </nav>
-                    <a class="nav-link dropdown-toggle d-block d-md-none" data-bs-toggle="dropdown" href="#"
+                    <u class="nav-link dropdown-toggle d-block d-lg-none" data-bs-toggle="dropdown" href="#"
                        role="button"
-                       aria-haspopup="true" aria-expanded="false">Manage Content</a>
+                       aria-haspopup="true" aria-expanded="false">Manage Content</u>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
+                        <a class="dropdown-item" href="{% url 'write_article' %}"><i
+                                class="fa fa-pencil-square-o"
+                                aria-hidden="true"></i>
+                            Write new article </a>
+                        <a class="dropdown-item" href="#"> <i class="fa fa-video-camera"
+                                                                                       aria-hidden="true"></i>
+                            Create Video Class</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-graduation-cap"
+                                                                                      aria-hidden="true"></i>
+                            Build Course Curriculum</a>
                     </div>
                 </div>
             {% endif %}

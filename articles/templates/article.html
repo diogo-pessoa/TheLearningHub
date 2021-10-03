@@ -2,44 +2,59 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a class="btn-floating btn-small waves-effect waves-light red left" href="{% url 'articles' %}"><i
-                        class="fa fa-arrow-left" aria-hidden="true"></i></a>
-            </div>
+    <div class="container-fluid">
+        {# back buton     #}
+        <div class="row back-button">
+            <a class="btn btn-lg btn-primary" href="{% url 'articles' %}"><i
+                    class="fa fa-arrow-left" aria-hidden="true"></i> Back for more content</a>
         </div>
-{# TODO: update css classes with bootswatch sandstone (bootstrap4)    #}
         <div class="row">
-            <div class="col s12 center">
-                <div class="card">
-                <div class="card-stacked">
-                        <h3>{{ article.title }}</h3>
-                    <span class="badge bg-success">{{ article.topic }}</span>
+            {# Article Actions menu sidebad     #}
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                <div class="col-sm">
+                    <nav class="nav d-none d-lg-block flex-column list-group">
+                        <h5 class="list-group-item list-group-item-action active">Manage Article</h5>
+                        <a class="list-group-item list-group-item-action" href="{% url 'edit_article' article.id %}"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit Article</a>
+                        <a class="list-group-item list-group-item-action"
+                           href="{% url 'delete_article' article.id %}"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i> Delete Article</a>
+                    </nav>
+                    <u class="nav-link dropdown-toggle d-block d-lg-none" data-bs-toggle="dropdown" href="#"
+                       role="button"
+                       aria-haspopup="true" aria-expanded="false">Manage Content</u>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#"> <i class="fa fa-video-camera"
+                                                              aria-hidden="true"></i>
+                            Create Video Class</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-graduation-cap"
+                                                             aria-hidden="true"></i>
+                            Build Course Curriculum</a>
+                        <a class="list-group-item list-group-item-action" href="{% url 'edit_article' article.id %}"><i
+                                class="fa fa-pencil" aria-hidden="true"></i> Edit Article</a>
+                        <a class="list-group-item list-group-item-action"
+                           href="{% url 'delete_article' article.id %}"><i
+                                class="fa fa-trash-o" aria-hidden="true"></i> Delete Article</a>
+                    </div>
                 </div>
-                    <div class="card-action">
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col">
-                                    {% autoescape off %}
-                                        {{ article.content }}
-                                    {% endautoescape %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-action">
-                            <p> Created date: <span>{{ article.created_at }}</span></p>
-                            <p>written by: {{ article.author }} <span></span></p>
-                            {% if request.user.is_authenticated and request.user.is_superuser or request.user == article.author %}
-                                <div class="center">
-                                    <a class="btn-floating btn-small waves-effect waves-light red"><i
-                                            class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a class="btn-floating btn-small waves-effect waves-light red"><i
-                                            class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                </div>
-                            {% endif %}
+            {% endif %}
+            <div class="col-sm col-md-10 col-lg-10">
+                {# Article Content #}
+                <div class="row">
+                    <div class="col-sm col-md">
+                        <h3 class="content-title-center">{{ article.title }}</h3>
+                        <span class="badge bg-success">{{ article.topic }}</span>
+                        <div class="col-sm col-lg-9">
+                            {# TODO Add link to user Page #}
+                            <p class="d-inline-block float-md-end"><strong>Created By:</strong> <a href="#"> {{ article.author }} </a></p>
+                            <p class="d-inline-block"><strong>Date:</strong> <span>{{ article.created_at }}</span></p>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    {% autoescape off %}
+                        {{ article.content }}
+                    {% endautoescape %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,8 @@
+.content-title-center {
+    text-align: center;
+}
+
+.back-button {
+    display: inline-flex;
+    padding: 0.5rem;
+}

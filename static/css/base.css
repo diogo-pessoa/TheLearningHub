@@ -1,8 +1,13 @@
+/* misc*/
+
+.small-padding {
+    padding: 0.5rem;
+}
+
 .content-title-center {
     text-align: center;
 }
 
-.back-button {
+.custom-inline-flex {
     display: inline-flex;
-    padding: 0.5rem;
 }

@@ -32,32 +32,52 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
 
     - **[DONE]** I want to register and login with a personal e-mail
         - Leveraging all-auth to enable personal e-mail registration
-    - I want to reset my password to reset my password from my profile page
+  
+    - I want to update my password to reset my password from my profile page
+    - I want to update my profile information
+
+    - I want to have my favorites content(articles, classes, video classes ) saved to a bookmark space
+    - I want to have access to my class notes
+    - I want to search articles by name or content. 
+    - I want to filter articles by topic or date(latest).
+    - I want access to public articles as an anonymous user. 
+
+
+
+- ### As a content manager(Superuser)
+
+    - I want access to the restricted action to publish/edit/delete content 
+      - each content in browse content page the content, has a `manage content` button which allow editing or delete this object. that is only visible for content-managers
+    - I want a confirmation after clicking on delete button, to avoid accidental removals.
+    - I want a textarea to comfortably write and enrich the article content, with headings, paragraphs
+    - I want the article content to be saved temporarily to avoid losing content if I accidentaly refresh my page.
+    - I want to upload images and videos to My article body.
+    - I want to submit an article, but keep it as a Draft for further review before publish.
+    - I want to flag some content as restricted, for access only to premium(paying) users.
+    - 
 
 - #### As a Developer
 
-    - **[DONE]** I want to create to customize the login/signup pages from allauth based on the site base.html
-        - Added `account` & `socialaccount` directories on root `templates` folder, extending base.html file
-        - Created hew base.html file
-        - loaded fonts awesome and Materialize Css on base.html to improve responsiveness and look of the page.
-    - I want to customize The login/Signup/Sign-out page form and buttons wil the site theme and Typography
-    - I want some padding/margin on the User Profile Icon on top-right, it's too close to edge of screen
+  - **[DONE]** I want to create to customize the login/signup pages from allauth based on the site base.html
+      - Added `account` & `socialaccount` directories on root `templates` folder, extending base.html file
+      - Created hew base.html file
+      - loaded fonts awesome and Materialize Css on base.html to improve responsiveness and look of the page.
 
-- I noticed the html from the article content wasn't being formatted as HTML.
-    - disabling autoescape on the template did the trick,
-        -
-        Reference: [stackoverflow](https://stackoverflow.com/questions/19357462/django-passing-html-string-to-template)
+  - **[DONE]** I want to review the css and formatting of all allauth forms (login,sign-in ,sign-out , etc.) and apply site default styling.
+  - **[DONE]** I want to customize The login/Signup/Sign-out page form and buttons wil the site theme and Typography
+    - Pulled templates from `allauth` module, added styling and classes to it.
+  - **[DONE]** I noticed the html from the article content wasn't being formatted as HTML.
+      - disabling `autoescape` on the template did the trick,
+          - Reference: [stackoverflow](https://stackoverflow.com/questions/19357462/django-passing-html-string-to-template)
 
-- I want to give the user some insight on result of an action. ex: delete action without being superuser (should be
+- **[DONE]** I want to give the user some insight on result of an action. ex: delete action without being superuser (should be
   possible as button is not rendered). User will get a warning saying why he was redirect back to /Home, letting him
   know he is not allowed to use that action.
-
     - Added a basic message structure on the `base.html` and views are using
       the [django message framework](https://docs.djangoproject.com/en/3.2/ref/contrib/messages/) to add a message to
       the response.
+- **[DONE]** css and Styling centralizing title and increasing heading
+  - move heading to a `col-sm` and added css class to centralize html element. 
+- I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
+- I want to add a Call to Action (join our premium area now) button on index page. 
 
-- I want to review the css and formatting of all allauth forms (login,sign-in ,sign-out , etc.) and apply site default styling.
--
-- ### As a content manager(Superuser)
-
-    - I want access to the restricted area to publish content 

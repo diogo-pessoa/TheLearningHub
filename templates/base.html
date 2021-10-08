@@ -43,8 +43,10 @@
         {% include 'includes/toasts/toast_success.html' %}
     {% endif %}
     <div class="row">
-        {% block content %}
-        {% endblock %}
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
     {% block postloadjs %}
         <!-- custom js -->

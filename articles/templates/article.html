@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid">
         {# back buton     #}
         <div class="row small-padding custom-inline-flex">
             <a class="btn btn-lg btn-primary" href="{% url 'articles' %}"><i
@@ -42,7 +41,7 @@
                 {# Article Content #}
                 <div class="row">
                     <div class="col-sm col-md">
-                        <h3 class="content-title-center">{{ article.title }}</h3>
+                        <h1 class="content-title-center">{{ article.title }}</h1>
                         <span class="badge bg-success">{{ article.topic }}</span>
                         <div class="col-sm col-lg-9">
                             {# TODO Add link to user Page #}
@@ -58,5 +57,4 @@
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}

@@ -86,7 +86,7 @@ def edit_article(request, article_id):
             return redirect(reverse('article', args=[article.id]))
         else:
             messages.error(request,
-                           'Failed to update Article. Please ensure try again!')
+                           'Failed to update Article. Please try again!')
     else:
         form = ArticlesForm(instance=article)
         messages.info(request, f'Editing {article.title}')

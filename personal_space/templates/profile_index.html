@@ -27,7 +27,7 @@
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade show active" id="personal_info">
                 <div class="card mb-3">
-                    {% include 'includes/personal_information.html' %}
+                    {% include 'includes/personal_information.html' with role_details=user_role_information profile_info=user_profile_info.first %}
                 </div>
             </div>
             <div class="tab-pane fade" id="orders">

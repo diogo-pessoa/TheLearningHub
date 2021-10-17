@@ -1,15 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
 
-from personal_space.models import UserBookmark, UserDetail
+from personal_space.models import UserBookmark, UserProfile
 
 
 @login_required
 def profile_index(request):
     user_bookmarks = UserBookmark.objects.filter(user=request.user)
-    user_details = UserDetail.objects.filter(user=request.user)
+    user_profile_info = UserProfile.objects.filter(user=request.user)
+    user_role_information = request.user
     context = {
         "user_bookmarks": user_bookmarks,
-        "user_details": user_details
+        "user_profile_info": user_profile_info,
+        "user_role_information": user_role_information
     }
     return render(request, 'profile_index.html', context)

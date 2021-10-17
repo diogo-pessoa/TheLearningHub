@@ -1,13 +1,26 @@
 <div class="card-body">
-    <h4 class="card-title">Personal Details</h4>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
+    <div class="row">
+        <div class="col-sm col-md-5 d-block">
+            <h6 class="card-subtitle mb-2 text-muted">First name</h6>
+            <p class="card-text">{{ role_details.first_name }}</p>
+        </div>
+        <div class="col-sm col-md-5 d-inline-block">
+            <h6 class="card-subtitle mb-2 text-muted">Surname</h6>
+            <p class="card-text">{{ role_details.last_name }}</p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm">
+            <h6 class="card-subtitle mb-2 text-muted">Bio</h6>
+            <p class="card-text">{{ profile_info.bio }}</p>
+        </div>
+    </div>
 
 </div>
 <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-muted">Update your personal Information</h6>
-    <a class="btn b btn-primary" href="{% url 'account_email' %}">manage emails</a>
+    <h6 class="card-subtitle mb-2 text-muted">Manage personal Information</h6>
+    <a class="btn b btn-primary" href="{% url 'account_email' %}">manage account emails</a>
     <a class="btn b btn-primary" href="{% url 'account_change_password' %}">change password</a>
+    <a class="btn b btn-primary" href="#">Update Personal Details</a>
 </div>
 

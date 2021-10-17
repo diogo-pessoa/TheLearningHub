@@ -29,13 +29,14 @@ class TestUserDetails(TestCase):
 
     def test_create_user_notes(self):
         user_note = UserNote.objects.create(user=self.user,
-                                            note_content='content_title',
+                                            body='content_title',
                                             content_path='/articles/8/',
-                                            note_title="this is the a note from the course")
+                                            title="this is the a note from the course")
         user_note.save()
         user_notes = UserNote.objects.all()
         for note in user_notes:
             self.assertEqual('content_title', note.note_content)
             self.assertEqual(self.user, note.user)
             self.assertEqual(note.content_path, '/articles/8/')
-            self.assertEqual(note.note_title, 'this is the a note from the course')
+            self.assertEqual(note.content.title, '/articles/8/')
+            self.assertEqual(note.title, 'this is the a note from the course')

@@ -70,15 +70,16 @@ class TestPersonalSpaceViews(TestCase):
         self.client.login(username='john', password='johndoe123')
 
         user_note = UserNote.objects.create(user=self.user,
-                                            note_content='content_title',
+                                            title='content_title',
                                             content_path='/articles/8/',
-                                            note_title="this is the a note from the course")
+                                            content_title='python',
+                                            body="this is the a note from the course")
         user_note.save()
 
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
         self.assertIsInstance(response.context['user_notes'][0], UserNote)
-        self.assertEqual(response.context['user_notes'][0].note_title, user_note.note_title)
+        self.assertEqual(response.context['user_notes'][0].title, user_note.title)
         self.assertEqual(response.context['user_notes'][0].content_path, user_note.content_path)
-        self.assertEqual(response.context['user_notes'][0].note_title, user_note.note_title)
+        self.assertEqual(response.context['user_notes'][0].body, user_note.body)

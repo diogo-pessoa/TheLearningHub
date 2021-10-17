@@ -19,6 +19,7 @@ class UserProfile(models.Model):
 
 class UserNote(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
-    note_title = models.CharField(max_length=96, null=False, blank=False)
-    note_content = models.CharField(max_length=800, null=False)
+    title = models.CharField(max_length=96, null=False, blank=False)
+    body = models.CharField(max_length=800, null=False)
     content_path = models.CharField(max_length=128, null=False, blank=False)
+    content_title = models.CharField(max_length=128, null=False, blank=False)

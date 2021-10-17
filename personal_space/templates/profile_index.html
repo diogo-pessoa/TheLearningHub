@@ -42,7 +42,7 @@
             </div>
             <div class="tab-pane fade" id="saved_notes">
                 <div class="card mb-3">
-                    {% include 'includes/saved_notes.html' %}
+                    {% include 'includes/saved_notes.html' with notes=user_notes only %}
                 </div>
             </div>
         </div>

@@ -3,5 +3,6 @@ from django.urls import path
 from personal_space import views
 
 urlpatterns = [
-    path('', views.profile_index, name="profile")
+    path('', views.profile_index, name="profile"),
+    path('update_personal_details', views.update_personal_details, name="update_personal_details")
 ]

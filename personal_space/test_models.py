@@ -11,11 +11,13 @@ class TestUserDetails(TestCase):
 
     def test_create_user_details(self):
         self.user_details = UserProfile(user=self.user,
-                                        bio="Testing user Bio")
+                                        bio="Testing user Bio",
+                                        first_name='test',
+                                        last_name='user')
         self.user_details.save()
         user_info = UserProfile.objects.get(user=self.user)
-        self.assertEqual(user_info.user, self.user)
         self.assertIsNotNone(user_info.bio)
+        self.assertEquals(user_info.first_name, self.user_details.first_name)
 
     def test_create_user_bookmarks(self):
         bookmark = UserBookmark.objects.create(user=self.user,

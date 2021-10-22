@@ -59,7 +59,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     - I want to upload images and videos to My article body.
     - I want to submit an article, but keep it as a Draft for further review before publish.
     - I want to flag some content as restricted, for access only to premium(paying) users.
-    - I want to have a button on each content to allow user to bookmark content (button needs to be updated(Js) once user bookmark content)
+    
 
 - #### As a Developer
 
@@ -86,4 +86,4 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
   - I want to add a Call to Action (join our premium area now) button on index page. 
   - I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
-
+  - I want to have a button on each content to allow user to bookmark content (button needs to be updated(Js) once user bookmark content)

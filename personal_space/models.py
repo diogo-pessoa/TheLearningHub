@@ -15,6 +15,8 @@ class UserBookmark(models.Model):
 class UserProfile(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
     bio = models.CharField(max_length=800, null=True)
+    first_name = models.CharField(max_length=128, null=True)
+    last_name = models.CharField(max_length=128, null=True)
 
 
 class UserNote(models.Model):

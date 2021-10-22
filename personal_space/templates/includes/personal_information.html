@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-sm col-md-5 d-block">
             <h6 class="card-subtitle mb-2 text-muted">First name</h6>
-            <p class="card-text">{{ role_details.first_name }}</p>
+            <p class="card-text">{{ profile_info.first_name }}</p>
         </div>
         <div class="col-sm col-md-5 d-inline-block">
             <h6 class="card-subtitle mb-2 text-muted">Surname</h6>
-            <p class="card-text">{{ role_details.last_name }}</p>
+            <p class="card-text">{{ profile_info.last_name }}</p>
         </div>
     </div>
     <div class="row mt-3">
@@ -21,6 +21,6 @@
     <h6 class="card-subtitle mb-2 text-muted">Manage personal Information</h6>
     <a class="btn b btn-primary" href="{% url 'account_email' %}">manage account emails</a>
     <a class="btn b btn-primary" href="{% url 'account_change_password' %}">change password</a>
-    <a class="btn b btn-primary" href="#">Update Personal Details</a>
+    <a class="btn b btn-primary" href="{% url 'update_personal_details' %}">Update Personal Details</a>
 </div>
 

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'home',
     'articles',
-    'personal_space'
+    'personal_space',
+    'video_classes'
 ]
 
 MIDDLEWARE = [

@@ -41,14 +41,14 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
         - Table has column for content type and is color-coded(each content has its own row color)
     - **[DONE]** I want to search articles by name or content.
       - On the Navigation bar on top of the page, user can at any point query content based on a words. He'll then, be redirected to browse for content page showing the results.
-    - **[In-Progress]** Added Button to allow user to navigate to form to edit his profile details(first name, last_name, and bio).  
+    - **[Done]**I want to update my profile information
+      - Added Button to allow user to navigate to form to edit his profile details(first name, last_name, and bio).
+      - New Form to update user details added to Profile page.
+    
     - I want to have access to my class notes
     - I want to filter articles by topic or date(latest).
     - I want access to public articles as an anonymous user.
-    - I want to update my profile information
-
-
-
+    
 - ### As a content manager(Superuser)
 
     - I want access to the restricted action to publish/edit/delete content 

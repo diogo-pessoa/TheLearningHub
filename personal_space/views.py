@@ -1,6 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
+from personal_space.forms import PersonalDetailsForm
 from personal_space.models import UserBookmark, UserProfile, UserNote
 
 
@@ -19,13 +22,17 @@ def profile_index(request):
 
 @login_required(redirect_field_name='home')
 def update_personal_details(request):
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-# if request.method == 'POST':
-#     form = PersonalDetailsForm(request.POST, instance=user_profile )
-#     if form.is_valid():
-#         form.save()
-#         messages.success(request, '')
-#         return redirect(reverse('profile_index'))
-#     else:
-#         messages.error(request,
-#                        'Failed to update your details. Please try again!')
+    user_profile = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = PersonalDetailsForm(request.POST, instance=user_profile[0])
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Personal Details were updated!')
+            return redirect(reverse('profile'))
+    else:
+
+        form = PersonalDetailsForm(instance=user_profile[0])
+        return render(request, 'update_personal_details.html', {
+            'form': form,
+            'instance': user_profile
+        })

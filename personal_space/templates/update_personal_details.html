@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm col-md-10 mt-3">
+                <h3 class="content-title-center"> Update Personal Details</h3>
+                <div class="row small-padding custom-inline-flex">
+                    <a class="btn btn-lg btn-primary" href="{% url 'profile' %}"><i
+                            class="fa fa-arrow-left" aria-hidden="true"></i> Back to Profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm col-md-10">
+            <form method="post" action="{% url 'update_personal_details' %}">
+                {% crispy form %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

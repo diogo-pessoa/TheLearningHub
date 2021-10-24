@@ -75,3 +75,9 @@ class TestPersonalSpaceViews(TestCase):
         self.assertEqual(response.context['user_notes'][0].title, user_note.title)
         self.assertEqual(response.context['user_notes'][0].content_path, user_note.content_path)
         self.assertEqual(response.context['user_notes'][0].body, user_note.body)
+
+    def test_update_user_details_view(self):
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.get('/personal_space/update_personal_details')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'update_personal_details.html')

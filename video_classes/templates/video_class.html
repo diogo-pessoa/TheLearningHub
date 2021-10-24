@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+        {# back buton     #}
+        <div class="row small-padding custom-inline-flex">
+            <a class="btn btn-lg btn-primary" href="{% url 'articles' %}"><i
+                    class="fa fa-arrow-left" aria-hidden="true"></i> Back for more content</a>
+        </div>
+        <div class="row">
+
+            <div class="col-sm col-md-10 col-lg-10">
+                <h5>Video Class content</h5>
+
+            </div>
+        </div>
+{% endblock %}

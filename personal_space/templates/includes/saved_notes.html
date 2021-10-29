@@ -12,13 +12,13 @@
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
                                 aria-controls="collapse{{ forloop.counter }}">
-                            {{ note.title }}
+                            {{ note.video_class.title }}
                         </button>
                     </h2>
                     <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="headingOne"
                          data-bs-parent="#accordionExample" style="">
                         <div class="accordion-body">
-                            <strong>Note from: </strong><a href="{{ note.content_path }}">{{ note.content_title }}</a>
+                            <strong>Go to class: </strong><a href="/video_class/{{ note.video_class.id }}">{{ note.video_class.title }}</a>
                             <div class="row mt-2">
                                 {{ note.body }}
                             </div>

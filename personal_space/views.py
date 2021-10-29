@@ -3,15 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from personal_space.forms import PersonalDetailsForm
-from personal_space.models import UserBookmark, UserProfile, UserNote
+from personal_space.forms import PersonalDetailsForm, UserNotesForm
+from personal_space.models import UserBookmark, UserProfile, UserNoteFromVideoClass
+from video_classes.models import VideoClass
 
 
 @login_required(redirect_field_name='home')
 def profile_index(request):
     user_bookmarks = UserBookmark.objects.filter(user=request.user)
     user_profile_info = UserProfile.objects.filter(user=request.user)
-    user_notes = UserNote.objects.filter(user=request.user)
+    user_notes = UserNoteFromVideoClass.objects.filter(user=request.user)
     context = {
         "user_bookmarks": user_bookmarks,
         "user_profile_info": user_profile_info,

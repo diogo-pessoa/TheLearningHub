@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from personal_space.models import UserProfile, UserBookmark, UserNote
+from personal_space.models import UserProfile, UserBookmark, UserNoteFromVideoClass
 
 
 class TestPersonalSpaceViews(TestCase):
@@ -61,17 +61,17 @@ class TestPersonalSpaceViews(TestCase):
 
         self.client.login(username='john', password='johndoe123')
 
-        user_note = UserNote.objects.create(user=self.user,
-                                            title='content_title',
-                                            content_path='/articles/8/',
-                                            content_title='python',
-                                            body="this is the a note from the course")
+        user_note = UserNoteFromVideoClass.objects.create(user=self.user,
+                                                          title='content_title',
+                                                          content_path='/articles/8/',
+                                                          content_title='python',
+                                                          body="this is the a note from the course")
         user_note.save()
 
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
-        self.assertIsInstance(response.context['user_notes'][0], UserNote)
+        self.assertIsInstance(response.context['user_notes'][0], UserNoteFromVideoClass)
         self.assertEqual(response.context['user_notes'][0].title, user_note.title)
         self.assertEqual(response.context['user_notes'][0].content_path, user_note.content_path)
         self.assertEqual(response.context['user_notes'][0].body, user_note.body)

@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from personal_space.models import UserProfile, UserBookmark, UserNote
+from personal_space.models import UserProfile, UserBookmark, UserNoteFromVideoClass
+from video_classes.models import VideoClass
 
 
 class TestUserDetails(TestCase):
@@ -29,18 +30,15 @@ class TestUserDetails(TestCase):
             self.assertEqual('content_title', bookmark.content_title)
             self.assertEqual(self.user, bookmark.user)
 
-    def test_create_user_notes(self):
-        user_note = UserNote.objects.create(user=self.user,
-                                            body='content_title',
-                                            content_path='/articles/8/',
-                                            title="this is the a note from the course",
-                                            content_title='About Python')
+    def test_create_user_notes_from_video_class(self):
+        video_class = VideoClass.objects.create(title='test_class')
+        video_class.save()
+        user_note = UserNoteFromVideoClass.objects.create(user=self.user,
+                                                          video_class=video_class,
+                                                          body='About Python')
         user_note.save()
-        user_notes = UserNote.objects.all()
+        user_notes = UserNoteFromVideoClass.objects.all()
         for note in user_notes:
-            self.assertEqual('content_title', note.body)
+            self.assertEqual('About Python', note.body)
             self.assertEqual(self.user, note.user)
-            self.assertEqual(note.content_path, '/articles/8/')
-            self.assertEqual(note.title, 'this is the a note from the course')
-            self.assertEqual(note.content_title, 'About Python')
-
+            self.assertIsInstance(note.video_class, VideoClass)

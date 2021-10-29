@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 from articles.models import Article
+from video_classes.models import VideoClass
 
 
 class UserBookmark(models.Model):
@@ -19,9 +20,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=128, null=True)
 
 
-class UserNote(models.Model):
+class UserNoteFromVideoClass(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
-    title = models.CharField(max_length=96, null=False, blank=False)
-    body = models.CharField(max_length=800, null=False)
-    content_path = models.CharField(max_length=128, null=False, blank=False)
-    content_title = models.CharField(max_length=128, null=False, blank=False)
+    video_class = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
+    body = models.CharField(max_length=1024, null=False, blank=True)

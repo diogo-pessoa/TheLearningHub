@@ -23,4 +23,4 @@ class UserProfile(models.Model):
 class UserNoteFromVideoClass(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
     video_class = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
-    body = models.CharField(max_length=1024, null=False, blank=True)
+    content = models.CharField(max_length=1024, null=False, blank=True)

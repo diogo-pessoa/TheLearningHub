@@ -15,12 +15,17 @@
                             {{ note.video_class.title }}
                         </button>
                     </h2>
-                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                         aria-labelledby="headingOne"
                          data-bs-parent="#accordionExample" style="">
                         <div class="accordion-body">
-                            <strong>Go to class: </strong><a href="/video_class/{{ note.video_class.id }}">{{ note.video_class.title }}</a>
+                            <strong>Go to class: </strong><a
+                                href="/video_class/{{ note.video_class.id }}">{{ note.video_class.title }}</a>
                             <div class="row mt-2">
-                                {{ note.body }}
+                                {% autoescape off %}
+                                    {{ note.content }}
+                                {% endautoescape %}
+
                             </div>
                         </div>
                     </div>

@@ -3,9 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from personal_space.forms import PersonalDetailsForm, UserNotesForm
+from personal_space.forms import PersonalDetailsForm
 from personal_space.models import UserBookmark, UserProfile, UserNoteFromVideoClass
-from video_classes.models import VideoClass
 
 
 @login_required(redirect_field_name='home')

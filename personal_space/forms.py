@@ -17,10 +17,10 @@ class PersonalDetailsForm(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
-class UserNotesForm(forms.ModelForm):
+class UserNotesFromClassForm(forms.ModelForm):
     class Meta:
         model = UserNoteFromVideoClass
-        fields = ['body']
+        fields = ['content']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

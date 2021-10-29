@@ -1,22 +1,28 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-
-# Create your views here.
 from django.urls import reverse
 
+from personal_space.forms import UserNotesFromClassForm
+from personal_space.models import UserNoteFromVideoClass
+from video_classes.forms import VideoClassForm
 from video_classes.models import VideoClass
-
-
-@login_required(redirect_field_name='home')
-def create_video_class(request):
-    return render(request, 'new_video_class.html')
 
 
 def video_class(request, video_class_id):
     videos_class = get_object_or_404(VideoClass, id=video_class_id)
+    user_note = UserNoteFromVideoClass.objects.get_or_create(user=request.user, video_class=video_class_id)
+    if request.method == 'POST':
+        form = UserNotesFromClassForm(request.POST, instance=user_note[0])
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'note saved!')
+    else:
+        form = UserNotesFromClassForm(instance=user_note[0])
     context = {
         'video_class': videos_class,
+        'user_note': user_note,
+        'form': form
     }
 
     return render(request, 'video_class.html', context)

@@ -11,7 +11,7 @@ from video_classes.models import VideoClass
 
 def video_class(request, video_class_id):
     videos_class = get_object_or_404(VideoClass, id=video_class_id)
-    user_note = UserNoteFromVideoClass.objects.get_or_create(user=request.user, video_class=video_class_id)
+    user_note = UserNoteFromVideoClass.objects.get_or_create(user=request.user, video_class=videos_class)
     if request.method == 'POST':
         form = UserNotesFromClassForm(request.POST, instance=user_note[0])
         if form.is_valid():

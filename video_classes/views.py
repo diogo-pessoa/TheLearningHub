@@ -43,5 +43,24 @@ def delete_video_class(request, video_class_id):
 
 @login_required(redirect_field_name='home')
 def edit_video_class(request, video_class_id):
-    #TODO
-    return None
+    pass
+
+
+@login_required(redirect_field_name='home')
+def create_video_class(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Sorry, only content Managers can create video_class.')
+        return redirect(reverse('articles'))
+
+    if request.method == 'POST':
+        form = VideoClassForm(request.POST, request.FILES)
+        print(form.errors)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'New Video Class created')
+        else:
+            messages.success(request, 'Sorry, there was an issue creating this Video class. Please Try again.')
+        return redirect('articles')
+    else:
+        form = VideoClassForm()
+    return render(request, 'new_video_class.html', {'form': form})

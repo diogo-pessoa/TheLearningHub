@@ -4,8 +4,10 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
+from personal_space.models import UserBookmarkArticle
 from .forms import ArticlesForm
 from .models import Article, Topic
+
 
 
 def index(request):
@@ -37,8 +39,11 @@ def article(request, article_id):
     :param article_id:
     """
     article = get_object_or_404(Article, id=article_id)
+    user_bookmark = UserBookmarkArticle.objects.filter(user=request.user, article=article)
+
     context = {
         'article': article,
+        'user_bookmarks': user_bookmark
     }
 
     return render(request, 'article.html', context)

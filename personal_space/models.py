@@ -6,7 +6,8 @@ from articles.models import Article
 from video_classes.models import VideoClass
 
 
-class UserBookmark(models.Model):
+class UserBookmarkArticle(models.Model):
+    article = models.ForeignKey(Article, default=None, null=True, on_delete=models.CASCADE)
     content_title = models.CharField(max_length=254)
     content_path = models.CharField(max_length=256, null=False, blank=False)
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)

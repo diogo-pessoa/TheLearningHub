@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from personal_space.models import UserProfile, UserBookmark, UserNoteFromVideoClass
+from personal_space.models import UserProfile, UserBookmarkArticle, UserNoteFromVideoClass
 from video_classes.models import VideoClass
 
 
@@ -21,11 +21,11 @@ class TestUserDetails(TestCase):
         self.assertEquals(user_info.first_name, self.user_details.first_name)
 
     def test_create_user_bookmarks(self):
-        bookmark = UserBookmark.objects.create(user=self.user,
-                                               content_title='content_title',
-                                               content_path='articles/8/')
+        bookmark = UserBookmarkArticle.objects.create(user=self.user,
+                                                      content_title='content_title',
+                                                      content_path='articles/8/')
         bookmark.save()
-        user_bookmarks = UserBookmark.objects.all()
+        user_bookmarks = UserBookmarkArticle.objects.all()
         for bookmark in user_bookmarks:
             self.assertEqual('content_title', bookmark.content_title)
             self.assertEqual(self.user, bookmark.user)

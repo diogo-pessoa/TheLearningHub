@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from personal_space.models import UserProfile, UserBookmark, UserNoteFromVideoClass
+from personal_space.models import UserProfile, UserBookmarkArticle, UserNoteFromVideoClass
 
 
 class TestPersonalSpaceViews(TestCase):
@@ -38,15 +38,15 @@ class TestPersonalSpaceViews(TestCase):
 
     def test_get_user_profile_bookmarks(self):
         """ Test User Profile page is able to load user Bookmarks and are available on view """
-        user_bookmarks = UserBookmark.objects.create(user=self.user,
-                                                     content_path="/articles/8/",
-                                                     content_title="nice Article")
+        user_bookmarks = UserBookmarkArticle.objects.create(user=self.user,
+                                                            content_path="/articles/8/",
+                                                            content_title="nice Article")
         user_bookmarks.save()
         self.client.login(username='john', password='johndoe123')
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
-        self.assertIsInstance(response.context['user_bookmarks'][0], UserBookmark)
+        self.assertIsInstance(response.context['user_bookmarks'][0], UserBookmarkArticle)
         self.assertEqual(response.context['user_bookmarks'][0].content_title, user_bookmarks.content_title)
         self.assertEqual(response.context['user_bookmarks'][0].content_path, user_bookmarks.content_path)
         self.assertEqual(response.context['user_bookmarks'][0].user, self.user)

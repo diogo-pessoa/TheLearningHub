@@ -6,6 +6,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
+    atomic = False
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('personal_space', '0002_auto_20211011_0751'),

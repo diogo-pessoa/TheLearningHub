@@ -180,3 +180,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# stripe
+
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+SITE_DOMAIN = 'http://localhost:8000'

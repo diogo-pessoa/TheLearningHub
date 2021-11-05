@@ -41,13 +41,19 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
         - Table has column for content type and is color-coded(each content has its own row color)
     - **[DONE]** I want to search articles by name or content.
       - On the Navigation bar on top of the page, user can at any point query content based on a words. He'll then, be redirected to browse for content page showing the results.
-    - **[Done]**I want to update my profile information
+    - **[Done]** I want to update my profile information
       - Added Button to allow user to navigate to form to edit his profile details(first name, last_name, and bio).
       - New Form to update user details added to Profile page.
     
-    - I want to have access to my class notes
-    - I want to filter articles by topic or date(latest).
-    - I want access to public articles as an anonymous user.
+    - **[Done]** I want to have access to my class notes
+      - In the Video class page User has access to responsive form to save and view his class notes;
+      - User will later be able to see his saved notes on his Profile Page
+    - **[Done]** I want access to public articles as an anonymous user.
+      - any site visitor can Read Articles, to user extra features user will have to create his own profile 
+
+
+  - I want to filter articles by topic or date(latest).
+    
     
 - ### As a content manager(Superuser)
 
@@ -82,8 +88,16 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
         the [django message framework](https://docs.djangoproject.com/en/3.2/ref/contrib/messages/) to add a message to
         the response.
   - **[DONE]** css and Styling centralizing title and increasing heading
-    - move heading to a `col-sm` and added css class to centralize html element. 
-  - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
-  - I want to add a Call to Action (join our premium area now) button on index page. 
+    - move heading to a `col-sm` and added css class to centralize html element.
+  - **[DONE]** I want to have a button on Articles to allow user to bookmark content
+    - Added a view on personal space to add/remove bookmarks.
+    - Updated article.html template to call views. User gets a message to confirm an article was saved as bookmark
+
+
+  - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes and courses
+    - 
+  - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content
+  - I want to Add forms for Content manager to Allow Home/About/Pricing pages to be edited without a need for a change in code.
+  - I want to add a Call to Action (join our premium area now) button on index page.
   - I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
-  - I want to have a button on each content to allow user to bookmark content (button needs to be updated(Js) once user bookmark content)
+  - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition

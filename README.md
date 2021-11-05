@@ -110,6 +110,8 @@ By providing different levels of access to content, the Learning Hub platform ha
      - Used to provide content manager with better experience when writing content for Articles 
 
 14. [travis.com](https://app.travis-ci.com/) - Run automated tests from codebase.
+
+15. [Stripe](https://stripe.com/) - A fully integrated suite of payments products
     
 
 ## Testing
@@ -128,6 +130,8 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 - quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
   - Used to generate random keys on each travis build
+
+- Setting up the subscription integration with Stripe following this process [here](https://stripe.com/docs/billing/integration-builder)
 
 ### Content
 

@@ -15,18 +15,6 @@ server.py
 Stripe Sample.
 Python 3.6 or newer required.
 """
-import os
-from flask import Flask, redirect, jsonify, json, request, current_app
-
-import stripe
-# This is your real test secret API key.
-stripe.api_key = 'sk_test_51JrSF0EZKX98BMc7dnwibzUUjfobhXsRf46fyAEGjWys4SHiU1fiYZizlVkZc4EJosw7oLRkib7wfsbPDxnd1peT00ClHtHgKV'
-
-app = Flask(__name__,
-            static_url_path='',
-            static_folder='public')
-
-YOUR_DOMAIN = 'http://localhost:4242'
 
 @app.route('/', methods=['GET'])
 def get_index():
@@ -117,7 +105,4 @@ def webhook_received():
 
     return jsonify({'status': 'success'})
 
-
-if __name__ == '__main__':
-    app.run(port=4242)
 

@@ -9,6 +9,7 @@ from video_classes.forms import VideoClassForm
 from video_classes.models import VideoClass
 
 
+@login_required(redirect_field_name='home')
 def video_class(request, video_class_id):
     videos_class = get_object_or_404(VideoClass, id=video_class_id)
     user_note = UserNoteFromVideoClass.objects.get_or_create(user=request.user, video_class=videos_class)

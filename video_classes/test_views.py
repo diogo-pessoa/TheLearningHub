@@ -20,12 +20,12 @@ class TestVideosClassViews(TestCase):
 
     def test_content_manager_can_open_video_class_form_page(self):
         self.client.login(username='john', password='johndoe123')
-        response = self.client.get(f'/video_class/create')
+        response = self.client.get(f'/video_class/create_video_class')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('new_video_class.html')
 
     def test_get_video_class_page(self):
-        self.video_class.save()
+        self.client.login(username='john', password='johndoe123')
         video_class = VideoClass.objects.all()[0]
         response = self.client.get(f'/video_class/{video_class.id}/')
         self.assertEqual(response.status_code, 200)

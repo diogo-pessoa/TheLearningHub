@@ -3,6 +3,7 @@ from django.test import TestCase
 
 from articles.models import Article
 from personal_space.models import UserProfile, UserBookmarkArticle, UserNoteFromVideoClass
+from video_classes.models import VideoClass
 
 
 class TestPersonalSpaceViews(TestCase):
@@ -19,6 +20,8 @@ class TestPersonalSpaceViews(TestCase):
         self.visitor = User.objects.get(username='visitor')
         # Creating Test article
         self.article = Article.objects.create(title="test")
+        # Creating a video_class
+        self.video_class = VideoClass.objects.create(title="Video_class")
 
     def test_profile_page_redirects_for_anonymous_users(self):
         response = self.client.get('/personal_space/')
@@ -41,43 +44,28 @@ class TestPersonalSpaceViews(TestCase):
 
     def test_get_user_profile_bookmarks(self):
         """ Test User Profile page is able to load user Bookmarks and are available on view """
-        user_bookmarks = UserBookmarkArticle.objects.create(user=self.user,
-                                                            content_path="/articles/8/",
-                                                            content_title="nice Article")
+        user_bookmarks = UserBookmarkArticle.objects.create(user=self.user,article=self.article)
         user_bookmarks.save()
         self.client.login(username='john', password='johndoe123')
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
         self.assertIsInstance(response.context['user_bookmarks'][0], UserBookmarkArticle)
-        self.assertEqual(response.context['user_bookmarks'][0].content_title, user_bookmarks.content_title)
-        self.assertEqual(response.context['user_bookmarks'][0].content_path, user_bookmarks.content_path)
+        self.assertEqual(response.context['user_bookmarks'][0].article.title, self.article.title)
         self.assertEqual(response.context['user_bookmarks'][0].user, self.user)
 
     def test_get_user_notes(self):
-        """ Test a user accessing his notes following from the view perspective, as a site member.
-            - User saves a note
-            - Navigates to profile page
-            - User will see has access to what is in the view context
-            note this is an list as a user can have one or more notes.
-        """
-
         self.client.login(username='john', password='johndoe123')
-
         user_note = UserNoteFromVideoClass.objects.create(user=self.user,
-                                                          title='content_title',
-                                                          content_path='/articles/8/',
-                                                          content_title='python',
-                                                          body="this is the a note from the course")
+                                                          video_class=self.video_class,
+                                                          content="this is the a note from the course")
         user_note.save()
-
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
         self.assertIsInstance(response.context['user_notes'][0], UserNoteFromVideoClass)
-        self.assertEqual(response.context['user_notes'][0].title, user_note.title)
-        self.assertEqual(response.context['user_notes'][0].content_path, user_note.content_path)
-        self.assertEqual(response.context['user_notes'][0].body, user_note.body)
+        self.assertEqual(response.context['user_notes'][0].content, user_note.content)
+        self.assertIsInstance(response.context['user_notes'][0].video_class, VideoClass)
 
     def test_update_user_details_view(self):
         self.client.login(username='john', password='johndoe123')
@@ -98,8 +86,8 @@ class TestPersonalSpaceViews(TestCase):
         bookmark = UserBookmarkArticle(user=self.user, article=self.article)
         bookmark.save()
         self.client.login(username='john', password='johndoe123')
-        response = self.client.post(f'/personal_space/add_bookmark/{self.article.id}/')  # Adding bookmark
+        response = self.client.post(f'/personal_space/remove_bookmark/{self.article.id}/')
         self.assertEqual(response.status_code, 200)
         self.assertRaisesMessage(response, 'Removed from your bookmarks')
         bookmark = UserBookmarkArticle.objects.all()
-        self.assertEqual(bookmark[0].article.title, "test")
+        self.assertQuerysetEqual(bookmark, [])

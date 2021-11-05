@@ -8,8 +8,8 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">Type</th>
             <th scope="col">Content Title</th>
+            <th scope="col">Description</th>
             <th scope="col"> Go to Content</th>
 
         </tr>
@@ -18,16 +18,10 @@
         {# TODO color code (light/dark) to table to make it easier to read content #}
         {% if bookmarks %}
             {% for bookmark in bookmarks %}
-                {%  if bookmark.type == 'article' %}
-                    <tr class="table-active">
-                {% elif bookmark.type == 'video'  %}
-                    <tr class="table-light">
-                {% else %}
-                    <tr class="table-info">
-                {% endif %}
-                <th scope="row">{{ bookmark.type }}</th>
-                <td><strong>{{ bookmark.content_title }}</strong></td>
-                <td><a href="{{ bookmark.content_path }}" class="btn btn-primary">Go to content</a></td>
+                <tr class="table-light">
+                <td><strong>{{ bookmark.article.title }}</strong></td>
+                <td><strong>{{ bookmark.article.description }}</strong></td>
+                <td><a href="/articles/{{ bookmark.article.id }}" class="btn btn-primary">Go to content</a></td>
             </tr>
 
             {% endfor %}

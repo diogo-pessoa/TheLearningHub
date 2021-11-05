@@ -20,7 +20,7 @@ class TestArticlesViews(TestCase):
         self.assertTemplateUsed(response, 'articles.html')
         #  TODO link to article works
 
-    def test_article(self):
+    def test_article_renders_for_anonymous_user(self):
         article = Article.objects.create(title='test', author=self.user)
         response = self.client.get(f'/articles/{article.id}/')
         self.assertEqual(response.status_code, 200)

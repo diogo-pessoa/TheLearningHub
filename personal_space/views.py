@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from articles.models import Article
@@ -59,5 +59,23 @@ def add_bookmark(request, article_id):
             messages.error(request, 'Article Not found, please try Again.')
             return HttpResponse(status=404)
     else:
-        messages.error(request, 'Sorry there was an issue when bookmarking this Article try again later!')
+        messages.error(request, 'Sorry there was an issue when bookmarking this Article. Try again later!')
+        HttpResponse(status=503)
+
+
+@login_required()
+def remove_bookmark(request, article_id):
+    if request.method == 'POST':
+        article = Article.objects.filter(id=article_id)
+        # Creating bookmark
+        if article:
+            bookmark = get_object_or_404(UserBookmarkArticle, article=article[0])
+            bookmark.delete()
+            messages.success(request, 'Removed from your bookmarks')
+            return HttpResponse(status=200)
+        else:
+            messages.error(request, 'Article Not found, please try Again.')
+            return HttpResponse(status=404)
+    else:
+        messages.error(request, 'Sorry there was an issue when removing this from bookmark. Try again later!')
         HttpResponse(status=503)

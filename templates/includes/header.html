@@ -16,15 +16,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
+                </li>
                 <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                           aria-haspopup="true" aria-expanded="false">Learning Area</a>
-                        <div class="dropdown-menu">
-                            <a href="{% url 'articles' %}" class="dropdown-item">Articles</a>
-                            <a href="#" class="dropdown-item">Classes</a>
-                            <a href="#" class="dropdown-item">Courses</a>
-                        </div>
-                    </li>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">Learning Area</a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'articles' %}" class="dropdown-item">Articles</a>
+                        <a href="#" class="dropdown-item">Classes</a>
+                        <a href="#" class="dropdown-item">Courses</a>
+                    </div>
+                </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"

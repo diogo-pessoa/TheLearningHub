@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from articles.models import Article
 from personal_space.forms import PersonalDetailsForm
 from personal_space.models import UserBookmarkArticle, UserProfile, UserNoteFromVideoClass
 
@@ -36,3 +38,26 @@ def update_personal_details(request):
             'form': form,
             'instance': user_profile
         })
+
+
+@login_required()
+def add_bookmark(request, article_id):
+    """
+    Adds User bookmark
+    :param request:
+    :param article_id
+    :return:
+    """
+    if request.method == 'POST':
+        article = Article.objects.filter(id=article_id)
+        # Creating bookmark
+        if article:
+            UserBookmarkArticle.objects.get_or_create(user=request.user, article=article[0])
+            messages.success(request, 'Article added to your favorites!')
+            return HttpResponse(status=200)
+        else:
+            messages.error(request, 'Article Not found, please try Again.')
+            return HttpResponse(status=404)
+    else:
+        messages.error(request, 'Sorry there was an issue when bookmarking this Article try again later!')
+        HttpResponse(status=503)

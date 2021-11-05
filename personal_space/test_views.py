@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from articles.models import Article
 from personal_space.models import UserProfile, UserBookmarkArticle, UserNoteFromVideoClass
 
 
@@ -81,3 +82,13 @@ class TestPersonalSpaceViews(TestCase):
         response = self.client.get('/personal_space/update_personal_details')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'update_personal_details.html')
+
+    def test_add_bookmark(self):
+        """push a nwe bookmark and query the model to confirm it was created"""
+        article = Article.objects.create(title="test")
+        article.save()
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.post(f'/personal_space/add_bookmark/{article.id}/')
+        self.assertEqual(response.status_code, 200)
+        bookmark = UserBookmarkArticle.objects.all()
+        self.assertEqual(bookmark[0].article.title, "test")

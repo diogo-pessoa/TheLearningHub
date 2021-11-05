@@ -44,7 +44,7 @@ class TestPersonalSpaceViews(TestCase):
 
     def test_get_user_profile_bookmarks(self):
         """ Test User Profile page is able to load user Bookmarks and are available on view """
-        user_bookmarks = UserBookmarkArticle.objects.create(user=self.user,article=self.article)
+        user_bookmarks = UserBookmarkArticle.objects.create(user=self.user, article=self.article)
         user_bookmarks.save()
         self.client.login(username='john', password='johndoe123')
         response = self.client.get('/personal_space/')
@@ -77,17 +77,18 @@ class TestPersonalSpaceViews(TestCase):
         """push a nwe bookmark and query the model to confirm it was created"""
         self.article.save()
         self.client.login(username='john', password='johndoe123')
-        response = self.client.post(f'/personal_space/add_bookmark/{self.article.id}/')
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post(f'/personal_space/add_bookmark/', {'article_id': self.article.id})
+        self.assertEqual(response.status_code, 302)
+        self.assertRaisesMessage(response, 'Article added to your favorites!')
         bookmark = UserBookmarkArticle.objects.all()
-        self.assertEqual(bookmark[0].article.title, "test")
+        self.assertEqual(bookmark[0].article.id, self.article.id)
 
     def test_remove_bookmark(self):
         bookmark = UserBookmarkArticle(user=self.user, article=self.article)
         bookmark.save()
         self.client.login(username='john', password='johndoe123')
-        response = self.client.post(f'/personal_space/remove_bookmark/{self.article.id}/')
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post(f'/personal_space/remove_bookmark/{bookmark.id}/')
+        self.assertEqual(response.status_code, 302)
         self.assertRaisesMessage(response, 'Removed from your bookmarks')
         bookmark = UserBookmarkArticle.objects.all()
         self.assertQuerysetEqual(bookmark, [])

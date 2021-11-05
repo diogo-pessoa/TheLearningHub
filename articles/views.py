@@ -9,7 +9,6 @@ from .forms import ArticlesForm
 from .models import Article, Topic
 
 
-
 def index(request):
     articles = Article.objects.all()
     topics = Topic.objects.all()
@@ -38,12 +37,15 @@ def article(request, article_id):
     :param request:
     :param article_id:
     """
+    if not request.user.is_authenticated:
+        return render(request, 'article.html')
+
     article = get_object_or_404(Article, id=article_id)
     user_bookmark = UserBookmarkArticle.objects.filter(user=request.user, article=article)
 
     context = {
         'article': article,
-        'user_bookmarks': user_bookmark
+        'user_bookmark': user_bookmark
     }
 
     return render(request, 'article.html', context)

@@ -60,12 +60,18 @@
                             <p><span class="badge bg-success">{{ article.topic }}</span></p>
                             <p>
                                 {% if  user_bookmark %}
-                                    <button type="button" class="btn btn-outline-success">Bookmark <i
-                                            class="fa fa-star-o" aria-hidden="true"></i></button>
+                                    <a type="button" href="{% url 'remove_bookmark' user_bookmark.first.id %}"
+                                       class="btn btn-outline-success">Bookmark <i
+                                            class="fa fa-star" aria-hidden="true"></i></a>
                                 {% else %}
-                                    <button type="button" class="btn btn-outline-dark">Bookmark <i class="fa fa-star-o"
-                                                                                                   aria-hidden="true"></i>
-                                    </button>
+                                    <form class="d-flex" method="POST" action="{% url 'add_bookmark' %}">
+                                        {% csrf_token %}
+                                        <input class="form-control me-sm-2" type="text" placeholder="Search"
+                                               name="article_id" value="{{ article.id }}" hidden>
+                                        <button class="btn btn-outline-dark" type="submit">Bookmark <i
+                                                class="fa fa-star"
+                                                aria-hidden="true"></i></button>
+                                    </form>
                                 {% endif %}
                             </p>
                         </div>

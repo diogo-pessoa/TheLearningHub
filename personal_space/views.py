@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -41,41 +40,27 @@ def update_personal_details(request):
 
 
 @login_required()
-def add_bookmark(request, article_id):
-    """
-    Adds User bookmark
-    :param request:
-    :param article_id
-    :return:
-    """
+def add_bookmark(request):
     if request.method == 'POST':
+        article_id = request.POST['article_id']
         article = Article.objects.filter(id=article_id)
         # Creating bookmark
         if article:
             UserBookmarkArticle.objects.get_or_create(user=request.user, article=article[0])
             messages.success(request, 'Article added to your favorites!')
-            return HttpResponse(status=200)
+            return redirect('article', article_id)
         else:
-            messages.error(request, 'Article Not found, please try Again.')
-            return HttpResponse(status=404)
-    else:
-        messages.error(request, 'Sorry there was an issue when bookmarking this Article. Try again later!')
-        HttpResponse(status=503)
+            messages.error(request, 'Sorry there was an issue when bookmarking this Article. Try again later!')
+            return redirect('article', article_id)
 
 
 @login_required()
-def remove_bookmark(request, article_id):
-    if request.method == 'POST':
-        article = Article.objects.filter(id=article_id)
-        # Creating bookmark
-        if article:
-            bookmark = get_object_or_404(UserBookmarkArticle, article=article[0])
-            bookmark.delete()
-            messages.success(request, 'Removed from your bookmarks')
-            return HttpResponse(status=200)
-        else:
-            messages.error(request, 'Article Not found, please try Again.')
-            return HttpResponse(status=404)
+def remove_bookmark(request, bookmark_id):
+    bookmark = get_object_or_404(UserBookmarkArticle, pk=bookmark_id)
+    if bookmark:
+        bookmark.delete()
+        messages.success(request, 'Removed from your bookmarks')
+        return redirect('article', bookmark.article.id)
     else:
         messages.error(request, 'Sorry there was an issue when removing this from bookmark. Try again later!')
-        HttpResponse(status=503)
+        return redirect('article', bookmark.article.id)

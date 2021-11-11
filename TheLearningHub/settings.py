@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'home',
     'articles',
     'personal_space',
-    'video_classes'
+    'video_classes',
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -183,5 +184,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # stripe
 
-STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
-SITE_DOMAIN = 'http://localhost:8000'
+STRIPE_API_KEY = os.getenv('STRIPE_SECRET_KEY')
+SITE_DOMAIN = os.getenv('SITE_DOMAIN')

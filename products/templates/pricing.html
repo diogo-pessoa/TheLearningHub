@@ -10,10 +10,12 @@
                 {% for product in subscriptions %}
                     <h3>{{ product.name }}</h3>
                     <h5>{{ product.price }}</h5>
-                    <form action="{% url 'create_checkout_session' product.id %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-primary" type="submit" id="checkout-button">Start now!</button>
-                    </form>
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'create_checkout_session' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit" id="checkout-button">Start now!</button>
+                        </form>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

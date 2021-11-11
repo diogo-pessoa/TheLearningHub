@@ -1,7 +1,7 @@
 # Create your views here.
-import json
 
 import stripe
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from jsonify.convert import jsonify
 
@@ -11,6 +11,7 @@ from products.models import Product
 stripe.api_key = STRIPE_API_KEY
 
 
+@login_required()
 def create_checkout_session(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
@@ -32,7 +33,6 @@ def create_checkout_session(request, product_id):
 
 def pricing(request):
     subscriptions = Product.objects.filter(stripe_product_mode='subscription')
-    print(subscriptions)
     context = {
         'subscriptions': subscriptions
     }
@@ -47,8 +47,8 @@ def cancel(request):
     return render(request, 'cancel.html')
 
 
+@login_required()
 def create_subscription(request, product_id):
-
     product = Product.objects.get(id=product_id)
     # Simulating authenticated user. Lookup the logged in user in your
     # database, and set customer_id to the Stripe Customer ID of that user.

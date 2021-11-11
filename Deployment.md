@@ -62,3 +62,8 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
 
 - STATIC_CONTENT in Heroku 
 - Using [whitenoise](https://warehouse.python.org/project/whitenoise/) 
+
+### Stripe Setup
+
+    - Export stripe keys: STRIPE_SECRET_KEY & STRIPE_PUBLISHABLE_KEY
+    - If if it's the first time you setup the application (run migrate), then you'll be required to add the subscription and product information to the Product Model.

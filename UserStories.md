@@ -49,10 +49,12 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
       - In the Video class page User has access to responsive form to save and view his class notes;
       - User will later be able to see his saved notes on his Profile Page
     - **[Done]** I want access to public articles as an anonymous user.
-      - any site visitor can Read Articles, to user extra features user will have to create his own profile 
-
-
-  - I want to filter articles by topic or date(latest).
+      - any site visitor can Read Articles, to user extra features user will have to create his own profile
+    - I want to have the pricing model available for review 
+    - I want to be able to pay for a subscription
+    - I want to cancel My subscription
+    
+    - I want to filter articles by topic or date(latest).
     
     
 - ### As a content manager(Superuser)
@@ -95,7 +97,6 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
 
 
   - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes and courses
-    - 
   - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content
   - I want to Add forms for Content manager to Allow Home/About/Pricing pages to be edited without a need for a change in code.
   - I want to add a Call to Action (join our premium area now) button on index page.

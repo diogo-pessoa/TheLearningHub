@@ -25,8 +25,8 @@ def create_checkout_session(request, product_id):
             ],
             payment_method_types=['card'],
             mode=f'{product.stripe_product_mode}',
-            success_url=f'{SITE_DOMAIN}/success',
-            cancel_url=f'{SITE_DOMAIN}/cancel',
+            success_url=f'{SITE_DOMAIN}/products/success',
+            cancel_url=f'{SITE_DOMAIN}/products/cancel',
         )
         return redirect(checkout_session.url, code=303)
 
@@ -46,38 +46,35 @@ def success(request):
 def cancel(request):
     return render(request, 'cancel.html')
 
+@csrf_exempt
+def my_webhook_view(request):
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
 
-@login_required()
-def create_subscription(request, product_id):
-    product = Product.objects.get(id=product_id)
-    # Simulating authenticated user. Lookup the logged in user in your
-    # database, and set customer_id to the Stripe Customer ID of that user.
-    customer_id = request.user
+  try:
+    event = stripe.Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
 
-    # Extract the price ID from environment variables given the name
-    # of the price passed from the front end.
-    #
-    # `price_id` is the an ID of a Price object on your account.
-    # This was populated using Price's `lookup_key` in the /config endpoint
-    price_id = product.stripe_product_id
+  if event['type'] == 'checkout.session.completed':
+    session = event['data']['object']
 
-    try:
-        # Create the subscription. Note we're using
-        # expand here so that the API will return the Subscription's related
-        # latest invoice, and that latest invoice's payment_intent
-        # so we can collect payment information and confirm the payment on the front end.
+    # Fulfill the purchase...
+    fulfill_order(session)
 
-        # Create the subscription
-        subscription = stripe.Subscription.create(
-            customer=customer_id,
-            items=[{
-                'price': price_id,
-            }],
-            payment_behavior='default_incomplete',
-            expand=['latest_invoice.payment_intent'],
-        )
-        return jsonify(subscriptionId=subscription.id,
-                       clientSecret=subscription.latest_invoice.payment_intent.client_secret)
+  # Passed signature verification
+  return HttpResponse(status=200)
 
-    except Exception as e:
-        return jsonify(error={'message': e.user_message}), 400
+def fulfill_order(session):
+  # TODO: fill me in
+  # TODO Add a copy on application DB
+  # TODO Send receipt to customer by email
+  # TODO Set user as Premium subscriber
+  print("Fulfilling order")

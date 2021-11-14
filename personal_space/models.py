@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     bio = models.CharField(max_length=800, null=True)
     first_name = models.CharField(max_length=128, null=True)
     last_name = models.CharField(max_length=128, null=True)
+    premium_subscription = models.BooleanField(default=False)
 
 
 class UserNoteFromVideoClass(models.Model):

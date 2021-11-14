@@ -63,10 +63,11 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
       - each content in browse content page the content, has a `manage content` button which allow editing or delete this object. that is only visible for content-managers
     - I want a confirmation after clicking on delete button, to avoid accidental removals.
     - I want a textarea to comfortably write and enrich the article content, with headings, paragraphs
-    - I want the article content to be saved temporarily to avoid losing content if I accidentaly refresh my page.
+    - I want the article content to be saved temporarily to avoid losing content if I accidentally refresh my page.
     - I want to upload images and videos to My article body.
     - I want to submit an article, but keep it as a Draft for further review before publish.
     - I want to flag some content as restricted, for access only to premium(paying) users.
+    - I want to have a `Call to Action` to redirect user to Pricing and subscription button on site Landing page.
     
 
 - #### As a Developer

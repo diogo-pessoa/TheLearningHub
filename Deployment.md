@@ -67,3 +67,45 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
 
     - Export stripe keys: STRIPE_SECRET_KEY & STRIPE_PUBLISHABLE_KEY
     - If if it's the first time you setup the application (run migrate), then you'll be required to add the subscription and product information to the Product Model.
+
+### AWS S3 Storage backend
+
+#### On the AWS Console
+AWS Documentation is vast, here are some of the steps I followed during the Backend setup.
+
+- [Create bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
+- [Create IAM User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
+- [Attach Policy to access Bucket](https://docs.aws.amazon.com/cli/latest/userguide/cli-services-iam-policy.html)
+- [Create Api Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+- [Cross Origin setup](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html?icmpid=docs_s3_hp_cors_editor_page)
+- Public Get Access [example-bucket-policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html)
+
+
+    {
+         "Version":"2012-10-17",
+         "Statement":[
+            {
+              "Sid":"PublicRead",
+              "Effect":"Allow",
+              "Principal": "*",
+              "Action":["s3:GetObject","s3:GetObjectVersion"],
+              "Resource":["arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"]
+            }
+        ]
+    }
+
+#### On The Django Application
+- Install requirements ` pip install -r requirements.txt`
+- Add `storages` to [Settings.py](TheLearningHub/settings.py#L48) 
+- Setup [Settings.py](TheLearningHub/settings.py#L174)
+
+- export Environment Variables to target environment(dev, staging or Prod)
+  - AWS_ACCESS_KEY_ID=<Get from IAM Console>
+  - AWS_SECRET_ACCESS_KEY=<Get from IAM Console>
+  - AWS_STORAGE_BUCKET_NAME=<BucketName>
+
+- Run `python manage.py collectstatic` on the target environment(dev, staging or Prod)
+
+#### Acknowledgements
+
+I relied on the article from Medium [part 1](https://medium.com/the-geospatials/serve-django-static-files-on-aws-s3-part-1-da41b05f3a79) and [part 2](https://medium.com/the-geospatials/serve-django-static-media-files-on-aws-s3-part-2-d0e8578dd2db). As it covers the basic setup  

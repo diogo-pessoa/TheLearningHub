@@ -11,10 +11,22 @@
                     <h3>{{ product.name }}</h3>
                     <h5>{{ product.price }}</h5>
                     {% if request.user.is_authenticated %}
-                        <form action="{% url 'create_checkout_session' product.id %}" method="POST">
-                            {% csrf_token %}
-                            <button class="btn btn-primary" type="submit" id="checkout-button">Start now!</button>
-                        </form>
+                        {% if user_subscription %}
+                            <form action="{% url 'create_checkout_session' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn btn-primary" type="submit" id="checkout-button">Start now!</button>
+                            </form>
+                        {% else %}
+                            <div class="row">
+                                <h5>Subscribed</h5>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="row small-padding custom-inline-flex">
+                            <h3>Join now and unlock access to all Content</h3>
+                            <a class="btn btn-lg btn-primary" href="{% url 'account_signup' %}"><i
+                                    class="fa fa-arrow-left" aria-hidden="true"></i> Sign-up Now!</a>
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>

@@ -7,10 +7,11 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
-from products.models import Product
+from products.models import Product, UserSubscription
 
 stripe.api_key = STRIPE_API_KEY
 endpoint_secret = STRIPE_ENDPOINT_SECRET
+
 
 @login_required()
 def create_checkout_session(request, product_id):
@@ -34,8 +35,13 @@ def create_checkout_session(request, product_id):
 
 def pricing(request):
     subscriptions = Product.objects.filter(stripe_product_mode='subscription')
+    user_subscriptions = []
+    if request.user.is_authenticated:
+        user_subscriptions = UserSubscription.objects.filter(user=request.user)
+
     context = {
-        'subscriptions': subscriptions
+        'subscriptions': subscriptions,
+        'user_subscription': user_subscriptions
     }
     return render(request, 'pricing.html', context)
 

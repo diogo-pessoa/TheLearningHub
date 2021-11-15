@@ -13,8 +13,9 @@ class Product(models.Model):
 
 
 class UserSubscription(models.Model):
-    subscription = models.ForeignKey(Product, null=False, on_delete=models.CASCADE, default=None)
+    subscription = models.CharField(max_length=128, null=False, default=None)
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, default=None)
+    order = models.CharField(max_length=800, null=True)
 
     def __str__(self):
-        return self.subscription.name
+        return f'{self.subscription.name} for {self.user.username}'

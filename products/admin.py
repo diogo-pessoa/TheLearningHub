@@ -1,5 +1,8 @@
 from django.contrib import admin
 
-from products.models import Product
+from TheLearningHub.settings import DEVELOPMENT
+from products.models import Product, UserSubscription
 
-admin.site.register(Product)
+if DEVELOPMENT:
+    admin.site.register(Product)
+    admin.site.register(UserSubscription)

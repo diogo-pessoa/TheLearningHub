@@ -110,8 +110,12 @@ By providing different levels of access to content, the Learning Hub platform ha
      - Used to provide content manager with better experience when writing content for Articles 
 
 14. [travis.com](https://app.travis-ci.com/) - Run automated tests from codebase.
+    1. Test information on [Testing.md](Testing.md#8)
 
 15. [Stripe](https://stripe.com/) - A fully integrated suite of payments products
+    1. Deployment details on [Deployment.md](Deployment.md#L66)
+16. [AWS S3](https://aws.amazon.com/s3/pricing/) - A powerful Object storage for distributed content Delivery 
+    1. Deployment details on [Deployment.md](Deployment.mdL85)
     
 
 ## Testing
@@ -126,7 +130,9 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Code
 
-- Using `whitenoise` to setup local server static content on Heroku based on [Heroku-devcenter](https://devcenter.heroku.com/articles/django-assets) 
+- Using `whitenoise` to setup local server static content on Heroku based on [Heroku-devcenter](https://devcenter.heroku.com/articles/django-assets)
+  - only in use on Development Mode. 
+  - Staging and Production are new Using AWS S3 Bucket as backend
 
 - quick way to generate random keys for Django's `SECRET_KEY`. [Source Blog Post](https://tech.serhatteker.com/post/2020-01/django-create-secret-key/).
   - Used to generate random keys on each travis build
@@ -136,7 +142,6 @@ By providing different levels of access to content, the Learning Hub platform ha
 ### Content
 
 -
-
 -
 
 ### Media
@@ -145,3 +150,13 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 ### Acknowledgements
 
+
+### Future features (These won't be available on Project submission due to time constraints)
+
+- Create Stripe Product integration through the LearningHub Content Manager interface
+  - Stripe provides an API to create products and prices, This provides a nice to have feature where Site owner can do it through the Learning hub interface. Not needing to navigate to Stripe to create new Products, more information [here](https://stripe.com/docs/api/products)
+- Home, About and Pricing and Site title be managed by content-Manager. 
+  - The Idea is to extract the content of these pages into a Model to then convert the block content on each page with a template variable on the view context
+  - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes. 
+  - Adding an Option to version each page, in case user decides to rollback changes.
+ 

@@ -23,7 +23,7 @@ class TestProductViews(TestCase):
         test_subscription_product.save()
 
         test_user_subscription = UserSubscription.objects.create(
-            subscription=test_subscription_product,
+            subscription='Stripe_random_id',
             user=test_customer_user
         )
         test_user_subscription.save()
@@ -40,5 +40,5 @@ class TestProductViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'pricing.html')
         self.assertEqual(response.context['subscriptions'][0].name, 'Premium Plan')
-        self.assertEqual(response.context['user_subscription'][0].subscription.name, 'Premium Plan' )
-
+        self.assertEqual(response.context['user_subscription'].subscription, 'Stripe_random_id')
+        self.assertEqual(response.context['user_subscription'].user.username, 'visitor')

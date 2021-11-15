@@ -65,8 +65,22 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
 
 ### Stripe Setup
 
-    - Export stripe keys: STRIPE_SECRET_KEY & STRIPE_PUBLISHABLE_KEY
-    - If if it's the first time you setup the application (run migrate), then you'll be required to add the subscription and product information to the Product Model.
+  - Export stripe keys: STRIPE_SECRET_KEY & STRIPE_PUBLISHABLE_KEY [settings.py](TheLearningHub/settings.py#L212)
+  - If it's the first time you set up the application (run migrate), then you'll be required to add the subscription and product information to the Product Model.
+  - Review products Model for more information [models.py](products/models.py)
+  - Stripe handlers on product [views](products/views.py)
+
+#### Create a Product on Stripe Dashboard
+  - [Create Product](https://support.stripe.com/questions/how-to-create-products-and-prices)
+
+#### Fulfill Order (Stripe Event Handler)
+
+  - [create-event-handler Stripe Documentation](https://stripe.com/docs/payments/checkout/fulfill-orders#create-event-handler)
+  - [View](products/views.py#L58)
+
+#### Create checkout Session
+  - (create checkout Session Stripe Documentation)[https://stripe.com/docs/billing/integration-builder]
+  - [View](products/views.py#L17) 
 
 ### AWS S3 Storage backend
 

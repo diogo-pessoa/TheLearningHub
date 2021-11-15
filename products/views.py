@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
+from products.integrations.stripe import fulfill_subscription_order
 from products.models import Product, UserSubscription
 
 stripe.api_key = STRIPE_API_KEY
@@ -18,6 +19,7 @@ def create_checkout_session(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, pk=product_id)
         checkout_session = stripe.checkout.Session.create(
+            client_reference_id=request.user.id,
             line_items=[
                 {
                     # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
@@ -35,9 +37,9 @@ def create_checkout_session(request, product_id):
 
 def pricing(request):
     subscriptions = Product.objects.filter(stripe_product_mode='subscription')
-    user_subscriptions = []
+    user_subscriptions = None
     if request.user.is_authenticated:
-        user_subscriptions = UserSubscription.objects.filter(user=request.user)
+        user_subscriptions = UserSubscription.objects.filter(user=request.user).first()
 
     context = {
         'subscriptions': subscriptions,
@@ -53,35 +55,28 @@ def success(request):
 def cancel(request):
     return render(request, 'cancel.html')
 
+
 @csrf_exempt
 def my_webhook_view(request):
-  payload = request.body
-  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-  event = None
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
 
-  try:
-    event = stripe.Webhook.construct_event(
-      payload, sig_header, endpoint_secret
-    )
-  except ValueError as e:
-    # Invalid payload
-    return HttpResponse(status=400)
-  except stripe.error.SignatureVerificationError as e:
-    # Invalid signature
-    return HttpResponse(status=400)
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
 
-  if event['type'] == 'checkout.session.completed':
-    session = event['data']['object']
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        # Fulfill the purchase...
+        fulfill_subscription_order(request, session)
 
-    # Fulfill the purchase...
-    fulfill_order(session)
-
-  # Passed signature verification
-  return HttpResponse(status=200)
-
-def fulfill_order(session):
-  # TODO: fill me in
-  # TODO Add a copy on application DB
-  # TODO Send receipt to customer by email
-  # TODO Set user as Premium subscriber
-  print("Fulfilling order")
+    # Passed signature verification
+    return HttpResponse(status=200)

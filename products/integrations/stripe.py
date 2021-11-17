@@ -10,7 +10,8 @@ def fulfill_subscription_order(request, session):
         UserSubscription.objects.create(
             subscription=session['subscription'],
             order=session,
-            user=get_object_or_404(User, pk=session['client_reference_id']))
+            user=get_object_or_404(User, pk=session['client_reference_id']),
+            stripe_customer_id=session['customer'])
     # TODO Send receipt to customer by email
 
 

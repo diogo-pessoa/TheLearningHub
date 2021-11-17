@@ -82,6 +82,13 @@ This Project main repo in GitHub is linked to heroku and automatic deploys is en
   - (create checkout Session Stripe Documentation)[https://stripe.com/docs/billing/integration-builder]
   - [View](products/views.py#L17) 
 
+#### Create customer Portal
+ - [customer portal](https://stripe.com/docs/billing/subscriptions/build-subscription)
+ - [view](products/views.py#97)
+#### Managing subscription through customer Portals
+
+- [Webhook to manage checkout session for subscription changes on customer portal](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#webhooks)
+
 ### AWS S3 Storage backend
 
 #### On the AWS Console

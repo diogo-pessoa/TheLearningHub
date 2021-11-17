@@ -73,6 +73,7 @@ def my_webhook_view(request):
         # Invalid signature
         return HttpResponse(status=400)
 
+    session = event['data']['object']
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         # Fulfill the purchase...
@@ -80,3 +81,14 @@ def my_webhook_view(request):
 
     # Passed signature verification
     return HttpResponse(status=200)
+
+
+def manage_subscriptions_portal(request):
+    user_subscription = UserSubscription.objects.get(user=request.user)
+    session = stripe.billing_portal.Session.create(
+        customer=user_subscription.stripe_customer_id,
+        return_url=SITE_DOMAIN,
+    )
+
+    # redirect to the URL for the session
+    return redirect(session.url, code=303)

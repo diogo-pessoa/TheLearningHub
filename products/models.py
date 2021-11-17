@@ -16,6 +16,7 @@ class UserSubscription(models.Model):
     subscription = models.CharField(max_length=128, null=False, default=None)
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, default=None)
     order = models.CharField(max_length=800, null=True)
+    stripe_customer_id = models.CharField(max_length=128, null=True)
 
     def __str__(self):
-        return f'{self.subscription.name} for {self.user.username}'
+        return f'stripe subscription {self.subscription} for {self.user}'

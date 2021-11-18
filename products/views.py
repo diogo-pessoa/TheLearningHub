@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
-from products.integrations.stripe import fulfill_subscription_order
+from products.integrations.stripe import fulfill_subscription_order, cancel_user_subscription
 from products.models import Product, UserSubscription
 
 stripe.api_key = STRIPE_API_KEY
@@ -61,7 +61,6 @@ def my_webhook_view(request):
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
-
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
@@ -75,11 +74,15 @@ def my_webhook_view(request):
 
     session = event['data']['object']
     if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
         # Fulfill the purchase...
         fulfill_subscription_order(request, session)
 
-    # Passed signature verification
+    elif event['type'] == 'customer.subscription.deleted':
+        cancel_user_subscription(session['customer'])
+
+    else:
+        print('Unhandled event type {}'.format(event['type']))
+
     return HttpResponse(status=200)
 
 
@@ -90,5 +93,5 @@ def manage_subscriptions_portal(request):
         return_url=SITE_DOMAIN,
     )
 
-    # redirect to the URL for the session
+    # redirect to the URL for the customer_portal session
     return redirect(session.url, code=303)

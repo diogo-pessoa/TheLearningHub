@@ -40,3 +40,11 @@ For the automated testing this project leverages [travis.com](https://app.travis
       $ coverage run  --source=TheLearningHub manage.py test
     # get report 
       $ coverage report
+
+### Stripe Webhook manual tests
+
+  As a developer if I need to test the Stripe webhook integration here are the steps [StripeWebhooks](https://stripe.com/docs/webhooks/test)
+   
+    brew install stripe/stripe-cli/stripe # For IOS
+    stripe login (use stripe credentials)
+    stripe listen --forward-to localhost:8000/products/webhook

@@ -19,4 +19,4 @@ class UserSubscription(models.Model):
     subscription_active = models.BooleanField(null=False, default=False)
 
     def __str__(self):
-        return f'stripe subscription {self.subscription} for {self.user}, {self.stripe_customer_id}'
+        return f'stripe subscription active {self.subscription_active} for {self.user}'

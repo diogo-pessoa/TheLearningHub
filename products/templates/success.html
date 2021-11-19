@@ -2,20 +2,13 @@
 {% load static %}
 
 {% block content %}
-    <h1> Success </h1>
-    <section>
-        <p>
-            We appreciate your business! If you have any questions, please email
-            <a href="mailto:orders@example.com">orders@example.com</a>.
-        </p>
-        {% if request.user.is_authenticated %}
-            <title>Manage Billing</title>
-            <form action="{% url 'manage_subscription' %}" method="POST">
-                {% csrf_token %}
-                <!-- Note: If using PHP set the action to /customer-portal.php -->
-                <button type="submit">Manage Billing</button>
-            </form>
-        {% endif %}
-    </section>
-
+    <div class="row mt-3">
+        <div class="col-sm">
+            <h1  class="content-title-center"> Success </h1>
+            <p class="content-title-center">
+                We appreciate your business! If you have any questions, please email
+                <a href="mailto:ddpessoa@gmail.com">accounts team</a>.
+            </p>
+        </div>
+    </div>
 {% endblock %}

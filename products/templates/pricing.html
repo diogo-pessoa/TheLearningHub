@@ -2,36 +2,84 @@
 {% load static %}
 
 {% block content %}
-    <h1> Checkout_test </h1>
-
-    <div class="row">
-        <div class="product">
-            <div class="description mb-3">
-                {% for product in subscriptions %}
-                    <h3>{{ product.name }}</h3>
-                    <h5>{{ product.price }}</h5>
-                    {% if request.user.is_authenticated %}
-                        {% if user_subscription.subscription_active %}
-                            <div class="row">
-                                <h5>Subscribed</h5>
-                            </div>
-                        {% else %}
-                            <form action="{% url 'create_checkout_session' product.id %}" method="POST">
-                                {% csrf_token %}
-                                <button class="btn btn-primary" type="submit" id="checkout-button">Start now!</button>
-                            </form>
-                        {% endif %}
-                    {% else %}
-                        <div class="row small-padding custom-inline-flex">
-                            <h3>Join now and unlock access to all Content</h3>
-                            <a class="btn btn-lg btn-primary" href="{% url 'account_signup' %}"><i
-                                    class="fa fa-arrow-left" aria-hidden="true"></i> Sign-up Now!</a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-
+    <div class="col-sm small-padding">
+        <h3 class="content-title-center">Pricing</h3>
     </div>
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Plans</th>
+                    <th scope="col">Features</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Sign up now</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-default">
+                    <td>Free Sign-up</td>
+                    <td>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Exclusive personal space
+                                <span class="badge bg-success rounded-pill"><i class="fa fa-check-circle"
+                                                                               aria-hidden="true"></i></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Save video class notes and review later
+                                <span class="badge bg-success rounded-pill"><i class="fa fa-check-circle"
+                                                                               aria-hidden="true"></i></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Bookmark your favorite Articles.
+                                <span class="badge bg-success rounded-pill"><i class="fa fa-check-circle"
+                                                                               aria-hidden="true"></i></span>
+                            </li>
+                        </ul>
 
+                    </td>
+                    <td>Free!</td>
+                    <td>
+                        {% if request.user.is_authenticated %}
+                            <p> Upgrade to Premium Now!</p>
+                        {% else %}
+                            <div class="row small-padding custom-inline-flex">
+                                <h3>Join now and unlock access to all Content</h3>
+                                <a class="btn btn-lg btn-primary" href="{% url 'account_signup' %}"><i
+                                        class="fa fa-arrow-left" aria-hidden="true"></i> Sign-up Now!</a>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% for subscription in subscriptions %}
+                    <tr class="table-success">
+                        <td>{{ subscription.name }}</td>
+                        <td>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Unlimited access to Premium Articles and Video Classes
+                                    <span class="badge bg-success rounded-pill"><i class="fa fa-check-circle"
+                                                                                   aria-hidden="true"></i></span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>€ {{ subscription.price }}</td>
+                        <td>
+                            {% if request.user.is_authenticated and not user_subscription.subscription_active %}
+                                <form action="{% url 'create_checkout_session' subscription.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary" type="submit" id="checkout-button">Upgrade Now!
+                                    </button>
+                                </form>
+                                <small><a href="{% url 'service_terms' %}">terms of service</a></small>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 {% endblock %}

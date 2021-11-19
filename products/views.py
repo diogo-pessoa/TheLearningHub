@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
-from products.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
+from src.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
 from products.models import Product, UserSubscription
 
 stripe.api_key = STRIPE_API_KEY
@@ -41,7 +41,6 @@ def pricing(request):
     user_subscriptions = None
     if request.user.is_authenticated:
         user_subscriptions = UserSubscription.objects.filter(user=request.user).first()
-
     context = {
         'subscriptions': subscriptions,
         'user_subscription': user_subscriptions

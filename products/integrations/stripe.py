@@ -8,14 +8,15 @@ from products.models import UserSubscription
 logger = logging.getLogger(__name__)
 
 
-def fulfill_subscription_order(request, session):
-    print(session)
+def fulfill_subscription_order(session):
     if session['status'] == 'complete' and session['mode'] == 'subscription':
-        UserSubscription.objects.create(
-            subscription=session['subscription'],
-            order=session,
-            user=get_object_or_404(User, pk=session['client_reference_id']),
-            stripe_customer_id=session['customer'])
+        user_subscription = UserSubscription.objects.get(
+            user=get_object_or_404(User, pk=session['client_reference_id']))
+        if user_subscription:
+            user_subscription.subscription = session['subscription']
+            user_subscription.stripe_customer_id = session['customer']
+            user_subscription.subscription_active = True
+            user_subscription.save()
     # TODO Send receipt to customer by email
 
 
@@ -27,12 +28,28 @@ def cancel_user_subscription(stripe_customer_id):
     if stripe_customer_id:
         user_subscription = UserSubscription.objects.get(stripe_customer_id=stripe_customer_id)
         if user_subscription:
-            user_subscription.delete()
-            # TODO replace the `delete` with a toggle `deactived` to keep application user relation with Stripe customer_id
-            # so user can access his customer_portal for a invoice history
-            # TODO Send details cancellation email
+            user_subscription.subscription_active = False
+            user_subscription.save()
+        # so user can access his customer_portal for a invoice history
+        # TODO Send details cancellation email
+        # https://docs.djangoproject.com/en/3.2/topics/email/
         else:
             logging.warning(
                 f'User subscription not found for user {user_subscription.user}, '
                 f'could not cancel subscription.')
     # TODO Review this to make sure user does not keep active subscription after cancellation is processed by stripe.
+
+
+def get_user_subscription(user):
+    """
+    Queries User subscription, if returning premium customer returns a user Stripe customer id.
+    :param user:
+    :return: stripe_customer_id or None
+    """
+    user_subscription = UserSubscription.objects.get(user=user)
+    if user_subscription:
+        stripe_customer_id = user_subscription.stripe_customer_id
+    else:
+        UserSubscription.objects.create(user=user)
+        stripe_customer_id = None
+    return stripe_customer_id

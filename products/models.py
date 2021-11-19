@@ -13,10 +13,10 @@ class Product(models.Model):
 
 
 class UserSubscription(models.Model):
-    subscription = models.CharField(max_length=128, null=False, default=None)
+    subscription = models.CharField(max_length=128, null=True, default=None)
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, default=None)
-    order = models.CharField(max_length=800, null=True)
-    stripe_customer_id = models.CharField(max_length=128, null=True)
+    stripe_customer_id = models.CharField(max_length=128, null=True, default=None)
+    subscription_active = models.BooleanField(null=False, default=False)
 
     def __str__(self):
-        return f'stripe subscription {self.subscription} for {self.user}'
+        return f'stripe subscription {self.subscription} for {self.user}, {self.stripe_customer_id}'

@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
-from products.integrations.stripe import fulfill_subscription_order, cancel_user_subscription
+from products.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
 from products.models import Product, UserSubscription
 
 stripe.api_key = STRIPE_API_KEY
@@ -20,6 +20,7 @@ def create_checkout_session(request, product_id):
         product = get_object_or_404(Product, pk=product_id)
         checkout_session = stripe.checkout.Session.create(
             client_reference_id=request.user.id,
+            customer=get_user_subscription(request.user),
             line_items=[
                 {
                     # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
@@ -57,7 +58,7 @@ def cancel(request):
 
 
 @csrf_exempt
-def my_webhook_view(request):
+def stripe_webhook(request):
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
@@ -74,8 +75,7 @@ def my_webhook_view(request):
 
     session = event['data']['object']
     if event['type'] == 'checkout.session.completed':
-        # Fulfill the purchase...
-        fulfill_subscription_order(request, session)
+        fulfill_subscription_order(session)
 
     elif event['type'] == 'customer.subscription.deleted':
         cancel_user_subscription(session['customer'])

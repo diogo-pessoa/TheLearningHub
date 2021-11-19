@@ -18,8 +18,8 @@ The goal of this project is to provide a platform for content creators to share 
 #### There are three options for the users to explore the content:
 
 * **Anonymous access**, user can read all free articles and related discussion 
-* **Registered user**, provides access to all free content. The user has its personal space with a list of favorite content and saved notes; Once registered, the user can also buy courses on demand. 
-* **Premium access**, monthly subscription model. Unlock access to all the site content for as long as the subscription lasts.
+* **Registered user**, provides access to all free content. The user has its personal space with a list of favorite content and saved notes; Once registered, the user can also Subscribe to the premium plan for extra content. 
+* **Premium access**, monthly subscription model. Unlock access to all the site content for as long as the subscription is active.
 
 #### The pricing model and Value to the Content Owner:
 

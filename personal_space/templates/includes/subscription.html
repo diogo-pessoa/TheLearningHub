@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-body">
+        {% if user_subscription.subscription_active %}
+            <h4> <strong>Premium Plan</strong>.</h4>
+             <h5>Thanks for supporting by being a Premium User!</h5>
+            <form action="{% url 'manage_subscription' %}" method="POST">
+                {% csrf_token %}
+                <!-- Note: If using PHP set the action to /customer-portal.php -->
+                <button class="btn b btn-primary" type="submit">Manage subscription</button>
+            </form>
+        {% else %}
+            <div class="row">
+                <h5>Thanks for being a part of our learning community.</h5>
+                <p>Checkout <a href="{% url 'pricing' %}">our prices</a> and upgrade to premium today!</p>
+            </div>
+        {% endif %}
+        {# TODO Add access to Customer_portal for Invoice history (for deactived subscriptions)#}
+    </div>
+</div>

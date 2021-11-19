@@ -6,6 +6,7 @@ from django.urls import reverse
 from articles.models import Article
 from personal_space.forms import PersonalDetailsForm
 from personal_space.models import UserBookmarkArticle, UserProfile, UserNoteFromVideoClass
+from products.models import UserSubscription
 
 
 @login_required(redirect_field_name='home')
@@ -13,10 +14,12 @@ def profile_index(request):
     user_bookmarks = UserBookmarkArticle.objects.filter(user=request.user)
     user_profile_info = UserProfile.objects.filter(user=request.user)
     user_notes = UserNoteFromVideoClass.objects.filter(user=request.user)
+    user_subscription = UserSubscription.objects.get(user=request.user)
     context = {
-        "user_bookmarks": user_bookmarks,
-        "user_profile_info": user_profile_info,
-        "user_notes": user_notes
+        'user_bookmarks': user_bookmarks,
+        'user_profile_info': user_profile_info,
+        'user_notes': user_notes,
+        'user_subscription': user_subscription
     }
     return render(request, 'profile_index.html', context)
 

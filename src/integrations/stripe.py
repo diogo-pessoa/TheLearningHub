@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from products.models import UserSubscription

@@ -20,7 +20,7 @@
                 <a class="nav-link" data-bs-toggle="tab" href="#saved_notes"><span class="d-none d-sm-block">My Notes</span><i class="fa fa-sticky-note d-md-none d-lg-none" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#orders"><span class="d-none d-sm-block">Order History</span><i class="fa fa-history d-md-none d-lg-none" aria-hidden="true"></i></a>
+                <a class="nav-link" data-bs-toggle="tab" href="#subscription_status"><span class="d-none d-sm-block">Subscription Status</span><i class="fa fa-history d-md-none d-lg-none" aria-hidden="true"></i></a>
             </li>
         </ul>
         {# Tab content #}
@@ -30,9 +30,9 @@
                     {% include 'includes/personal_information.html' with role_details=user_role_information profile_info=user_profile_info.first %}
                 </div>
             </div>
-            <div class="tab-pane fade" id="orders">
+            <div class="tab-pane fade" id="subscription_status">
                 <div class="card mb-3">
-                    {% include 'includes/order_history.html' %}
+                    {% include 'includes/subscription.html' %}
                 </div>
             </div>
             <div class="tab-pane fade" id="bookmarks">

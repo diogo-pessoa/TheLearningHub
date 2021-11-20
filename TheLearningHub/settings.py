@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'storages',
+    'filebrowser',
+    'tinymce',
     'home',
     'articles',
     'personal_space',
@@ -186,10 +188,13 @@ else:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
+    MEDIA_ROOT = 'media'
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, f'/{MEDIA_ROOT}/')
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder', 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
 
 # Default primary key field type
@@ -214,3 +219,45 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STRIPE_API_KEY = os.getenv('STRIPE_SECRET_KEY')
 SITE_DOMAIN = os.getenv('SITE_DOMAIN')
 STRIPE_ENDPOINT_SECRET = os.getenv('STRIPE_ENDPOINT_SECRET')
+
+# TinyMCE
+TINYMCE_DEFAULT_CONFIG = {
+    'height':
+        360,
+    'width':
+        970,
+    'cleanup_on_startup':
+        True,
+    'custom_undo_redo_levels':
+        20,
+    'selector':
+        'textarea',
+    'theme':
+        'modern',
+    'plugins':
+        '''
+                textcolor save link image media preview codesample contextmenu
+                table code lists fullscreen  insertdatetime  nonbreaking
+                contextmenu directionality searchreplace wordcount visualblocks
+                visualchars code fullscreen autolink lists  charmap print  hr
+                anchor pagebreak
+                ''',
+    'toolbar1':
+        '''
+                fullscreen preview bold italic underline | fontselect,
+                fontsizeselect  | forecolor backcolor | alignleft alignright |
+                aligncenter alignjustify | indent outdent | bullist numlist table |
+                | link image media | codesample |
+                ''',
+    'toolbar2':
+        '''
+                visualblocks visualchars |
+                charmap hr pagebreak nonbreaking anchor |  code |
+                ''',
+    'contextmenu':
+        'formats | link image',
+    'menubar':
+        True,
+    'statusbar':
+        True,
+}

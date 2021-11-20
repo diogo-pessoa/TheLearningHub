@@ -1,3 +1,4 @@
+from tinymce import HTMLField
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -22,7 +23,7 @@ class Article(models.Model):
                               on_delete=models.SET_NULL)
     author = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=120, null=False)
-    content = models.CharField(max_length=10000, null=True)
+    content = HTMLField('Content')
     description = models.CharField(max_length=256, null=True)
     restricted_access = models.BooleanField(default=False, null=False, blank=False)
     draft = models.BooleanField(default=True, null=False, blank=False)

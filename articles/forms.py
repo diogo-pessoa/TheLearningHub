@@ -3,6 +3,7 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.contrib.auth.models import User
 from django.utils import timezone
+from tinymce.widgets import TinyMCE
 
 from articles.models import Article, Topic
 
@@ -33,9 +34,13 @@ class ArticlesForm(forms.ModelForm):
         disabled=True
 
     )
+    # TODO replace with django-TinyMCE: https://pypi.org/project/django-tinymce/
     content = forms.CharField(
-        required=False
-    )
+        widget=TinyMCE(attrs={
+            'required': False,
+            'cols': 30,
+            'rows': 10
+        }))
 
     author = forms.ModelChoiceField(
         required=True,

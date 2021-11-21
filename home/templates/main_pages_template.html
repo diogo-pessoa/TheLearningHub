@@ -2,12 +2,7 @@
 {% load static %}
 
 {% block content %}
-    {# back buton     #}
-    <div class="row small-padding custom-inline-flex">
-        <a class="btn btn-lg btn-primary" href="{% url 'home' %}"><i
-                class="fa fa-arrow-left" aria-hidden="true"></i> Back for more content</a>
-    </div>
-    <div class="row">
+    <div class="row mt-3">
         {% if request.user.is_authenticated and request.user.is_staff %}
                     <div class="col-sm">
                         <nav class="nav d-none d-lg-block flex-column list-group">

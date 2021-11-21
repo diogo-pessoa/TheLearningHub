@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -19,9 +20,33 @@ def main_pages(request):
     return render(request, "main_pages_template.html", context)
 
 
-def terms(request):
-    return render(request, "terms-of-service.html")
+@login_required(redirect_field_name='login')
+def edit_page(request, page_id):
+    """
+        Allows content Managers to Site Main Pages
+        :param request:
+        :param page_id:
+        :return:
+    """
 
+    if not request.user.is_staff:
+        messages.error(request, 'Sorry, You are not authorized to do this action.')
+        return redirect(reverse('home'))
 
-def privacy(request):
-    return render(request, "privacy-policy.html")
+    page = get_object_or_404(Page, pk=page_id)
+    if request.method == 'POST':
+        form = PageForm(request.POST, instance=page)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Page updated!')
+            return redirect(reverse(page.title))
+        else:
+            messages.error(request,
+                           'Failed to update Page. Please try again!')
+    else:
+        form = PageForm(instance=page)
+        messages.info(request, f'Editing {page.title}')
+        return render(request, 'edit_page.html', {
+            'form': form,
+            'page': page,
+        })

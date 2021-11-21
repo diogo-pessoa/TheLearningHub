@@ -1,14 +1,22 @@
-from django.shortcuts import render
-
-
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
+from django.urls import reverse
 
-def index(request):
-    return render(request, "index.html")
+from home.forms import PageForm
+from home.models import Page
 
 
-def about(request):
-    return render(request, "about.html")
+def main_pages(request):
+    """
+    Based on request.path, gets content and renders page accordingly
+    :param request:
+    :return:
+    """
+    page_content = Page.objects.get_or_create(title=request.path.strip('/'))
+    context = {'page': page_content[0]}
+    return render(request, "main_pages_template.html", context)
 
 
 def terms(request):

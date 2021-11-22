@@ -60,12 +60,30 @@ def index(request):
 
 
 def search(request):
+    # TODO refactor this View
+
     articles = Article.objects.all()
     topics = Topic.objects.all()
     video_classes = VideoClass.objects.all()
     query = None
     search_result = None
+
     if request.GET:
+        if request.GET['search_query'] == 'nav_learning_videos':
+            context = {
+                'search_result': video_classes,
+                'search_term': query,
+                'topics': topics
+            }
+            return render(request, "learning_area.html", context)
+        elif request.GET['search_query'] == 'nav_learning_articles':
+            context = {
+                'search_result': articles,
+                'search_term': query,
+                'topics': topics
+            }
+            return render(request, "learning_area.html", context)
+
         if 'search_query' in request.GET:
             query = request.GET['search_query']
             if 'topic' in request.GET:
@@ -74,6 +92,7 @@ def search(request):
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('search'))
+
             queries = Q(title__icontains=query) | Q(description__icontains=query)
             video_classes = video_classes.filter(queries)
             articles = articles.filter(queries)

@@ -23,9 +23,8 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Learning Area</a>
                     <div class="dropdown-menu">
-                        <a href="{% url 'articles' %}" class="dropdown-item">Articles</a>
-                        <a href="#" class="dropdown-item">Classes</a>
-                        <a href="#" class="dropdown-item">Courses</a>
+                        <a href="{% url 'search' %}?search_query=nav_learning_articles" class="dropdown-item">Articles</a>
+                        <a href="{% url 'search' %}?search_query=nav_learning_videos" class="dropdown-item">Classes</a>
                     </div>
                 </li>
                 {% if request.user.is_authenticated %}

@@ -45,9 +45,9 @@
             {% if search_result %}
                 {% for content in search_result %}
                     {% if content.video_path %}
-                        {% include 'includes/video_class.html' with content=content %}
+                        {% include 'includes/learning_area_video_class_cards.html' with content=content %}
                     {% else %}
-                        {% include 'includes/articles.html' with article=content %}
+                        {% include 'includes/learning_area_article_cards.html' with article=content %}
                     {% endif %}
                 {% endfor %}
             {% else %}

@@ -34,12 +34,12 @@ def delete_video_class(request, video_class_id):
     """ Only allows to delete video if staff """
     if not request.user.is_staff:
         messages.error(request, 'Sorry, you are not allowed to remove content')
-        return redirect(reverse('articles'))
+        return redirect(reverse('learning_area'))
 
     video_class = get_object_or_404(VideoClass, pk=video_class_id)
     video_class.delete()
     messages.success(request, 'Video Class Deleted successfully!')
-    return redirect(reverse('articles'))
+    return redirect(reverse('learning_area'))
 
 
 @login_required(redirect_field_name='home')
@@ -51,7 +51,7 @@ def edit_video_class(request, video_class_id):
 def create_video_class(request):
     if not request.user.is_staff:
         messages.error(request, 'Sorry, only content Managers can create video_class.')
-        return redirect(reverse('articles'))
+        return redirect(reverse('learning_area'))
 
     if request.method == 'POST':
         form = VideoClassForm(request.POST, request.FILES)
@@ -61,7 +61,7 @@ def create_video_class(request):
             messages.success(request, 'New Video Class created')
         else:
             messages.success(request, 'Sorry, there was an issue creating this Video class. Please Try again.')
-        return redirect('articles')
+        return redirect('learning_area')
     else:
         form = VideoClassForm()
     return render(request, 'new_video_class.html', {'form': form})

@@ -57,17 +57,3 @@ class TestArticlesViews(TestCase):
         response = self.client.get(f'/articles/write_article')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'write_article.html')
-
-    def test_search_content_no_content(self):
-        article = Article.objects.create(title='test', author=self.user)
-        article.save()
-        response = self.client.get(f'/articles/?search_query=')
-        self.assertEqual(response.status_code, 302)
-        self.assertRaisesMessage(response, "You didn't enter any search criteria!")
-
-    def test_search_returns_article(self):
-        article = Article.objects.create(title='test', description='testing search', author=self.user)
-        article.save()
-        response = self.client.get(f'/articles/?search_query=test')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('testing search', str(response.content))

@@ -8,5 +8,7 @@ urlpatterns = [
     path('about', views.main_pages, name="about"),
     path('edit_page/<int:page_id>/', views.edit_page, name='edit_page'),
     path('terms_of_service', views.main_pages, name="terms_of_service"),
-    path('privacy_policy', views.main_pages, name="privacy_policy")
+    path('privacy_policy', views.main_pages, name="privacy_policy"),
+    path('search/', views.search, name="search"),
+    path('learning_area/', views.learning_area, name="learning_area"),
 ]

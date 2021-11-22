@@ -9,29 +9,6 @@ from .forms import ArticlesForm
 from .models import Article, Topic
 
 
-def index(request):
-    articles = Article.objects.all()
-    topics = Topic.objects.all()
-    query = None
-    if request.GET:
-        if 'search_query' in request.GET:
-            query = request.GET['search_query']
-            if 'topic' in request.GET:
-                articles = articles.filter(topic__name__in=topics)
-            if not query:
-                messages.error(request, "You didn't enter any search criteria!")
-                return redirect(reverse('articles'))
-            queries = Q(title__icontains=query) | Q(description__icontains=query)
-            articles = articles.filter(queries)
-
-    context = {
-        'articles': articles,
-        'search_term': query,
-        'topics': topics
-    }
-    return render(request, "articles.html", context)
-
-
 def article(request, article_id):
     """ Display the user's profile.
     :param request:
@@ -57,15 +34,15 @@ def write_article(request):
         Allows content Manager to write his own articles
     """
     if not request.user.is_staff:
-        messages.error(request, 'Sorry, only content Managers can create Articles.')
-        return redirect(reverse('articles'))
+        messages.error(request, 'Sorry, only content Managers can crea new content Articles.')
+        return redirect(reverse('learning_area'))
 
     if request.method == 'POST':
         form = ArticlesForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Article Stored')
-        return redirect('articles')
+        return redirect('learning_area')
     else:
         form = ArticlesForm()
     return render(request, 'write_article.html', {'form': form})
@@ -82,7 +59,7 @@ def edit_article(request, article_id):
 
     if not request.user.is_staff:
         messages.error(request, 'Sorry, You are not authorized to do this action.')
-        return redirect(reverse('articles'))
+        return redirect(reverse('learning_area'))
 
     article = get_object_or_404(Article, pk=article_id)
     if request.method == 'POST':
@@ -113,4 +90,4 @@ def delete_article(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     article.delete()
     messages.success(request, 'Article removed Successfully!')
-    return redirect(reverse('articles'))
+    return redirect(reverse('learning_area'))

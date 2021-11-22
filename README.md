@@ -155,10 +155,7 @@ By providing different levels of access to content, the Learning Hub platform ha
 
 - Create Stripe Product integration through the LearningHub Content Manager interface
   - Stripe provides an API to create products and prices, This provides a nice to have feature where Site owner can do it through the Learning hub interface. Not needing to navigate to Stripe to create new Products, more information [here](https://stripe.com/docs/api/products)
-- Home, About and Pricing and Site title be managed by content-Manager. 
-  - The Idea is to extract the content of these pages into a Model to then convert the block content on each page with a template variable on the view context
-  - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes. 
-  - Adding an Option to version each page, in case user decides to rollback changes.
+
 - Cancel subscription at the end of billing period
   - Stripe provides support to  `cancel at end of Billing Period` description: After canceling, customers can still renew subscriptions until the billing period ends.
   - For that the toggle on theLearningHub database needs to happen at end of subscription period. 

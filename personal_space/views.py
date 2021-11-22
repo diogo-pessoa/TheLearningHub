@@ -14,7 +14,7 @@ def profile_index(request):
     user_bookmarks = UserBookmarkArticle.objects.filter(user=request.user)
     user_profile_info = UserProfile.objects.filter(user=request.user)
     user_notes = UserNoteFromVideoClass.objects.filter(user=request.user)
-    user_subscription = UserSubscription.objects.get(user=request.user)
+    user_subscription = UserSubscription.objects.filter(user=request.user)
     context = {
         'user_bookmarks': user_bookmarks,
         'user_profile_info': user_profile_info,

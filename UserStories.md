@@ -68,7 +68,9 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     - I want to submit an article, but keep it as a Draft for further review before publish.
     - I want to flag some content as restricted, for access only to premium(paying) users.
     - I want to have a `Call to Action` to redirect user to Pricing and subscription button on site Landing page.
-    
+    - **[Done]** Home, About and Pricing and Site title be managed by content-Manager. 
+      - The Idea is to extract the content of these pages into a Model to then convert the block content on each page with a template variable on the view context
+      - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes.
 
 - #### As a Developer
 

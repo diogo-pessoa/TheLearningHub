@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -50,3 +49,8 @@ def edit_page(request, page_id):
             'form': form,
             'page': page,
         })
+
+
+def index(request):
+    """ Redirecting root path to home"""
+    return redirect('home')

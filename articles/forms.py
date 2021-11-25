@@ -12,11 +12,11 @@ class ArticlesForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'description',
-                  'restricted_access', 'draft',
+                  'premium_content', 'draft',
                   'content',
                   'author',
                   'topic',
-                  'created_at']
+                  'last_update_at']
 
     draft = forms.CheckboxInput(
         check_test=False

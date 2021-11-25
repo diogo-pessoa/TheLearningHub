@@ -31,7 +31,7 @@ class TestArticlesForms(TestCase):
         articles = Article.objects.all()
         for article in articles:
             self.assertFalse(article.draft)
-            self.assertFalse(article.restricted_access)
+            self.assertFalse(article.premium_content)
             self.assertIsNotNone(article.content)
             self.assertEqual(self.user, article.author)
 

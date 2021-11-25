@@ -14,9 +14,9 @@ class VideoClassForm(forms.ModelForm):
             'description',
             'author',
             'video_path',
-            'restricted_access',
+            'premium_content',
             'draft',
-            'created_at']
+            'last_update_at']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

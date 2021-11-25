@@ -7,7 +7,7 @@ from video_classes.models import VideoClass
 
 class TestHomeViews(TestCase):
 
-    def test_main_pages_view(self):
+    def test_main_page_unified_view(self):
         about = Page.objects.create(title='about', content='<p>Valid content</p>')
         about.save()
         response = self.client.get('/about')

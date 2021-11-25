@@ -12,9 +12,9 @@ class VideoClass(models.Model):
     title = models.CharField(max_length=128, null=False)
     video_path = models.FileField(null=True)
     description = models.CharField(max_length=256, null=True)
-    restricted_access = models.BooleanField(default=False, null=False, blank=False)
+    premium_content = models.BooleanField(default=False, null=False, blank=False)
     draft = models.BooleanField(default=True, null=False, blank=False)
-    created_at = models.DateTimeField(default=timezone.now, null=False)
+    last_update_at = models.DateTimeField(default=timezone.now, null=False)
 
     def __str__(self):
         return self.title

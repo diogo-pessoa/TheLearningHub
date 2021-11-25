@@ -43,11 +43,6 @@ def delete_video_class(request, video_class_id):
 
 
 @login_required(redirect_field_name='home')
-def edit_video_class(request, video_class_id):
-    pass
-
-
-@login_required(redirect_field_name='home')
 def create_video_class(request):
     if not request.user.is_staff:
         messages.error(request, 'Sorry, only content Managers can create video_class.')
@@ -64,4 +59,24 @@ def create_video_class(request):
         return redirect('learning_area')
     else:
         form = VideoClassForm()
-    return render(request, 'new_video_class.html', {'form': form})
+    return render(request, 'video_class_form.html', {'form': form})
+
+
+@login_required(redirect_field_name='home')
+def edit_video_class(request, video_class_id):
+    if not request.user.is_staff:
+        messages.error(request, 'Sorry, only content Managers can manage video_classes')
+        return redirect(reverse('learning_area'))
+    video_class = get_object_or_404(VideoClass, pk=video_class_id)
+    if request.method == 'POST':
+        form = VideoClassForm(request.POST, request.FILES, instance=video_class)
+        print(form.errors)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Video Class updated.')
+        else:
+            messages.success(request, 'Sorry, there was an issue editing this Video class. Please Try again.')
+        return redirect('learning_area')
+    else:
+        form = VideoClassForm(instance=video_class)
+    return render(request, 'video_class_form.html', {'form': form})

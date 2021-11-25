@@ -222,10 +222,6 @@ STRIPE_ENDPOINT_SECRET = os.getenv('STRIPE_ENDPOINT_SECRET')
 
 # TinyMCE
 TINYMCE_DEFAULT_CONFIG = {
-    'height':
-        360,
-    'width':
-        970,
     'cleanup_on_startup':
         True,
     'custom_undo_redo_levels':

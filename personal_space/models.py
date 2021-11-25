@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from tinymce import HTMLField
+
 from articles.models import Article
 from video_classes.models import VideoClass
 
@@ -21,4 +23,4 @@ class UserProfile(models.Model):
 class UserNoteFromVideoClass(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
     video_class = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
-    content = models.CharField(max_length=1024, null=False, blank=True)
+    content = HTMLField('Content')

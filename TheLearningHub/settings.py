@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'storages',
-    'filebrowser',
     'tinymce',
     'home',
     'articles',

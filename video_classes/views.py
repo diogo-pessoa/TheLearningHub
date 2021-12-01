@@ -47,7 +47,6 @@ def create_video_class(request):
     if not request.user.is_staff:
         messages.error(request, 'Sorry, only content Managers can create video_class.')
         return redirect(reverse('learning_area'))
-
     if request.method == 'POST':
         form = VideoClassForm(request.POST, request.FILES)
         print(form.errors)

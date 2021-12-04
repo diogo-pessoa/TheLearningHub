@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+<div class="row">
+    <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+        {% crispy file_form %}
+    </form>
+
+    <div class="row">
+        {% for f in files %}
+            <div class="col-lg-3 col-md-3 col-sm-12 pb-4">
+                <div class="card border-primary h-100 p-4">
+                    <img src="{{ f.file.url }}" class="d-block user-select-none">
+                    <input id="file_path" class="card text-white bg-primary p-1 mb-3 content-title-center" value="{{ f.file.url }}">
+                    <div class="col-sm">
+                        <a class="btn btn-danger d-inline-block" href="{% url 'delete_file' f.id %}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        {# TODO Add copy to clipboard button for each image #}
+{#                    <a id="cp_to_clipboard" class="btn btn-primary d-inline-block" onclick="cpToClipboard()"><i#}
+{#                                                class="fa fa-clipboard" aria-hidden="true"></i>#}
+{#                    </a>#}
+                    </div>
+
+                </div>
+            </div>
+        {% empty %}
+            <p>no file uploaded were yet.</p>
+        {% endfor %}
+    </div>
+    <div class="row mb-3">
+        {% include 'includes/toasts.html' %}
+    </div>
+</div>

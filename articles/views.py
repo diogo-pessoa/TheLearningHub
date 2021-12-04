@@ -34,7 +34,7 @@ def write_article(request):
         Allows content Manager to write his own articles
     """
     if not request.user.is_staff:
-        messages.error(request, 'Sorry, only content Managers can crea new content Articles.')
+        messages.error(request, 'Sorry, only content Managers can create new content Articles.')
         return redirect(reverse('learning_area'))
 
     if request.method == 'POST':
@@ -45,7 +45,15 @@ def write_article(request):
         return redirect('learning_area')
     else:
         form = ArticlesForm()
-    return render(request, 'write_article.html', {'form': form})
+        file_form = UploadFileForm()
+        # TODO Add a filter relating file to page being edited.
+        files_on_page = LearningFileStorage.objects.all()
+
+        context = {'form': form,
+                   'file_form': file_form,
+                   'files': files_on_page
+                   }
+    return render(request, 'write_article.html', context)
 
 
 @login_required(redirect_field_name='home')
@@ -73,11 +81,15 @@ def edit_article(request, article_id):
                            'Failed to update Article. Please try again!')
     else:
         form = ArticlesForm(instance=article)
-        messages.info(request, f'Editing {article.title}')
-        return render(request, 'write_article.html', {
+        file_form = UploadFileForm()
+        files_on_page = LearningFileStorage.objects.all()
+        context = {
             'form': form,
             'article': article,
-        })
+            'file_form': file_form,
+            'files': files_on_page
+        }
+        return render(request, 'write_article.html', context)
 
 
 @login_required(redirect_field_name='home')

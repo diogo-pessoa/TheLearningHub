@@ -146,6 +146,9 @@ def upload_file(request):
             file_form.save()
             messages.success(request, 'file uploaded')
             redirect_url = parser_http_referer(request.META['HTTP_REFERER'])
+            if redirect_url['id'] == "write_article":
+                # Write article is a new object and doesnt have the id argument
+                return redirect(reverse(f"{redirect_url['id']}"))
             return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))
         else:
             messages.error(request, 'Error, Insert a file!')
@@ -161,4 +164,7 @@ def delete_file(request, file_id):
     file_sys.delete(content.file.path)
     messages.success(request, 'file removed')
     redirect_url = parser_http_referer(request.META['HTTP_REFERER'])
+    if redirect_url['id'] == "write_article":
+        # Write article is a new object and doesnt have the id argument
+        return redirect(reverse(f"{redirect_url['id']}"))
     return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))

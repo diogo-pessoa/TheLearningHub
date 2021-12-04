@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -130,9 +131,15 @@ def learning_area(request):
     }
     return render(request, "learning_area.html", context)
 
+# File management views
 
 @login_required(redirect_field_name='home')
 def upload_file(request):
+    """
+    Uploads file to server side and Add a Reference to Learning File Storage model.
+    :param request:
+    :return: redirect to page where file was uploaded from
+    """
     if request.method == 'POST' and request.FILES:
         file_form = UploadFileForm(request.POST, request.FILES)
         if file_form.is_valid():
@@ -147,9 +154,11 @@ def upload_file(request):
 
 @login_required(redirect_field_name='home')
 def delete_file(request, file_id):
-    file = get_object_or_404(LearningFileStorage, pk=file_id)
-    file.delete()
-    # TODO delete File from fileSystem
+    """ Deletes file from filesystem and remove reference fom file Storage Model"""
+    content = get_object_or_404(LearningFileStorage, pk=file_id)
+    content.delete()
+    file_sys = FileSystemStorage()
+    file_sys.delete(content.file.path)
     messages.success(request, 'file removed')
     redirect_url = parser_http_referer(request.META['HTTP_REFERER'])
     return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))

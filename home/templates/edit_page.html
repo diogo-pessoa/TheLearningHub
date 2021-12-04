@@ -10,6 +10,9 @@
                     <h3 class="content-title-center"> Edit Page {{ page.title }}</h3>
                 </div>
             </div>
+            <div class="row">
+                {% include 'includes/file_upload_form.html' %}
+            </div>
             <form method="post" action="{% url 'edit_page' page.id %}" enctype="multipart/form-data">
                 {{ form.media }}
                 {% crispy form %}

@@ -1,13 +1,16 @@
+from django.conf.urls import url
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
 from django.urls import reverse
 
 from articles.models import Article, Topic
-from home.forms import PageForm
-from home.models import Page
+from home.forms import PageForm, UploadFileForm
+from home.models import Page, LearningFileStorage
+from src.http_helper.http_meta import parser_http_referer
 from video_classes.models import VideoClass
 
 
@@ -47,10 +50,15 @@ def edit_page(request, page_id):
                            'Failed to update Page. Please try again!')
     else:
         form = PageForm(instance=page)
+        file_form = UploadFileForm()
+        # TODO Add a filter relating file to page being edited.
+        files_on_page = LearningFileStorage.objects.all()
         messages.info(request, f'Editing {page.title}')
         return render(request, 'edit_page.html', {
             'form': form,
             'page': page,
+            'file_form': file_form,
+            'files': files_on_page
         })
 
 
@@ -121,3 +129,27 @@ def learning_area(request):
         'topics': topics
     }
     return render(request, "learning_area.html", context)
+
+
+@login_required(redirect_field_name='home')
+def upload_file(request):
+    if request.method == 'POST' and request.FILES:
+        file_form = UploadFileForm(request.POST, request.FILES)
+        if file_form.is_valid():
+            file_form.save()
+            messages.success(request, 'file uploaded')
+            redirect_url = parser_http_referer(request.META['HTTP_REFERER'])
+            return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))
+        else:
+            messages.error(request, 'Error, Insert a file!')
+            HttpResponse(500)
+
+
+@login_required(redirect_field_name='home')
+def delete_file(request, file_id):
+    file = get_object_or_404(LearningFileStorage, pk=file_id)
+    file.delete()
+    # TODO delete File from fileSystem
+    messages.success(request, 'file removed')
+    redirect_url = parser_http_referer(request.META['HTTP_REFERER'])
+    return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))

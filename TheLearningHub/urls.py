@@ -27,8 +27,7 @@ urlpatterns = [
                   path('personal_space/', include('personal_space.urls')),
                   path('video_class/', include('video_classes.urls')),
                   path('products/', include('products.urls')),
-                  # tinyMCE & filebrowser
-                  url(r'^admin/filebrowser/', site.urls),
+                  # tinyMCE
                   re_path(r'^tinymce/', include('tinymce.urls')),
                   path('admin/', admin.site.urls),
 

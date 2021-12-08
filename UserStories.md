@@ -97,7 +97,9 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - **[DONE]** I want to have a button on Articles to allow user to bookmark content
     - Added a view on personal space to add/remove bookmarks.
     - Updated article.html template to call views. User gets a message to confirm an article was saved as bookmark
-
+  - **[Bug - Resolved]** Removing FileBrowser from TinyMCE as implementation didn't work well on Django 3.2
+    - Media Handling on Forms was an issue using TinyMCE + FileBrowser and grappeli. 
+      - [Solution] Implemented a file upload form, Model and delete view to handle files uploads for Articles, home, About, etc. that will provide an option to upload custom content to site and reference it on TinyMCE Content field.
 
   - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes and courses
   - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content

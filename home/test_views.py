@@ -37,3 +37,8 @@ class TestHomeViews(TestCase):
         response = self.client.get(f'/search/?search_query=test')
         self.assertEqual(response.status_code, 200)
         self.assertIn('testing search', str(response.content))
+
+    def test_get_browse_articles(self):
+        response = self.client.get('/learning_area/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'learning_area.html')

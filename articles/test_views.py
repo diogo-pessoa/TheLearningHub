@@ -14,12 +14,6 @@ class TestArticlesViews(TestCase):
         self.user = User.objects.get(username='john')
         self.visitor = User.objects.get(username='visitor')
 
-    def test_get_browse_articles(self):
-        response = self.client.get('/articles/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'articles.html')
-        #  TODO link to article works
-
     def test_article_renders_for_anonymous_user(self):
         article = Article.objects.create(title='test', author=self.user)
         response = self.client.get(f'/articles/{article.id}/')

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.utils import timezone
 
 from .forms import ArticlesForm
 from .models import Article
@@ -14,7 +13,8 @@ class TestArticlesForms(TestCase):
     def test_form_is_valid(self):
         form = ArticlesForm({'title': 'My test article',
                              'description': 'brief description of my article',
-                             'author': self.user
+                             'author': self.user,
+                             'content': 'testing content'
                              })
         self.assertTrue(form.is_valid())
         self.assertTrue(form.draft)
@@ -34,10 +34,3 @@ class TestArticlesForms(TestCase):
             self.assertFalse(article.premium_content)
             self.assertIsNotNone(article.content)
             self.assertEqual(self.user, article.author)
-
-
-
-
-
-
-

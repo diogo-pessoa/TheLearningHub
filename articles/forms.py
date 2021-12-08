@@ -29,12 +29,11 @@ class ArticlesForm(forms.ModelForm):
         check_test=False
     )
 
-    created_at = forms.DateField(
+    last_update_at = forms.DateField(
         required=False,
         disabled=True
 
     )
-    # TODO replace with django-TinyMCE: https://pypi.org/project/django-tinymce/
     content = forms.CharField(
         widget=TinyMCE(attrs={
             'required': False,
@@ -56,5 +55,5 @@ class ArticlesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.initial['created_at'] = timezone.now()
+        self.initial['last_update_at'] = timezone.now()
         self.helper.add_input(Submit('submit', 'Submit'))

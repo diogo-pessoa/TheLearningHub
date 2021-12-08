@@ -1,4 +1,5 @@
 # Create your views here.
+import logging
 
 import stripe
 from django.contrib.auth.decorators import login_required
@@ -7,11 +8,13 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
-from src.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
 from products.models import Product, UserSubscription
+from src.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
 
 stripe.api_key = STRIPE_API_KEY
 endpoint_secret = STRIPE_ENDPOINT_SECRET
+
+logger = logging.getLogger(__name__)
 
 
 @login_required()
@@ -80,7 +83,7 @@ def stripe_webhook(request):
         cancel_user_subscription(session['customer'])
 
     else:
-        print('Unhandled event type {}'.format(event['type']))
+        logging.warning('Unhandled event type {}'.format(event['type']))
 
     return HttpResponse(status=200)
 

@@ -49,7 +49,6 @@ def create_video_class(request):
         return redirect(reverse('learning_area'))
     if request.method == 'POST':
         form = VideoClassForm(request.POST, request.FILES)
-        print(form.errors)
         if form.is_valid():
             form.save()
             messages.success(request, 'New Video Class created')
@@ -69,7 +68,6 @@ def edit_video_class(request, video_class_id):
     video_class = get_object_or_404(VideoClass, pk=video_class_id)
     if request.method == 'POST':
         form = VideoClassForm(request.POST, request.FILES, instance=video_class)
-        print(form.errors)
         if form.is_valid():
             form.save()
             messages.success(request, 'Video Class updated.')

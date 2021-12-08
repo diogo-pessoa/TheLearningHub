@@ -27,5 +27,4 @@ class UploadFileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        print(self.helper.get_attributes())
         self.helper.add_input(Submit('submit', 'Upload File'))

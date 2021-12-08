@@ -8,7 +8,6 @@ from video_classes.models import VideoClass
 
 class TestPersonalSpaceViews(TestCase):
 
-    # TODO Review possible clean-up of setUp duplication
     def setUp(self) -> None:
         test_super_user = User.objects.create_user('john', 'doe@test.com',
                                                    'johndoe123',

@@ -16,9 +16,9 @@ class TestVideoClass(TestCase):
             title="test_video",
             video_path='/thisisATestpath/',
             description="quick description to show on browse for content card page",
-            restricted_access=False,
+            premium_content=False,
             draft=False,
-            created_at=timezone.now()
+            last_update_at=timezone.now()
         )
         video_class.save()
         video_classes_list = VideoClass.objects.all()

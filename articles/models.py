@@ -2,6 +2,7 @@ from tinymce import HTMLField
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from tinymce import HTMLField
 
 
 class Topic(models.Model):

@@ -39,18 +39,6 @@ def create_checkout_session(request, product_id):
         return redirect(checkout_session.url, code=303)
 
 
-def pricing(request):
-    subscriptions = Product.objects.filter(stripe_product_mode='subscription')
-    user_subscriptions = None
-    if request.user.is_authenticated:
-        user_subscriptions = UserSubscription.objects.filter(user=request.user).first()
-    context = {
-        'subscriptions': subscriptions,
-        'user_subscription': user_subscriptions
-    }
-    return render(request, 'pricing.html', context)
-
-
 def success(request):
     return render(request, 'success.html')
 

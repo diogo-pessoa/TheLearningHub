@@ -168,3 +168,11 @@ def delete_file(request, file_id):
         # Write article is a new object and doesnt have the id argument
         return redirect(reverse(f"{redirect_url['id']}"))
     return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))
+
+
+def content_management(request):
+    pages = Page.objects.all()
+    context = {
+        'pages': pages
+    }
+    return render(request, 'control_panel.html', context)

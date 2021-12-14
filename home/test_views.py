@@ -42,3 +42,11 @@ class TestHomeViews(TestCase):
         response = self.client.get('/learning_area/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'learning_area.html')
+
+    def test_get_content_management_area(self):
+        page = Page.objects.create(title='title', content='content')
+        page.save()
+        response = self.client.get('/content_management')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'control_panel.html')
+        self.assertEqual(response.context['pages'][0].title, page.title)

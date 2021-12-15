@@ -27,18 +27,3 @@ class TestProductViews(TestCase):
             user=test_customer_user
         )
         test_user_subscription.save()
-
-    def test_pricing_view_as_anonymous(self):
-        response = self.client.get('/products/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pricing.html')
-        self.assertEqual(response.context['subscriptions'][0].name, 'Premium Plan')
-
-    def test_pricing_view_with_subscription(self):
-        self.client.login(username='visitor', password='visitordoe123')
-        response = self.client.get('/products/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'pricing.html')
-        self.assertEqual(response.context['subscriptions'][0].name, 'Premium Plan')
-        self.assertEqual(response.context['user_subscription'].subscription, 'Stripe_random_id')
-        self.assertEqual(response.context['user_subscription'].user.username, 'visitor')

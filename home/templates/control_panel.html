@@ -19,9 +19,9 @@
                                 aria-hidden="true"></i>
                             Edit page {{ page.title }} </a>
                     {% endfor %}
-                    <a class="list-group-item list-group-item-action" href="#"><i class="fa fa-usd"
+                    <a class="list-group-item list-group-item-action" href="{% url 'manage_stripe_subscriptions' %}"><i class="fa fa-usd"
                                                                                   aria-hidden="true"></i>
-                        Add New Stripe Subscription </a>
+                        Manage Stripe Subscriptions</a>
                     {#                    <a class="list-group-item list-group-item-action" href="{% url 'create_video_class' %}"> <i#}
                     {#                            class="fa fa-video-camera"#}
                     {#                            aria-hidden="true"></i>#}

@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
@@ -170,6 +169,7 @@ def delete_file(request, file_id):
     return redirect(reverse(redirect_url['path'], args=[redirect_url['id']]))
 
 
+@login_required(redirect_field_name='home')
 def content_management(request):
     pages = Page.objects.all()
     context = {

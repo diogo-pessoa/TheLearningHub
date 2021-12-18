@@ -13,6 +13,9 @@ class TestProductViews(TestCase):
         # User
         test_customer_user = User.objects.create_user('visitor', 'doe@test.com', 'visitordoe123')
         test_customer_user.save()
+        # Content Manager
+        content_manager = User.objects.create_user('Manager', 'doe@test.com', 'manager123', is_staff=True)
+        content_manager.save()
         # Production of mode subscription
         test_subscription_product = Product.objects.create(
             name='Premium Plan',
@@ -27,3 +30,13 @@ class TestProductViews(TestCase):
             user=test_customer_user
         )
         test_user_subscription.save()
+
+    def test_delete_stripe_subscription(self):
+        subscription = Product.objects.create(name='premium test', stripe_product_id='random_id', price='199',
+                                              stripe_product_mode='subscription')
+        subscription.save()
+        self.client.login(username='Manager', password='manager123')
+        response = self.client.post(f'/products/delete_stripe_subscription/{subscription.id}')
+        print(response)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, 'manage_stripe_subscriptions')

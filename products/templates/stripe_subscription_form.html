@@ -3,11 +3,25 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <div class="row mt-3">
+        <div class="content-title-center">
+            <h3>Manage stripe Subscriptions</h3>
+
+        </div>
+    </div>
+    <div class="row small-padding custom-inline-flex">
+        <a class="btn btn-lg btn-primary" href="{% url 'content_management' %}"><i
+                class="fa fa-arrow-left" aria-hidden="true"></i> Control Panel</a>
+    </div>
     <div class="row">
+        <div class="content-title-center">
+            <h4>Add new stripe Subscription</h4>
+
+        </div>
         <form method="post" action="{% url 'manage_stripe_subscriptions' %}">
             {% crispy form %}
         </form>
-
+<hr>
         <div class="row">
             <div class="col-sm">
                 <table class="table table-hover">
@@ -21,14 +35,21 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     {% for subscription in subscriptions %}
+                        <div class="content-title-center m-3">
+                            <h4>Existing stripe Subscriptions</h4>
+
+                        </div>
                         <tr class="table-active">
                             <th scope="row">{{ subscription.name }}</th>
-                            <td>{{ subscription.name }}</td>
                             <td>{{ subscription.price }}</td>
                             <td>{{ subscription.stripe_product_id }}</td>
                             <td>{{ subscription.stripe_product_mode }}</td>
-                            <td>Delete subscription x</td>
+                            <td><a class="btn btn-primary"
+                                   href="{% url 'delete_stripe_subscription' subscription.id %}">Remove <i
+                                    class="fa fa-times-circle-o" aria-hidden="true"></i>
+                            </a></td>
                         </tr>
                     {% empty %}
                         <tr class="active">

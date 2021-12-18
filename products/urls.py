@@ -9,6 +9,8 @@ urlpatterns = [
     path('webhook', views.stripe_webhook, name="webhook"),
     path('manage_subscription', views.manage_subscriptions_portal, name="manage_subscription"),
     # Register the stripe subscription id into LearningHub DB
-    path('new_stripe_subscription', views.manage_stripe_subscriptions, name="manage_stripe_subscriptions")
+    path('new_stripe_subscription', views.manage_stripe_subscriptions, name="manage_stripe_subscriptions"),
+    path('delete_stripe_subscription/<int:subscription_id>/', views.delete_stripe_subscription,
+         name="delete_stripe_subscription")
 
 ]

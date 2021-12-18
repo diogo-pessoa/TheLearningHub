@@ -17,28 +17,27 @@
                         <a class="list-group-item list-group-item-action" href="{% url 'edit_page' page.id %}"><i
                                 class="fa fa-pencil-square-o"
                                 aria-hidden="true"></i>
-                            Edit page {{ page.title }} </a>
+                            Edit {{ page.title }} </a>
                     {% endfor %}
-                    <a class="list-group-item list-group-item-action" href="{% url 'manage_stripe_subscriptions' %}"><i class="fa fa-usd"
-                                                                                  aria-hidden="true"></i>
+                    <a class="list-group-item list-group-item-action" href="{% url 'manage_stripe_subscriptions' %}"><i
+                            class="fa fa-usd"
+                            aria-hidden="true"></i>
                         Manage Stripe Subscriptions</a>
-                    {#                    <a class="list-group-item list-group-item-action" href="{% url 'create_video_class' %}"> <i#}
-                    {#                            class="fa fa-video-camera"#}
-                    {#                            aria-hidden="true"></i>#}
-                    {#                        Create Video Class</a>#}
                 </nav>
                 <u class="btn btn-primary dropdown-toggle d-block d-lg-none mb-1" data-bs-toggle="dropdown" href="#"
                    role="button"
                    aria-haspopup="true" aria-expanded="false">Manage Site Pages</u>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'write_article' %}"><i
-                            class="fa fa-pencil-square-o"
+                    {% for page in pages %}
+                        <a class="list-group-item list-group-item-action" href="{% url 'edit_page' page.id %}"><i
+                                class="fa fa-pencil-square-o"
+                                aria-hidden="true"></i>
+                            Edit {{ page.title }} </a>
+                    {% endfor %}
+                    <a class="list-group-item list-group-item-action" href="{% url 'manage_stripe_subscriptions' %}"><i
+                            class="fa fa-usd"
                             aria-hidden="true"></i>
-                        Write new article </a>
-                    <a class="list-group-item list-group-item-action" href="{% url 'create_video_class' %}"> <i
-                            class="fa fa-video-camera"
-                            aria-hidden="true"></i>
-                        Create Video Class</a>
+                        Manage Stripe Subscriptions</a>
                 </div>
             </div>
             <div class="col-sm col-md-6">

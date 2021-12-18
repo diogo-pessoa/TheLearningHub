@@ -87,3 +87,34 @@ def manage_subscriptions_portal(request):
 
     # redirect to the URL for the customer_portal session
     return redirect(session.url, code=303)
+
+
+def manage_stripe_subscriptions(request):
+    subscriptions = Product.objects.filter(stripe_product_mode='subscription')
+    if request.method == 'POST':
+        form = StripeSubscriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Subscription Created.')
+            return render(request, 'stripe_subscription_form.html', {
+                'form': form,
+                'subscriptions': subscriptions
+            })
+        else:
+            messages.error(request,
+                           'Failed to create Subscription. Please try again!')
+    else:
+        form = StripeSubscriptionForm()
+    return render(request, 'stripe_subscription_form.html', {
+        'form': form,
+        'subscriptions': subscriptions
+    })
+
+
+@login_required(redirect_field_name='home')
+def delete_stripe_subscription(request, subscription_id):
+    """ Deletes Stripe Subscription """
+    content = get_object_or_404(Product, pk=subscription_id)
+    content.delete()
+    messages.success(request, 'Subscription deleted.')
+    return redirect('manage_stripe_subscriptions')

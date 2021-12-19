@@ -15,3 +15,17 @@ class TestArticlesForms(TestCase):
         for page in pages:
             self.assertIsNotNone(page.title)
             self.assertEqual('testing content', page.content)
+
+    def test_file_upload_form(self):
+        file = open('test_file.txt', 'a').close()
+
+        form = UploadFileForm({'content': 'testing content',
+                               'file': file,
+                               'page_source': '/articles'})
+
+        if form.is_valid():
+            form.save()
+        pages = Page.objects.all()
+        for page in pages:
+            self.assertIsNotNone(page.title)
+            self.assertEqual('testing content', page.content)

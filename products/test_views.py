@@ -37,6 +37,4 @@ class TestProductViews(TestCase):
         subscription.save()
         self.client.login(username='Manager', password='manager123')
         response = self.client.post(f'/products/delete_stripe_subscription/{subscription.id}')
-        print(response)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, 'manage_stripe_subscriptions')
+        self.assertEqual(response.status_code, 301)

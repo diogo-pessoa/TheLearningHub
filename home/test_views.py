@@ -7,6 +7,10 @@ from video_classes.models import VideoClass
 
 class TestHomeViews(TestCase):
 
+    def setUp(self) -> None:
+        content_manager = User.objects.create_user('Manager', 'doe@test.com', 'manager123', is_staff=True)
+        content_manager.save()
+
     def test_main_page_unified_view(self):
         about = Page.objects.create(title='about', content='<p>Valid content</p>')
         about.save()

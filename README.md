@@ -161,3 +161,7 @@ By providing different levels of access to content, the Learning Hub platform ha
   - For that the toggle on theLearningHub database needs to happen at end of subscription period. 
     - such thing can be achieved with a background scheduler, doing some research there are some schedulers for [django](https://django-background-tasks.readthedocs.io/en/latest/) 
  
+- On File uploaded menu adde feature to Copy text to clipboard: 
+   - Simple copy to clipboard feature on file_upload form from [w3school](https://www.w3schools.com/howto/howto_js_copy_clipboard.asp)
+   - Pagination: 
+     - Both the File Uploads list and the Learning Area objects listed on the Page, should be paginated for the ease of navigation. 

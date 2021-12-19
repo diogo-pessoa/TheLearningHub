@@ -55,6 +55,8 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     - I want to cancel My subscription
     
     - I want to filter articles by topic or date(latest).
+    - I want to bookmark my favorite VideoClasses same way I can do for articles.
+    - I want to see the Author Page and list content by the author.
     
     
 - ### As a content manager(Superuser)
@@ -71,6 +73,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     - **[Done]** Home, About and Pricing and Site title be managed by content-Manager. 
       - The Idea is to extract the content of these pages into a Model to then convert the block content on each page with a template variable on the view context
       - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes.
+    - I want to have a Control Panel Page with quick links to edit all Site Pages, content and create New Content.
 
 - #### As a Developer
 
@@ -107,3 +110,8 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - I want to add a Call to Action (join our premium area now) button on index page.
   - I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
   - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
+
+
+- TODO handle Invoice paid to keep subscription active
+- TODO handle Invoice unpaid to disable subscription and email user
+- Dynamic, Button only shows if there's at least one strip subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.

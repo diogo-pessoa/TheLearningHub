@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 # Create your models here.
 from tinymce import HTMLField
 
@@ -11,6 +10,12 @@ from video_classes.models import VideoClass
 class UserBookmarkArticle(models.Model):
     article = models.ForeignKey(Article, default=None, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
+
+
+# TODO Add Bookmarks feature to VideoClass
+# class UserBookmarkVideoClass(models.Model):
+#     article = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
 
 
 class UserProfile(models.Model):

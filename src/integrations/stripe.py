@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from products.models import UserSubscription
@@ -23,6 +22,14 @@ def fulfill_subscription_order(session):
 
 def send_invoice_by_email(user_email, invoice_details):
     pass
+    # TODO Enable send email feature
+    # send_mail(
+    #     'Invoice Details',
+    #     'Here is the message.',
+    #     'ddppessoa@gmail.com',
+    #     [user_email],
+    #     fail_silently=False,
+    # )
 
 
 def cancel_user_subscription(stripe_customer_id):

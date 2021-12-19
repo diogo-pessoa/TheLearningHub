@@ -71,7 +71,6 @@ def stripe_webhook(request):
 
     elif event['type'] == 'customer.subscription.deleted':
         cancel_user_subscription(session['customer'])
-
     else:
         logging.warning('Unhandled event type {}'.format(event['type']))
 

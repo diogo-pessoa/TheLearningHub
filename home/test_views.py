@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from articles.models import Article
@@ -50,6 +51,7 @@ class TestHomeViews(TestCase):
     def test_get_content_management_area(self):
         page = Page.objects.create(title='title', content='content')
         page.save()
+        self.client.login(username='Manager', password='manager123')
         response = self.client.get('/content_management')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'control_panel.html')

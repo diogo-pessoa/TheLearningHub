@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .forms import PageForm
+from .forms import PageForm, UploadFileForm
 from .models import Page
 
 

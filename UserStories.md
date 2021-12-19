@@ -112,6 +112,15 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
 
 
-- TODO handle Invoice paid to keep subscription active
-- TODO handle Invoice unpaid to disable subscription and email user
-- Dynamic, Button only shows if there's at least one strip subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.
+- [TODO] handle Invoice paid to keep subscription active
+- [TODO] handle Invoice unpaid to disable subscription and email user
+- [TODO] Dynamic, Button only shows if there's at least one strip subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.
+
+- #### Discovered while testing
+
+- `allauth` templates forms weren't all aligned to center form fields
+  - **[Fix]** Updated templates including forms within a div with `col` and centralized content.
+  - **[TODO]** Verify your e-mail Address page, could use a re-send verification button in case user didn't received first e-mail (spam, mailserver issue).
+  - Application emails were still with example.com domain
+    - **[Fix]** Updated Model to use heroku live production domain
+   

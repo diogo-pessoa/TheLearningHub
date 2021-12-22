@@ -49,9 +49,8 @@ class TestPersonalSpaceViews(TestCase):
         response = self.client.get('/personal_space/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile_index.html')
-        self.assertIsInstance(response.context['user_bookmarks'][0], UserBookmarkArticle)
-        self.assertEqual(response.context['user_bookmarks'][0].article.title, self.article.title)
-        self.assertEqual(response.context['user_bookmarks'][0].user, self.user)
+        self.assertIsInstance(response.context['user_bookmarks'][0]['object'], Article)
+        self.assertEqual(response.context['user_bookmarks'][0]['object'].title, self.article.title)
 
     def test_get_user_notes(self):
         self.client.login(username='john', password='johndoe123')

@@ -3,7 +3,11 @@
 {#  #TODO Show Draft True to any restricted_access True - to Staff Users only                        #}
 <div class="col-sm col-md-5 col-lg-5 d-md-inline-block">
     <div class="card border-primary mb-3">
-        <a class="card-header" href="{% url 'video_class'  content.id %}">{{ content.title }}</a>
+
+        <div class="card-header">
+            <a class="card-title" href="{% url 'video_class'  content.id %}">{{ content.title }}</a>
+            <i class="fa fa-video-camera float-end" style=" font-size: 1.5rem" aria-hidden="true"></i>
+        </div>
         <div class="card-body">
             <span class="badge bg-success">{{ content.topic }}</span>
             <p class="card-title">{{ content.description }}</p>

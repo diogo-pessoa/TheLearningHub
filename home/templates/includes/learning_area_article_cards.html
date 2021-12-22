@@ -3,7 +3,10 @@
 {#  #TODO Show Draft True to any restricted_access True - to Staff Users only                        #}
 <div class="col-sm col-md-5 col-lg-5 d-md-inline-block">
     <div class="card text-white bg-primary mb-3">
-        <a class="card-header" href="{% url 'article'  article.id %}">{{ article.title }}</a>
+        <div class="card-header">
+            <a class="card-title" href="{% url 'article'  article.id %}">{{ article.title }}</a>
+            <i class="fa fa-file-text-o float-end" style=" font-size: 1.5rem" aria-hidden="true"></i>
+        </div>
         <div class="card-body">
             <span class="badge bg-success">{{ article.topic }}</span>
             <p class="card-title">{{ article.description }}</p>

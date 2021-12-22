@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from personal_space.forms import UserNotesFromClassForm
-from personal_space.models import UserNoteFromVideoClass
+from personal_space.models import UserNoteFromVideoClass, UserBookmarkVideoClass
 from video_classes.forms import VideoClassForm
 from video_classes.models import VideoClass
 
@@ -12,6 +12,7 @@ from video_classes.models import VideoClass
 @login_required(redirect_field_name='home')
 def video_class(request, video_class_id):
     videos_class = get_object_or_404(VideoClass, id=video_class_id)
+    user_bookmark = UserBookmarkVideoClass.objects.filter(user=request.user, video_class=videos_class)
     user_note = UserNoteFromVideoClass.objects.get_or_create(user=request.user, video_class=videos_class)
     if request.method == 'POST':
         form = UserNotesFromClassForm(request.POST, instance=user_note[0])
@@ -23,7 +24,8 @@ def video_class(request, video_class_id):
     context = {
         'video_class': videos_class,
         'user_note': user_note,
-        'form': form
+        'form': form,
+        'user_bookmark': user_bookmark
     }
 
     return render(request, 'video_class.html', context)

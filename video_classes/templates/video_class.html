@@ -11,6 +11,26 @@
     <div class="row justify-content-center">
 
         <div class="content-title-center">
+            <div class="row">
+                <div class="col-sm">
+                    {% if request.user.is_authenticated %}
+                        {% if  user_bookmark %}
+                            <a type="button" href="{% url 'remove_video_bookmark' user_bookmark.first.id %}"
+                               class="btn btn-outline-success d-flex float-start">Bookmark <i
+                                    class="fa fa-star" aria-hidden="true"></i></a>
+                        {% else %}
+                            <form class="d-flex float-start" method="POST" action="{% url 'add_video_bookmark' %}">
+                                {% csrf_token %}
+                                <input class="form-control me-sm-2" type="text"
+                                       name="video_class_id" value="{{ video_class.id }}" hidden>
+                                <button class="btn btn-outline-dark" type="submit">Bookmark <i
+                                        class="fa fa-star"
+                                        aria-hidden="true"></i></button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
             <h5>{{ video_class.title }}</h5>
             <p>{{ video_class.description }}</p>
         </div>

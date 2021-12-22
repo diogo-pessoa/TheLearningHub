@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from personal_space.models import UserBookmarkVideoClass
 from video_classes.models import VideoClass
 
 
@@ -54,3 +55,27 @@ class TestVideosClassViews(TestCase):
         response = self.client.get(f'/video_class/delete/{video_class.id}/')
         self.assertEqual(response.status_code, 302)
         self.assertRaisesMessage(response, 'Video Class Deleted successfully!')
+
+    # Bookmark Video:
+
+    def test_bookmark_video_class(self):
+        bookmark = UserBookmarkVideoClass(user=self.user, video_class=self.video_class)
+        self.video_class.save()  # Saving video_class to make sure it exists in test DB.
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.post(f'/personal_space/add_video_bookmark/', {'video_class_id': self.video_class.id})
+        self.assertEqual(response.status_code, 302)
+        self.assertRaisesMessage(response, 'Class added to your favorites!')
+        self.assertRedirects(response, f'/video_class/{self.video_class.id}/')
+        bookmark = UserBookmarkVideoClass.objects.all()
+        self.assertEqual(bookmark[0].video_class.id, self.video_class.id)
+
+    def test_remove_bookmark(self):
+        bookmark = UserBookmarkVideoClass(user=self.user, video_class=self.video_class)
+        bookmark.save()
+        self.client.login(username='john', password='johndoe123')
+        response = self.client.post(f'/personal_space/remove_video_bookmark/{bookmark.id}/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRaisesMessage(response, 'Removed from your bookmarks')
+        self.assertRedirects(response, f'/video_class/{self.video_class.id}/')
+        bookmark = UserBookmarkVideoClass.objects.all()
+        self.assertQuerysetEqual(bookmark, [])

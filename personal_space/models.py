@@ -12,10 +12,9 @@ class UserBookmarkArticle(models.Model):
     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
 
 
-# TODO Add Bookmarks feature to VideoClass
-# class UserBookmarkVideoClass(models.Model):
-#     article = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
-#     user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
+class UserBookmarkVideoClass(models.Model):
+    video_class = models.ForeignKey(VideoClass, default=None, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, default=None, null=True, on_delete=models.CASCADE)
 
 
 class UserProfile(models.Model):

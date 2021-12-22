@@ -10,7 +10,7 @@
     <div class="row">
         {# Article Actions menu sidebad     #}
         {% if request.user.is_authenticated and request.user.is_staff %}
-            <div class="col-sm">
+            <div class="col-sm col-md-2 col-lg-3">
                 <nav class="nav d-none d-lg-block flex-column list-group">
                     <h5 class="list-group-item list-group-item-action active">Manage Article</h5>
                     <a class="list-group-item list-group-item-action" href="{% url 'edit_article' article.id %}"><i
@@ -37,25 +37,15 @@
                 </div>
             </div>
         {% endif %}
-        <div class="col-sm col-md-10 col-lg-10">
-            {# Article Content #}
+        <div class="col-sm">
             <div class="row">
-                <div class="col-sm col-md">
-
-
-                    <div class="col-sm col-lg-9">
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm col-md-10 col-lg-10">
+                <div class="col-sm col-md col-lg">
                     <div class="row">
                         <div class="col-sm">
                             <h1 class="content-title-center">{{ article.title }}</h1>
                             <p class="d-inline-block float-md-end"><strong>Created By:</strong> <a
                                     href="#"> {{ article.author }} </a></p>
-                            <p class="d-inline-block"><strong>Date:</strong> <span>{{ article.last_update_at }}</span>
+                            <p class="d-inline-block"><strong>Date:</strong> <span>{{ article.last_update_at | date:"d-m-Y" }}</span>
                             </p>
                             <p><span class="badge bg-success">{{ article.topic }}</span></p>
                             <p>

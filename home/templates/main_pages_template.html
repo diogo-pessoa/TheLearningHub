@@ -4,7 +4,7 @@
 {% block content %}
     <div class="row mt-3">
         {% if request.user.is_authenticated and request.user.is_staff %}
-                    <div class="col-sm">
+                    <div class="col-sm col-md-2 col-lg-3">
                         <nav class="nav d-none d-lg-block flex-column list-group">
                             <a class="list-group-item list-group-item-action" href="{% url 'edit_page' page.id %}"><i
                                     class="fa fa-pencil" aria-hidden="true"></i> Edit Page</a>
@@ -19,9 +19,9 @@
                     </div>
 
         {% endif %}
-        <div class="col-sm col-md-10 col-lg-10">
+        <div class="col-sm">
             <div class="row mb-3">
-                <div class="col-sm col-md-10 col-lg-10">
+                <div class="col-sm">
                     {% if page.content %}
                         {% autoescape off %}
                             {{ page.content }}

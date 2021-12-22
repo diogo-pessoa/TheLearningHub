@@ -7,20 +7,23 @@ from articles.models import Article
 from personal_space.forms import PersonalDetailsForm
 from personal_space.models import UserBookmarkArticle, UserProfile, UserNoteFromVideoClass, UserBookmarkVideoClass
 from products.models import UserSubscription
+from src.personal_space_functions.bookmark import build_unified_bookmark_dict
 from video_classes.models import VideoClass
 
 
 @login_required(redirect_field_name='home')
 def profile_index(request):
-    user_bookmarks = UserBookmarkArticle.objects.filter(user=request.user)
+    user_article_bookmarks = UserBookmarkArticle.objects.filter(user=request.user)
+    user_video_bookmarks = UserBookmarkVideoClass.objects.filter(user=request.user)
+    user_bookmarks = build_unified_bookmark_dict(user_article_bookmarks, user_video_bookmarks)
     user_profile_info = UserProfile.objects.filter(user=request.user)
     user_notes = UserNoteFromVideoClass.objects.filter(user=request.user)
     user_subscription = UserSubscription.objects.filter(user=request.user)
     context = {
-        'user_bookmarks': user_bookmarks,
         'user_profile_info': user_profile_info,
         'user_notes': user_notes,
-        'user_subscription': user_subscription
+        'user_subscription': user_subscription,
+        'user_bookmarks': user_bookmarks
     }
     return render(request, 'profile_index.html', context)
 

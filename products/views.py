@@ -117,3 +117,12 @@ def delete_stripe_subscription(request, subscription_id):
     content.delete()
     messages.success(request, 'Subscription deleted.')
     return redirect('manage_stripe_subscriptions')
+
+
+def subscriptions(request):
+    subscriptions = Product.objects.filter(stripe_product_mode='subscription')
+
+    context = {
+        'subscriptions': subscriptions
+    }
+    return render(request, 'subscriptions.html', context)

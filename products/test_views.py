@@ -17,13 +17,13 @@ class TestProductViews(TestCase):
         content_manager = User.objects.create_user('Manager', 'doe@test.com', 'manager123', is_staff=True)
         content_manager.save()
         # Production of mode subscription
-        test_subscription_product = Product.objects.create(
+        self.test_subscription_product = Product.objects.create(
             name='Premium Plan',
             price=199,
             stripe_product_id='random_string_with_number_and_letters',
             stripe_product_mode='subscription'
         )
-        test_subscription_product.save()
+        self.test_subscription_product.save()
 
         test_user_subscription = UserSubscription.objects.create(
             subscription='Stripe_random_id',
@@ -38,3 +38,11 @@ class TestProductViews(TestCase):
         self.client.login(username='Manager', password='manager123')
         response = self.client.post(f'/products/delete_stripe_subscription/{subscription.id}')
         self.assertEqual(response.status_code, 301)
+
+    def test_signup_subscription_page(self):
+        self.client.login(username='Manager', password='manager123')
+        response = self.client.get(f'/products/subscriptions')
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(response.context['subscriptions'])
+        self.assertTemplateUsed(response, 'subscriptions.html')
+        self.assertEqual(response.context['subscriptions'][0].name, self.test_subscription_product.name)

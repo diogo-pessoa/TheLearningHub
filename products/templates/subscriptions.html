@@ -74,6 +74,8 @@
                                     </button>
                                 </form>
                                 <small><a href="{% url 'terms_of_service' %}">terms of service</a></small>
+                                {% else %}
+                                <p> You are a Premium  User. </p>
                             {% endif %}
                         </td>
                     </tr>

@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 def fulfill_subscription_order(session):
     if session['status'] == 'complete' and session['mode'] == 'subscription':
-        user_subscription = UserSubscription.objects.get(
-            user=get_object_or_404(User, pk=session['client_reference_id']))
+        user_subscription = UserSubscription.objects.filter(
+            user=get_object_or_404(User, pk=session['client_reference_id'])).first()
         if user_subscription:
             user_subscription.subscription = session['subscription']
             user_subscription.stripe_customer_id = session['customer']
@@ -34,7 +34,7 @@ def send_invoice_by_email(user_email, invoice_details):
 
 def cancel_user_subscription(stripe_customer_id):
     if stripe_customer_id:
-        user_subscription = UserSubscription.objects.get(stripe_customer_id=stripe_customer_id)
+        user_subscription = UserSubscription.objects.filter(stripe_customer_id=stripe_customer_id).first()
         if user_subscription:
             user_subscription.subscription_active = False
             user_subscription.save()
@@ -54,7 +54,7 @@ def get_user_subscription(user):
     :param user:
     :return: stripe_customer_id or None
     """
-    user_subscription = UserSubscription.objects.get(user=user)
+    user_subscription = UserSubscription.objects.filter(user=user).first() or None
     if user_subscription:
         stripe_customer_id = user_subscription.stripe_customer_id
     else:

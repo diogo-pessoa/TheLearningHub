@@ -21,7 +21,7 @@
         <form method="post" action="{% url 'manage_stripe_subscriptions' %}">
             {% crispy form %}
         </form>
-<hr>
+        <hr>
         <div class="row">
             <div class="col-sm">
                 <table class="table table-hover">
@@ -36,11 +36,11 @@
                     </thead>
                     <tbody>
 
+                    <div class="content-title-center m-3">
+                        <h4>Existing stripe Subscriptions</h4>
+                    </div>
                     {% for subscription in subscriptions %}
-                        <div class="content-title-center m-3">
-                            <h4>Existing stripe Subscriptions</h4>
 
-                        </div>
                         <tr class="table-active">
                             <th scope="row">{{ subscription.name }}</th>
                             <td>{{ subscription.price }}</td>

@@ -18,7 +18,7 @@ def profile_index(request):
     user_bookmarks = build_unified_bookmark_dict(user_article_bookmarks, user_video_bookmarks)
     user_profile_info = UserProfile.objects.filter(user=request.user)
     user_notes = UserNoteFromVideoClass.objects.filter(user=request.user)
-    user_subscription = UserSubscription.objects.filter(user=request.user)
+    user_subscription = UserSubscription.objects.filter(user=request.user).first() or None
     context = {
         'user_profile_info': user_profile_info,
         'user_notes': user_notes,

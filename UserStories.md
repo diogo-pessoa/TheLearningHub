@@ -8,23 +8,22 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
 * Wants to navigate the site and explore its content, his main goal is to learn through video classes and articles
   available in the platform.
 * For this profile the navigation has to be intuitive content easy to find aligning with simple tools to save favorite
-  videos and take notes, later accessible on the private profile page.
+  videos and take notes, and later access on his own Personal space. A personal space is available to every registered User. 
 
 ### A Content Manager
 
 * For User profile the private area has to be responsive and easy to upload content.
 * When writing a new article it should be easy and intuitive to write it on the page, ideally saving the draft in case
   the page reloads
-* when publishing new video classes, instructions have to be clear on how to add a video and organize it as part of a
-  course
+* when publishing new video classes, Form needs to be intuitive and clear, allowing an uninterrupted flow of work.
 
 ### Developer/Maintainer
 
 * His goal is to produce tested, clean-code, respecting DRY and other best practices of development.
 * Whenever possible I want to re-use frameworks and apps available to speed development and provide a secure solution to
   end-users
-* When writing an article I want the page the content to be saved local at least until I create the article, in case of
-  accidental page reloads.
+* When writing an article I want the page the content responsive and free of Errors and Bugs.
+* Test often and release frequently to maintain the flow of feature Releases.
 
 ## UserStories by User Profile
 
@@ -50,16 +49,25 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
       - User will later be able to see his saved notes on his Profile Page
     - **[Done]** I want access to public articles as an anonymous user.
       - any site visitor can Read Articles, to user extra features user will have to create his own profile
-    - I want to have the pricing model available for review 
-    - I want to be able to pay for a subscription
-    - I want to cancel My subscription
+    - **[Done]** I want to have the pricing model available for review
+      - Added a link to NavBar on page header to Pricing Page. 
+        - The Pricing Page can be edited by the Content Manager at anytime to reflect the Stripe Subscriptions created on Stripe Dashboard.
+        - [Pricing Page](https://the-learning-hub-prod.herokuapp.com/pricing)
+    - **[Done]** I want to be able to pay for a subscription
+    - Added a `Call to Action` button, that redirects the registered User to the subscription Page.
+    - The Premium Button is only available to registered Users.
+    - Page to Pay for [Subscription](https://the-learning-hub-prod.herokuapp.com/products/subscriptions)
+    - **[Done]** I want to cancel My subscription
+      - Once user is set as a Premium User the [Manage Subscription](https://the-learning-hub-prod.herokuapp.com/personal_space/) is available to him on the Personal Space.
+        - If user navigates to the Sign-up page again, the page will render the `manage subscription` button, instead of allowing a new subscription.
+        
+    - **[Done]** I want to bookmark my favorite VideoClasses same way I can do for articles.
+      - I added Bookmark button to video_class Page;
+      - The Personal space `Bookmarks` tab also shows video classes in the table now. The table render each content type in different colors(also adding an Icon) to help users to quickly identify the content type of each item on the list. 
+
     
-    - I want to filter articles by topic or date(latest).
-    - I want to bookmark my favorite VideoClasses same way I can do for articles.
-    - I want to see the Author Page and list content by the author.
     
-    
-- ### As a content manager(Superuser)
+- ### As a content manager(Staff)
 
     - I want access to the restricted action to publish/edit/delete content 
       - each content in browse content page the content, has a `manage content` button which allow editing or delete this object. that is only visible for content-managers
@@ -107,14 +115,24 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes and courses
   - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content
   - I want to Add forms for Content manager to Allow Home/About/Pricing pages to be edited without a need for a change in code.
-  - I want to add a Call to Action (join our premium area now) button on index page.
-  - I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
-  - I want to explore the idea of extracting the Back button and page title header into template block with request path as condition, to reduce repetition
+  
+  - **[DONE]** I want to add a Call to Action (join our premium area now) button on index page.
+    - Added a `Sign-up for premium today` on Header page, This button will only show to registered users. 
+    - If a Premium user click on the Button, The upgrade to Premium button is replaced by `Manage your Subscription`.
+  
+  - **[DONE]** I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
+  - That was achieve by refactoring the search view to load Both video_classes and Articles objects to the template. 
+  - The Search template body is now split into three files: The [learning_area.html](home/templates/learning_area.html) and the includes [articles](htome/templates/includes/learning_area_article_cards.html), and [video_class](/home/templates/includes/learning_area_video_class_cards.html). The included templates are loading different css and Icons for each card(css class from bootswatch theme), to provide visual input for the user to identify quickly the content type he is looking for.
+  - The NavNar now has a Learning area dropdown, with a search filter for Articles or videos, both leveraging the same backend view (learning_area).
+ 
+  
+  - **[DONE]** Dynamic, Button only shows if there's at least one stripe subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.
+    - Button redirects to a `subscription Page` that render the Free features and lists a subscription if there's any added to Application. 
 
 
 - [TODO] handle Invoice paid to keep subscription active
 - [TODO] handle Invoice unpaid to disable subscription and email user
-- [TODO] Dynamic, Button only shows if there's at least one strip subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.
+
 
 - #### Discovered while testing
 
@@ -123,4 +141,9 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
   - **[TODO]** Verify your e-mail Address page, could use a re-send verification button in case user didn't received first e-mail (spam, mailserver issue).
   - Application emails were still with example.com domain
     - **[Fix]** Updated Model to use heroku live production domain
+
+- File Upload form returns 500 error trying to delete file, same action is working on local tests, the difference being Production application is using S3 buckets as a backend to store files.
+  - **[Fix-1]** Removing delete file from SystemStorage, as it is not supported by S3 backend. Will use S3 Lifecycle policies to clean-up bucket from files not accessed for long periods.
+  - **[Fix-2]** Another source of a 500 Error was that the [parser_http_referer](src/http_helper/http_meta.py#L1), needed to support an extra scenario for the `articles/edit`, returning the proper url['path'] to edit_article. 
+  - **Note:** the file upload form is in use by multiple views(write and edit articles, edit home,about, etc.), hence the redirect has to support multiple redirects. By Using the `http_referer` embedded on the request, the view can send the user back to the form he is editing.  
    

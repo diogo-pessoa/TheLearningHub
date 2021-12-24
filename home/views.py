@@ -8,7 +8,9 @@ from django.urls import reverse
 
 from articles.models import Article, Topic
 from home.forms import PageForm, UploadFileForm
+from home.learning_area import load_role_based_content_list
 from home.models import Page, LearningFileStorage
+from products.models import UserSubscription
 from src.http_helper.http_meta import parser_http_referer
 from video_classes.models import VideoClass
 
@@ -122,9 +124,14 @@ def learning_area(request):
     video_classes = [x for x in video_classes]
     articles = [x for x in articles]
     search_result = video_classes + articles
-
+    if request.user.is_authenticated:
+        user_subscription = UserSubscription.objects.filter(user=request.user).first()
+        filtered_content_by_user_role = load_role_based_content_list(search_result, user_subscription,
+                                                                     request.user.is_staff)
+    else:
+        filtered_content_by_user_role = load_role_based_content_list(search_result, False, False)
     context = {
-        'search_result': search_result,
+        'search_result': filtered_content_by_user_role,
         'topics': topics
     }
     return render(request, "learning_area.html", context)
@@ -174,3 +181,7 @@ def content_management(request):
         'pages': pages
     }
     return render(request, 'control_panel.html', context)
+
+
+def pricing(request):
+    return redirect('subscriptions')

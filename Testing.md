@@ -106,3 +106,12 @@ All links listed below need an authenticated session.
 | Manage Stripe subscription | once create existing subscription shows on page bottom | yes |
 | Show existing Stripe subscription | once create existing subscription shows on page bottom | yes |
 | Remove Stripe subscription | Remove button on stripe subscription table, removes subscription| yes |
+
+
+### Subscription
+
+| Action | Manual Test | Passing |
+|---|---|---| 
+| Sign-up for Premium (call to Action Button) | Redirects to subscription Page, only show for registered users.  | yes |
+| Subscriptions page | Upgrade button is replaced by `Manage Subscription` for premium Users | yes |
+

@@ -3,7 +3,7 @@ import unittest
 from src.http_helper.http_meta import parser_http_referer
 
 
-class ReviewTest(unittest.TestCase):
+class HttpParserTest(unittest.TestCase):
 
     def test_parser_http_referer(self):
         http_referer = 'http://localhost:8000/edit_page/2/'

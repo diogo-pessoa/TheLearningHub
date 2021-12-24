@@ -74,8 +74,12 @@
                                     </button>
                                 </form>
                                 <small><a href="{% url 'terms_of_service' %}">terms of service</a></small>
-                                {% else %}
-                                <p> You are a Premium  User. </p>
+                            {% else %}
+                                <form action="{% url 'manage_subscription' %}" method="POST">
+                                    {% csrf_token %}
+                                    <!-- Note: If using PHP set the action to /customer-portal.php -->
+                                    <button class="btn b btn-primary" type="submit">Manage subscription</button>
+                                </form>
                             {% endif %}
                         </td>
                     </tr>

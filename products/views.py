@@ -121,7 +121,9 @@ def delete_stripe_subscription(request, subscription_id):
 
 def subscriptions(request):
     subscriptions = Product.objects.filter(stripe_product_mode='subscription')
-    user_subscription = UserSubscription.objects.filter(user=request.user).first() or None
+    user_subscription = None
+    if request.user.is_authenticated:
+        user_subscription = UserSubscription.objects.filter(user=request.user).first()
     context = {
         'subscriptions': subscriptions,
         'user_subscription': user_subscription

@@ -12,3 +12,9 @@ function readClipBoardText() {
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(copyText.value);
 }
+
+$('#collapsable_file_form_info').hide();
+$('#file_upload_description').click(function(e) {
+  e.preventDefault();
+  $('#collapsable_file_form_info').toggle('slow');
+});

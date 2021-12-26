@@ -5,22 +5,50 @@
     </form>
 
     <div class="row">
-        {% for f in files %}
-            <div class="col-lg-2 col-md-3 col-sm pb-4">
-                <div class="card border-primary h-90 p-2">
-                    <img src="{{ f.file.url }}" class="d-block user-select-none">
-                    <input id="file_path" class="text-white bg-primary overflow-hidden"
-                           value="{{ f.file.url }}">
-                    <button type="button" class="btn btn-sm btn-primary d-inline-block m-1"
-                            onclick="readClipBoardText()"><i
-                            class="fa fa-clipboard" aria-hidden="true"></i>
-                    </button>
-                    <a class="btn btn-danger d-inline-block m-1" href="{% url 'delete_file' f.id %}">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+        {% if files %}
+            <div class="row">
+                <div class="col-sm">
+                    <h5 id="file_upload_description">How to use uploaded files on the Text Editor? <i
+                            class="fa fa-info-circle"></i>
+                    </h5>
+                    <div id="collapsable_file_form_info">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Use the Copy to <strong>clipboard button</strong> <i
+                                    class="fa fa-clipboard" aria-hidden="true"></i>, to copy the link under the image.
+                            </li>
+                            <li class="list-group-item">
+                                navigate to the Text Editor on the top menu <strong>Insert -> Image</strong>
+                            </li>
+                            <li class="list-group-item">
+                                Paste the link on your clipboard on the <span>source</span> field and click Ok.
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <a href="https://the-learning-hub-prod.herokuapp.com/articles/5/">
+                                    See more on our Documentation.</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <hr>
             </div>
-        {% empty %}
-            <p>no file uploaded were yet.</p>
-        {% endfor %}
+            {% for f in files %}
+                <div class="col-lg-2 col-md-3 col-sm pb-4">
+                    <div class="card border-primary h-90 p-2">
+                        <img src="{{ f.file.url }}" class="d-block user-select-none">
+                        <input id="file_path" class="text-white bg-primary overflow-hidden"
+                               value="{{ f.file.url }}">
+                        <button type="button" class="btn btn-sm btn-primary d-inline-block m-1"
+                                onclick="readClipBoardText()"><i
+                                class="fa fa-clipboard" aria-hidden="true"></i>
+                        </button>
+                        <a class="btn btn-danger d-inline-block m-1" href="{% url 'delete_file' f.id %}">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>no file uploaded were yet.</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>

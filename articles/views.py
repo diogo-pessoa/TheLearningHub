@@ -15,11 +15,11 @@ def article(request, article_id):
     :param request:
     :param article_id:
     """
-    if not request.user.is_authenticated:
-        return render(request, 'article.html')
 
     article = get_object_or_404(Article, id=article_id)
-    user_bookmark = UserBookmarkArticle.objects.filter(user=request.user, article=article)
+    user_bookmark = None
+    if request.user.is_authenticated:
+        user_bookmark = UserBookmarkArticle.objects.filter(user=request.user, article=article)
 
     context = {
         'article': article,

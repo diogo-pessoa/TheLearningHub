@@ -20,5 +20,20 @@ class VideoClassForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        placeholders = {
+            'title': 'Title',
+            'topic': 'Topic',
+            'description': 'Description',
+            'author': 'Author',
+            'video_path': 'Video class File (file size max: 7Mb)',
+            'premium_content': 'Premium content',
+            'draft': 'Draft',
+            'last_update_at': 'Last updated:'
+
+        }
         self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Submit'))
+        for field in self.fields:
+            placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].label = placeholder

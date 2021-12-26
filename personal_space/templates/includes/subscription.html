@@ -1,8 +1,13 @@
 <div class="card">
     <div class="card-body">
-        {% if user_subscription.subscription_active %}
+        {% if user_subscription %}
             <h4> <strong>Premium Plan</strong>.</h4>
-             <h5>Thanks for supporting by being a Premium User!</h5>
+              {% if user_subscription.subscription_active %}
+                 <h5>Thanks for supporting by being a Premium User!</h5>
+                 {% else %}
+                 <h5>You are not subscribed at the moment.</h5>
+                 <p> Check your invoice history on Stripe subscription Portal by clicking on the button below.</p>
+                 {% endif %}
             <form action="{% url 'manage_subscription' %}" method="POST">
                 {% csrf_token %}
                 <!-- Note: If using PHP set the action to /customer-portal.php -->
@@ -14,6 +19,5 @@
                 <p>Checkout <a href="{% url 'pricing' %}">our prices</a> and upgrade to premium today!</p>
             </div>
         {% endif %}
-        {# TODO Add access to Customer_portal for Invoice history (for deactived subscriptions)#}
     </div>
 </div>

@@ -11,11 +11,12 @@ from articles.models import Article, Topic
 class ArticlesForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'description',
+        fields = ['title',
+                  'description',
+                  'topic',
                   'premium_content', 'draft',
                   'content',
                   'author',
-                  'topic',
                   'last_update_at']
 
     draft = forms.CheckboxInput(
@@ -57,3 +58,18 @@ class ArticlesForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.initial['last_update_at'] = timezone.now()
         self.helper.add_input(Submit('submit', 'Submit'))
+        labels = {
+            'title': 'Article title',
+            'description': 'Description',
+            'premium_content': 'Premium Content',
+            'draft': 'Draft',
+            'author': 'Author',
+            'topic': 'Topic',
+            'last_update_at': 'Last Updated:',
+            'content': ' Article content'
+        }
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit'))
+        for field in self.fields:
+            label = labels[field]
+            self.fields[field].label = label

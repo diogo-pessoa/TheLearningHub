@@ -14,7 +14,7 @@ def __str__(self):
 
 
 class LearningFileStorage(models.Model):
-    file = models.FileField(null=True)
+    file = models.ImageField(null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     page_source = models.CharField(default=None, null=True, max_length=32)
 

@@ -20,7 +20,7 @@ class VideoClassForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        placeholders = {
+        labels = {
             'title': 'Title',
             'topic': 'Topic',
             'description': 'Description',
@@ -34,6 +34,5 @@ class VideoClassForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Submit'))
         for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].label = placeholder
+            label = labels[field]
+            self.fields[field].label = label

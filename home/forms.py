@@ -28,3 +28,11 @@ class UploadFileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.add_input(Submit('submit', 'Upload File'))
+        labels = {
+            'file': 'Upload Image(file size max: 2Mb)'
+        }
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit'))
+        for field in self.fields:
+            label = labels[field]
+            self.fields[field].label = label

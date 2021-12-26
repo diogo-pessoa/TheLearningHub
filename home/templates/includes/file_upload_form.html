@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 <div class="row">
-    <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+    <form id="file_upload_form" method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
         {% crispy file_form %}
     </form>
 

@@ -11,11 +11,9 @@ def load_role_based_content_list(content_objects: list, subscription_active: boo
         return content_objects
     elif subscription_active:
         premium_content = []
-
         for content_object in content_objects:
             if not content_object.draft:
                 premium_content.append(content_object)
-
         return premium_content
     else:
         free_content = []

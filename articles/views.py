@@ -47,7 +47,6 @@ def write_article(request):
     else:
         form = ArticlesForm()
         file_form = UploadFileForm()
-        # TODO Add a filter relating file to page being edited.
         files_on_page = LearningFileStorage.objects.all()
 
         context = {'form': form,

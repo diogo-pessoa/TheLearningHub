@@ -83,7 +83,7 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
       - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes.
     - I want to have a Control Panel Page with quick links to edit all Site Pages, content and create New Content.
 
-- #### As a Developer
+- ### As a Developer
 
   - **[DONE]** I want to create to customize the login/signup pages from allauth based on the site base.html
       - Added `account` & `socialaccount` directories on root `templates` folder, extending base.html file
@@ -112,29 +112,36 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
     - Media Handling on Forms was an issue using TinyMCE + FileBrowser and grappeli. 
       - [Solution] Implemented a file upload form, Model and delete view to handle files uploads for Articles, home, About, etc. that will provide an option to upload custom content to site and reference it on TinyMCE Content field.
 
-  - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes and courses
-  - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content
-  - I want to Add forms for Content manager to Allow Home/About/Pricing pages to be edited without a need for a change in code.
+  - **[DONE]** On Files uploaded menu: add a feature to Copy text to clipboard:
+    - Simple `copy to clipboard` feature example on file_upload form
+      from [w3school](https://www.w3schools.com/howto/howto_js_copy_clipboard.asp)
+    - Also added toggle with instructions to use the feature to make it easier to add local files to form. 
+
+    - I want to Implement payment structure integration with [Stripe](https://stripe.com/) to support monthly subscriptions and paid access to individual classes
+    - I want to Store static content and Media on AWs S3/cloudfront to improve user experience and avoid issues managing content
+    - I want to Add forms for Content manager to Allow Home/About/Pricing pages to be edited without a need for a change in code.
   
   - **[DONE]** I want to add a Call to Action (join our premium area now) button on index page.
     - Added a `Sign-up for premium today` on Header page, This button will only show to registered users. 
     - If a Premium user click on the Button, The upgrade to Premium button is replaced by `Manage your Subscription`.
   
   - **[DONE]** I want to the Search to support all content-types, at this point site has only Articles available and Query is directed at that Db table, when courses and Video classes are added to the system, that needs to be supported by the search.
-  - That was achieve by refactoring the search view to load Both video_classes and Articles objects to the template. 
-  - The Search template body is now split into three files: The [learning_area.html](home/templates/learning_area.html) and the includes [articles](htome/templates/includes/learning_area_article_cards.html), and [video_class](/home/templates/includes/learning_area_video_class_cards.html). The included templates are loading different css and Icons for each card(css class from bootswatch theme), to provide visual input for the user to identify quickly the content type he is looking for.
-  - The NavNar now has a Learning area dropdown, with a search filter for Articles or videos, both leveraging the same backend view (learning_area).
+    - That was achieved by refactoring the search view to load Both video_classes and Articles objects to the template. 
+    - The Search template body is now split into three files: The [learning_area.html](home/templates/learning_area.html) and the includes [articles](htome/templates/includes/learning_area_article_cards.html), and [video_class](/home/templates/includes/learning_area_video_class_cards.html). The included templates are loading different css and Icons for each card(css class from bootswatch theme), to provide visual input for the user to identify quickly the content type he is looking for.
+    - The NavNar now has a Learning area dropdown, with a search filter for Articles or videos, both leveraging the same backend view (learning_area).
  
-  
+  - **[DONE]** File upload form and Video_class form, limiting File Size on Client Size.
+      - [How to upload files and images](https://www.ordinarycoders.com/blog/article/django-file-image-uploads)
+      - [django file uploads](https://docs.djangoproject.com/en/3.1/topics/http/file-uploads/)
+      - After some review, I've decided to run the file size validation on the client Side. Adding the file limit on the field label and a javaScript function validation on form submission, to alert user of file size. This is to improve the feedback loop for the user, it's faster to check on the client-side.
+    
   - **[DONE]** Dynamic, Button only shows if there's at least one stripe subscription Application, `Call to Action Button` on NavBar Redirecting user to Pricing Page, selecting subscription from List.
-    - Button redirects to a `subscription Page` that render the Free features and lists a subscription if there's any added to Application. 
+    
+  - **[DONE]** Button redirects to a `subscription Page` that render the Free features and lists a subscription if there's any added to Application.
+    - Added a template and view with the Subscription Page. Table will always show the Free features and if there's a Stripe subscription on the Application database, then a second table row is added to the page showing the features(hardcoded), A `upgrade now` button is also shown on this Row. In case user is already subscribed, Button is replaced with `Manage subscription` to let user navigate to his Stripe Customer Portal.  
+      
 
-
-- [TODO] handle Invoice paid to keep subscription active
-- [TODO] handle Invoice unpaid to disable subscription and email user
-
-
-- #### Discovered while testing
+- ### Discovered while testing
 
 - `allauth` templates forms weren't all aligned to center form fields
   - **[Fix]** Updated templates including forms within a div with `col` and centralized content.

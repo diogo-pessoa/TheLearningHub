@@ -52,7 +52,6 @@ def edit_page(request, page_id):
     else:
         form = PageForm(instance=page)
         file_form = UploadFileForm()
-        # TODO Add a filter relating file to page being edited.
         files_on_page = LearningFileStorage.objects.all()
         messages.info(request, f'Editing {page.title}')
         return render(request, 'edit_page.html', {
@@ -69,31 +68,28 @@ def index(request):
 
 
 def search(request):
-    # TODO refactor this View
-
     articles = Article.objects.all()
     topics = Topic.objects.all()
     video_classes = VideoClass.objects.all()
     query = None
     search_result = None
+    is_user_staff = False
+    is_user_subscription_active = False
+    if request.user.is_authenticated:
+        user_subscription = UserSubscription.objects.filter(user=request.user).first() or None
+        if user_subscription:
+            is_user_subscription_active = user_subscription.is_subscription_active()
 
-    if request.GET:
+        is_user_staff = request.user.is_staff
+
+    if 'search_query' in request.GET:
         if request.GET['search_query'] == 'nav_learning_videos':
-            context = {
-                'search_result': video_classes,
-                'search_term': query,
-                'topics': topics
-            }
-            return render(request, "learning_area.html", context)
+            search_result = load_role_based_content_list(video_classes, is_user_subscription_active,
+                                                         is_user_staff)
         elif request.GET['search_query'] == 'nav_learning_articles':
-            context = {
-                'search_result': articles,
-                'search_term': query,
-                'topics': topics
-            }
-            return render(request, "learning_area.html", context)
-
-        if 'search_query' in request.GET:
+            search_result = load_role_based_content_list(articles, is_user_subscription_active,
+                                                         is_user_staff)
+        elif 'search_query' in request.GET:
             query = request.GET['search_query']
             if 'topic' in request.GET:
                 articles = articles.filter(topic__name__in=topics)
@@ -101,37 +97,22 @@ def search(request):
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('search'))
-
             queries = Q(title__icontains=query) | Q(description__icontains=query)
             video_classes = video_classes.filter(queries)
             articles = articles.filter(queries)
+            video_classes = [x for x in video_classes]
+            articles = [x for x in articles]
+            search_result = load_role_based_content_list(video_classes + articles, is_user_subscription_active,
+                                                         is_user_staff)
+    else:
         video_classes = [x for x in video_classes]
         articles = [x for x in articles]
-        search_result = video_classes + articles
+        search_result = load_role_based_content_list(video_classes + articles, is_user_subscription_active,
+                                                     is_user_staff)
 
     context = {
         'search_result': search_result,
         'search_term': query,
-        'topics': topics
-    }
-    return render(request, "learning_area.html", context)
-
-
-def learning_area(request):
-    articles = Article.objects.all()
-    topics = Topic.objects.all()
-    video_classes = VideoClass.objects.all()
-    video_classes = [x for x in video_classes]
-    articles = [x for x in articles]
-    search_result = video_classes + articles
-    if request.user.is_authenticated:
-        user_subscription = UserSubscription.objects.filter(user=request.user).first()
-        filtered_content_by_user_role = load_role_based_content_list(search_result, user_subscription,
-                                                                     request.user.is_staff)
-    else:
-        filtered_content_by_user_role = load_role_based_content_list(search_result, False, False)
-    context = {
-        'search_result': filtered_content_by_user_role,
         'topics': topics
     }
     return render(request, "learning_area.html", context)

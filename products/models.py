@@ -20,3 +20,6 @@ class UserSubscription(models.Model):
 
     def __str__(self):
         return f'stripe subscription active {self.subscription_active} for {self.user}'
+
+    def is_subscription_active(self):
+        return self.subscription_active

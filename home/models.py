@@ -9,8 +9,8 @@ class Page(models.Model):
     content = HTMLField('Content', default='<p>New Page, click on Edit Page to create content here.</p>')
 
 
-def __str__(self):
-    return self.title
+    def __str__(self):
+        return self.title
 
 
 class LearningFileStorage(models.Model):

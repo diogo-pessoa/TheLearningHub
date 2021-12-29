@@ -67,19 +67,33 @@ User Stories are driven by Three main user profiles: user(visitor), Content Mana
 
 ### As a content manager(Staff)
 
-- I want access to the restricted action to publish/edit/delete content 
-  - each content in browse content page the content, has a `manage content` button which allow editing or delete this object. that is only visible for content-managers
-- I want a confirmation after clicking on delete button, to avoid accidental removals.
-- I want a textarea to comfortably write and enrich the article content, with headings, paragraphs
-- I want the article content to be saved temporarily to avoid losing content if I accidentally refresh my page.
-- I want to upload images and videos to My article body.
-- I want to submit an article, but keep it as a Draft for further review before publish.
-- I want to flag some content as restricted, for access only to premium(paying) users.
-- I want to have a `Call to Action` to redirect user to Pricing and subscription button on site Landing page.
+- **[DONE]** I want access to the restricted action to publish/edit/delete content
+  - A few options are available to Content Manager: 
+  - In the browse content page, each object has a `manage content` button which allow editing or delete this object. that is **only visible for content-managers**.
+  - On each Page if user is authenticated as a content manager a side menu is list the actions available to him ex: `Edit Page`.
+  - If user clicks on Profile on the dropdown Menu there's a content Management Area, With Actions to Edit the Main Pages(Home, About, privacy_policy). 
+  - On the Management Area there's also links to create Articles and Videos.
+  
+- **[DONE]** I want a textarea to comfortably write and enrich the article content, with headings, paragraphs
+  - Support for TinyMCE is added to each form that supports a page or article. With that Field user has rich text Editor features available to enrich text and Add Media.
+  - A File Upload form is also available on each edit Page and Articles.
+
+- **[Done]** I want to upload images and videos to My article body.
+  - File Upload form included on each Edit Page. 
+  - Once file is uploaded, it shows on the page with a link and a copy to clipboard button, that link can be used to add images to the TinyMCE content Body.
+  - A Toggle Info button is also available on the list of files, explaining how the user can add files to the page.
+- **[Done]** I want to submit an article, but keep it as a Draft for further review before publish.
+  - If the User submits the Article form with the draft flag clicked, the article is hidden from users on the search result and content browse page.
+- **[Done]** I want to flag some content as restricted, for access only to premium(paying) users.
+  - If `premium content` flag is set to true only Premium Users and staff members can see the content on search results.
+- **[Done]** I want to have a `Call to Action` to redirect user to Pricing and subscription button on site Landing page.
+  - If user is registered and authenticated then the button to sign-up for premium is added.
 - **[Done]** Home, About and Pricing and Site title be managed by content-Manager. 
   - The Idea is to extract the content of these pages into a Model to then convert the block content on each page with a template variable on the view context
   - Create a Form only visible to Content Manager Allowing This User to edit content directly through the Site interface, note that this will use the TinyMCE just at the [articles form](articles/forms.py) does to allow user to Edit and Preview changes.
-- I want to have a Control Panel Page with quick links to edit all Site Pages, content and create New Content.
+
+- **[Done]** I want to have a Control Panel Page with quick links to edit all Site Pages, content and create New Content.
+  - For authenticated content-managers a link to the management area is added to the dropdown under the user section on the Navbar. From there `Content Managers` can edit main pages, update the Stripe Subscription Plans, and create new content. 
 
 ### As a Developer
 

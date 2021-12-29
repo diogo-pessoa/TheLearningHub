@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from TheLearningHub.settings import STRIPE_API_KEY, SITE_DOMAIN, STRIPE_ENDPOINT_SECRET
 from products.forms import StripeSubscriptionForm
 from products.models import Product, UserSubscription
+from products.src.subscriptions import format_subscriptions_to_interface
 from src.integrations.stripe import fulfill_subscription_order, cancel_user_subscription, get_user_subscription
 
 stripe.api_key = STRIPE_API_KEY
@@ -120,12 +121,13 @@ def delete_stripe_subscription(request, subscription_id):
 
 
 def subscriptions(request):
-    subscriptions = Product.objects.filter(stripe_product_mode='subscription')
+    stripe_subscriptions = Product.objects.filter(stripe_product_mode='subscription')
+    stripe_subscriptions_added_price = format_subscriptions_to_interface(stripe_subscriptions)
     user_subscription = None
     if request.user.is_authenticated:
         user_subscription = UserSubscription.objects.filter(user=request.user).first()
     context = {
-        'subscriptions': subscriptions,
+        'subscriptions': stripe_subscriptions_added_price,
         'user_subscription': user_subscription
     }
     return render(request, 'subscriptions.html', context)

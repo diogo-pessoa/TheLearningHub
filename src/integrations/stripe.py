@@ -17,19 +17,6 @@ def fulfill_subscription_order(session):
             user_subscription.stripe_customer_id = session['customer']
             user_subscription.subscription_active = True
             user_subscription.save()
-    # TODO Send receipt to customer by email
-
-
-def send_invoice_by_email(user_email, invoice_details):
-    pass
-    # TODO Enable send email feature
-    # send_mail(
-    #     'Invoice Details',
-    #     'Here is the message.',
-    #     'ddppessoa@gmail.com',
-    #     [user_email],
-    #     fail_silently=False,
-    # )
 
 
 def cancel_user_subscription(stripe_customer_id):
@@ -38,14 +25,10 @@ def cancel_user_subscription(stripe_customer_id):
         if user_subscription:
             user_subscription.subscription_active = False
             user_subscription.save()
-        # so user can access his customer_portal for a invoice history
-        # TODO Send details cancellation email
-        # https://docs.djangoproject.com/en/3.2/topics/email/
         else:
             logging.warning(
                 f'User subscription not found for user {user_subscription.user}, '
                 f'could not cancel subscription.')
-    # TODO Review this to make sure user does not keep active subscription after cancellation is processed by stripe.
 
 
 def get_user_subscription(user):

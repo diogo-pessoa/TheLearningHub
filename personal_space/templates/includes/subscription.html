@@ -1,18 +1,23 @@
 <div class="card">
     <div class="card-body">
         {% if user_subscription %}
-            <h4> <strong>Premium Plan</strong>.</h4>
-              {% if user_subscription.subscription_active %}
-                 <h5>Thanks for supporting by being a Premium User!</h5>
-                 {% else %}
-                 <h5>You are not subscribed at the moment.</h5>
-                 <p> Check your invoice history on Stripe subscription Portal by clicking on the button below.</p>
-                 {% endif %}
-            <form action="{% url 'manage_subscription' %}" method="POST">
-                {% csrf_token %}
-                <!-- Note: If using PHP set the action to /customer-portal.php -->
-                <button class="btn b btn-primary" type="submit">Manage subscription</button>
-            </form>
+            {% if user_subscription.subscription_active %}
+                <h4><strong>Premium Plan</strong>.</h4>
+                <h5>Thanks for supporting by being a Premium User!</h5>
+            {% elif user_subscription.subscription and  user_subscription.stripe_customer_id %}
+                <h5>You are not subscribed at the moment.</h5>
+                <p> Check your invoice history on Stripe subscription Portal by clicking on the button below.</p>
+                <form action="{% url 'manage_subscription' %}" method="POST">
+                    {% csrf_token %}
+                    <!-- Note: If using PHP set the action to /customer-portal.php -->
+                    <button class="btn b btn-primary" type="submit">Manage subscription</button>
+                </form>
+            {% else %}
+                <div class="row">
+                    <h5>Thanks for being a part of our learning community.</h5>
+                    <p>Checkout <a href="{% url 'pricing' %}">our prices</a> and upgrade to premium today!</p>
+                </div>
+            {% endif %}
         {% else %}
             <div class="row">
                 <h5>Thanks for being a part of our learning community.</h5>

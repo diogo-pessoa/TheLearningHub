@@ -45,4 +45,4 @@ class TestProductViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(response.context['subscriptions'])
         self.assertTemplateUsed(response, 'subscriptions.html')
-        self.assertEqual(response.context['subscriptions'][0].name, self.test_subscription_product.name)
+        self.assertEqual(response.context['subscriptions'][0]['name'], self.test_subscription_product.name)

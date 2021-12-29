@@ -36,10 +36,10 @@
                 <div class="col-lg-2 col-md-3 col-sm pb-4">
                     <div class="card border-primary h-90 p-2">
                         <img src="{{ f.file.url }}" class="d-block user-select-none">
-                        <input id="file_path" class="text-white bg-primary overflow-hidden"
+                        <input class="text-white bg-primary overflow-hidden"
                                value="{{ f.file.url }}">
                         <button type="button" class="btn btn-sm btn-primary d-inline-block m-1"
-                                onclick="readClipBoardText()"><i
+                                onclick="readClipBoardText(this)"><i
                                 class="fa fa-clipboard" aria-hidden="true"></i>
                         </button>
                         <a class="btn btn-danger d-inline-block m-1" href="{% url 'delete_file' f.id %}">
